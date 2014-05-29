@@ -22,7 +22,7 @@ output:
 require(knitr)
 opts_chunk$set(cache=TRUE,out.width='60%',message=FALSE,warning=FALSE)
 ```
-# Animation
+# [Animation](http://cran.r-project.org/web/packages/animation/index.html)
 <br></br>
 <div class="fragment" align="left">
 ### Features
@@ -37,7 +37,7 @@ opts_chunk$set(cache=TRUE,out.width='60%',message=FALSE,warning=FALSE)
 - Graphics can be shared without an R installation
 </div>
 
-# Rggobi
+# [Rggobi](http://cran.r-project.org/web/packages/rggobi/index.html)
 <br></br>
 <div class="fragment" align="left">
 <h3>Features</h3>
@@ -52,7 +52,7 @@ opts_chunk$set(cache=TRUE,out.width='60%',message=FALSE,warning=FALSE)
 - Difficult to port interactive graphics to other computers that don't have ggobi and R
 </div>
 
-# Shiny
+# [Shiny](http://cran.r-project.org/web/packages/shiny/index.html)
 <br></br>
 <div class="fragment" align="left">
 ### Features
@@ -67,7 +67,7 @@ plots will re-generate in response to user input
 - Requires a server running R for hosting (or hosting app via [ShinyApps](http://my.shinyapps.io/]))
 </div>
 
-# d3.js
+# [d3.js](http://d3js.org/)
 <br></br>
 <div class="fragment" align="left">
 ### Features
@@ -82,7 +82,7 @@ plots will re-generate in response to user input
 - Low-level plotting language
 </div>
 
-# ggvis
+# [ggvis](http://ggvis.rstudio.com/)
 <br></br>
 <div class="fragment" align="left">
 ### Features
@@ -110,10 +110,12 @@ plots will re-generate in response to user input
 <h1>Animint</h1><br></br><h2>d3 graphics in R with ggplot2 syntax</h2>
 
 
-# Animint
+# [Animint](https://github.com/tdhock/animint)
 - Created by Toby Hocking (McGill University)
 
-<img src="GSoC-2013-plus.png" width='40%' height='auto' title='gsoc2013 logo'>
+- Development through Google Summer of Code
+
+<img src="GSoC-2013-plus.png" width='36%' height='auto' title='gsoc2013 logo'>
 <img src="logo-2014-600x540.png" width='40%' height='auto' title='gsoc2014 logo'>
 
 # Goal:    
@@ -331,10 +333,14 @@ Set selected element aesthetics (color, alpha, size, fill, linetype) separately
 - Interactive legends
 - Mouseover aesthetic to allow for more mouseover control
 
+</section>
 
 # Links
 
-- [Animint Tutorial](https://tdhock.github.io/animint/index.html#intro)
-- [Github page](https://github.com/tdhock/animint)
+- [Animint Tutorial](https://tdhock.github.io/animint/index.html#intro)    
 
-</section>
+- [Github page](https://github.com/tdhock/animint)    
+
+- [d3 graphics](http://bl.ocks.org/mbostock)
+
+- [Today's Slides](https://srvanderplas.github.io/Presentations/Animint/animint.html#/)
