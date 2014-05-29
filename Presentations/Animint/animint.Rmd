@@ -4,7 +4,6 @@ author: "Susan VanderPlas"
 date: "Iowa State University"
 output: 
   revealjs_presentation:
-    theme: sky
     center: false
     transition: fade
     fig_caption: true
@@ -194,30 +193,38 @@ viz <-
        make_text(WorldBank, 5, 80, "year"))
 gg2animint(viz)
 ```
-```{r worldbankdemo2,eval=FALSE,echo=FALSE,include=FALSE}
+```{r worldbankdemo2,echo=FALSE,include=FALSE}
+library(animint)
 data(WorldBank)
-WorldBank <- subset(WorldBank, !is.na(life.expectancy) & !is.na(year) & !is.na(fertility.rate))
-WorldBank$region <- factor(gsub(" (all income levels)", "", as.character(WorldBank$region), fixed=T))
-viz <-
-  list(ts=ggplot()+
+not.na <- subset(WorldBank, !(is.na(life.expectancy) | is.na(fertility.rate)))
+subset(not.na, is.na(not.na$population))
+not.na[not.na$country=="Kuwait", "population"] <- 1700000
+
+not.na$region <- factor(gsub(" (all income levels)", "", as.character(not.na$region), fixed=T)))
+
+## This example is good because it uses constancy
+## http://bost.ocks.org/mike/constancy/
+good <-
+  list(scatter=ggplot()+
+       geom_point(aes(life.expectancy, fertility.rate, clickSelects=country,
+                      showSelected=year, colour=region, size=population,
+                      key=country), # key aesthetic for animated transitions!
+                  data=not.na)+
+       geom_text(aes(life.expectancy, fertility.rate, label=country,
+                     showSelected=country, showSelected2=year,
+                     key=country), #also use key here!
+                 data=not.na)+
+       scale_size_animint(breaks=10^(5:9))+
+       make_text(WorldBank, 55, 9, "year"),
+       ts=ggplot()+
        make_tallrect(WorldBank, "year")+
        geom_line(aes(year, life.expectancy, group=country, colour=region,
                      clickSelects=country),
-                 data=WorldBank, size=3, alpha=3/5),
+                 data=WorldBank, size=4, alpha=3/5),
        time=list(variable="year",ms=3000),
        duration=list(year=1000),
-       scatter=ggplot()+
-       geom_point(aes(fertility.rate, life.expectancy, clickSelects=country,
-                      showSelected=year, colour=region, size=population),
-                  data=WorldBank)+
-       geom_text(aes(fertility.rate, life.expectancy, label=country,
-                     showSelected=country, showSelected2=year),
-                 data=WorldBank)+
-       make_text(WorldBank, 5, 80, "year")+
-       continuous_scale("size","area",palette=function(x){
-         scales:::rescale(sqrt(abs(x)), c(2,20), c(0,1))
-       },breaks=10^(4:9)))
-gg2animint(viz, out.dir = "./worldbank")
+       first=list(year=1975, country="United States"))
+gg2animint(good, "./worldbank")
 ```
 [Animated plot](worldbank/index.html)
 
