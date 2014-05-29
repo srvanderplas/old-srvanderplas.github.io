@@ -1,0 +1,167 @@
+---
+title: "Animint<br></br><h2>Animated, Interactive, Web-ready graphics with R</h2><br></br>"
+author: "Susan VanderPlas"
+date: "Iowa State University"
+output: 
+  revealjs_presentation:
+    theme: sky
+    center: false
+    transition: fade
+    fig_caption: true
+    width: 1388
+    height: 768
+---
+
+<section>    
+<br></br>    
+<br></br>    
+<br></br>     
+<h1>Packages for Interactive and Animated Graphics</h1>
+
+
+# Animation
+<br></br>
+<div class="fragment" align="left">
+### Features
+- Save graphics sequences using Flash, GIF, HTML, PDF, and videos
+- Animate graphics from within R
+- No user interaction with the graphic itself
+</div>
+<br></br>
+<div class="fragment" align="left">
+### Software Considerations
+- Does not require extra local software to run
+- Graphics can be shared without an R installation
+</div>
+
+# Rggobi
+<br></br>
+<div class="fragment" align="left">
+<h3>Features</h3>
+- User interaction: brushing, rotation, animation
+- Linked plots
+- Useful for exploratory visualization
+</div>
+<br></br>
+<div class="fragment" align="left">
+### Software Considerations
+- Requires ggobi graphics system (extra programs) with R on a user's system
+- Difficult to port interactive graphics to other computers that don't have ggobi and R
+</div>
+
+# Shiny
+<br></br>
+<div class="fragment" align="left">
+### Features
+- User interaction with some parameters:     
+plots will re-generate in response to user input
+- Animated graphical sequences similar to those produced with the `animation` package
+</div>
+<br></br>
+<div class="fragment" align="left">
+### Software Considerations
+- Accessible via web or local machine with R
+- Requires a server running R for hosting (or hosting app via [ShinyApps](http://my.shinyapps.io/]))
+</div>
+
+# d3.js
+<br></br>
+<div class="fragment" align="left">
+### Features
+- Animation
+- Interactivity (selection, zoomable, mouseover)
+</div>
+<br></br>
+<div class="fragment" align="left">
+### Software Considerations
+- Web ready
+- Knowledge of HTML and JavaScript required
+- Low-level plotting language
+</div>
+
+# ggvis
+<br></br>
+<div class="fragment" align="left">
+### Features
+- Animation, zoomable plots, mouseover interaction
+- Plots will change according to user input (similar to Shiny)
+</div>
+<br></br>
+<div class="fragment" align="left">
+### Software Considerations
+- Uses d3 and Vega (higher level interface to d3)
+- Accessible via web or local machine with Rstudio
+- Requires a server running R for hosting on the web
+</div>
+<br></br>
+<div class="fragment" align="center">
+### Syntax is changing rapidly
+</div>
+</section>
+
+---
+
+<section>
+<br></br>    
+<br></br>    
+<h1>Animint</h1><br></br><h2>d3 graphics in R with ggplot2 syntax</h2>
+
+# Goal:    
+<br></br>
+<br></br>
+<div align='center'>
+## Use ggplot2 syntax to create d3.js plots in R 
+</div>
+<br></br>    
+<div align='center'>
+#### Real goal: No one HAS to learn a new language to create interactive plots!
+</div>
+
+# Features    
+<br>
+<div align='left'>
+- Interactive (clickable), linked d3 plots    
+<br></br>
+- Animation    
+<br></br>
+- Familiar grammar-of-graphics syntax    
+<br></br>
+- Use R to write the d3 code
+</div>
+
+# New Aesthetics    
+<br>
+
+- __clickSelects__ : changes the selected element in a plot    
+<br>
+- __showSelected__ : shows only data corresponding to the selected element    
+<br></br>    
+- **time**: animate the plot according to this variable    
+<br>
+- **duration**: smooth transitions of these variables
+
+---
+<div position="absolute" top="10px" left="10px">
+<h1> Code Comparison </h1>
+</div>
+
+## animint
+```
+geom_point(aes(x=fertility.rate, y=life.expectancy, 
+               clickSelects=country, showSelected=year, 
+               colour=region, size=population),
+           data=WorldBank)
+```
+
+## d3
+```
+svg.selectAll("circle")
+  .data(one_year)
+  .enter().append("circle")
+  .attr("cx", function(d){ return x_scale(d.fertility_rate); })
+  .attr("cy", function(d){ return y_scale(d.life_expectancy); })
+  .attr("r", function(d){ return size_scale(d.population); }
+  .style("fill", function(d){ return color_scale(d.region); })
+```
+
+</section>
