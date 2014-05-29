@@ -109,6 +109,13 @@ plots will re-generate in response to user input
 <br></br>    
 <h1>Animint</h1><br></br><h2>d3 graphics in R with ggplot2 syntax</h2>
 
+
+# Animint
+- Created by Toby Hocking (McGill University)
+
+<img src="GSoC-2013-plus.png" width='40%' height='auto' title='gsoc2013 logo'>
+<img src="logo-2014-600x540.png" width='40%' height='auto' title='gsoc2014 logo'>
+
 # Goal:    
 <br></br>
 <br></br>
@@ -287,19 +294,47 @@ gg2animint(tornado.bar, out.dir = "tornado-bar2")
 
 # Animating with animint
 ```{r plotdemo5,eval=TRUE, dependson=c("plotdemo", "plotdemo2", "plotdemo3", "plotdemo4")}
-time <- list(variable="year", ms=2000) 
+time <- list(variable="year", ms=1500) 
   # new part of the list passed to gg2animint().
 
 tornado.anim <- list(map=map, ts=ts, time=time, 
-                     width=list(map = 970, ts = 400),  
+                     width=list(map = 970, ts = 500),  
                      height=list(400)) 
 # pass the time object in as another object in the main list. 
 
 gg2animint(tornado.anim, out.dir = "tornado-anim")
+
 ```
     
 <br></br>
 [Plot Output](tornado-anim/index.html)
 
+
+# ggplot2 Features
+## Supported 
+- Most geoms (except dotplot, rug, smooth, boxplot, bin2d)    
+<small>These can be made with other geoms that do work, plus summary functions</small>
+- Color, alpha, linetype, axis scales, area, size    
+Shape is not supported
+- Some theme elements (removing axes, ticks, etc.)    
+<small>Other theme elements can be set using custom css files</small>
+
+# Future work
+
+- Shiny bindings to integrate animint into Shiny applets
+- Custom selection bindings:    
+Set selected element aesthetics (color, alpha, size, fill, linetype) separately
+- Improve data handling so that large data does not take prohibitively long to load
+- Zoom/update axes in response to data subsetting
+- Resize plots interactively
+- Multiple selection
+- Interactive legends
+- Mouseover aesthetic to allow for more mouseover control
+
+
+# Links
+
+- [Animint Tutorial](https://tdhock.github.io/animint/index.html#intro)
+- [Github page](https://github.com/tdhock/animint)
 
 </section>
