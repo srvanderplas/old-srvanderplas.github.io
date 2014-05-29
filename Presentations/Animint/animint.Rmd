@@ -332,7 +332,6 @@ Set selected element aesthetics (color, alpha, size, fill, linetype) separately
 - Interactive legends
 - Mouseover aesthetic to allow for more mouseover control
 
-<<<<<<< HEAD
 </section>
 
 # Links
@@ -344,12 +343,5 @@ Set selected element aesthetics (color, alpha, size, fill, linetype) separately
 - [d3 graphics](http://bl.ocks.org/mbostock)
 
 - [Today's Slides](https://srvanderplas.github.io/Presentations/Animint/animint.html#/)
-=======
-
-# Links
-
-- [Animint Tutorial](https://tdhock.github.io/animint/index.html#intro)
-- [Github page](https://github.com/tdhock/animint)
 
 </section>
->>>>>>> cd51fe1d89be408b3ab2193523ac3a08b6f23d61
