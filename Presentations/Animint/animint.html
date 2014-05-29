@@ -356,16 +356,40 @@ tornado.bar &lt;-<span class="st"> </span><span class="kw">list</span>(<span cla
 </section>
 <section id="animating-with-animint" class="slide level1">
 <h1>Animating with animint</h1>
-<pre class="sourceCode r"><code class="sourceCode r">time &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">variable=</span><span class="st">&quot;year&quot;</span>, <span class="dt">ms=</span><span class="dv">2000</span>) 
+<pre class="sourceCode r"><code class="sourceCode r">time &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">variable=</span><span class="st">&quot;year&quot;</span>, <span class="dt">ms=</span><span class="dv">1500</span>) 
   <span class="co"># new part of the list passed to gg2animint().</span>
 
 tornado.anim &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">map=</span>map, <span class="dt">ts=</span>ts, <span class="dt">time=</span>time, 
-                     <span class="dt">width=</span><span class="kw">list</span>(<span class="dt">map =</span> <span class="dv">970</span>, <span class="dt">ts =</span> <span class="dv">400</span>),  
+                     <span class="dt">width=</span><span class="kw">list</span>(<span class="dt">map =</span> <span class="dv">970</span>, <span class="dt">ts =</span> <span class="dv">500</span>),  
                      <span class="dt">height=</span><span class="kw">list</span>(<span class="dv">400</span>)) 
 <span class="co"># pass the time object in as another object in the main list. </span>
 
 <span class="kw">gg2animint</span>(tornado.anim, <span class="dt">out.dir =</span> <span class="st">&quot;tornado-anim&quot;</span>)</code></pre>
-<p><br /> <a href="tornado-anim/index.html">Plot Output</a></p>
+<iframe src="tornado-anim/index.html" style="width:1000px;height:900px;-webkit-transform:scale(0.6);-moz-transform:scale(0.6);-o-transform:scale(0.6);transform:scale(0.6);position:absolute;left:-400px;top:400px;"></iframe>
+    
+<p><br /></p>
+</section>
+<section id="ggplot2-features" class="slide level1">
+<h1>ggplot2 Features</h1>
+<h2 id="supported">Supported</h2>
+<ul>
+<li>Most geoms (except dotplot, rug, smooth, boxplot, bin2d)<br /><small>These can be made with other geoms that do work, plus summary functions</small></li>
+<li>Color, alpha, linetype, axis scales, area, size<br />Shape is not supported</li>
+<li>Some theme elements (removing axes, ticks, etc.)<br /><small>Other theme elements can be set using custom css files</small></li>
+</ul>
+</section>
+<section id="future-work" class="slide level1">
+<h1>Future work</h1>
+<ul>
+<li>Shiny bindings to integrate animint into Shiny applets</li>
+<li>Custom selection bindings:<br />Set selected element aesthetics (color, alpha, size, fill, linetype) separately</li>
+<li>Improve data handling so that large data does not take prohibitively long to load</li>
+<li>Zoom/update axes in response to data subsetting</li>
+<li>Resize plots interactively</li>
+<li>Multiple selection</li>
+<li>Interactive legends</li>
+<li>Mouseover aesthetic to allow for more mouseover control</li>
+</ul>
 </section>
 
 
