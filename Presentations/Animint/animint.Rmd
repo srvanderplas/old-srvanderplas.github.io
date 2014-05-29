@@ -18,7 +18,6 @@ output:
 <br></br>     
 <h1>Packages for Interactive and Animated Graphics</h1>
 
-
 # Animation
 <br></br>
 <div class="fragment" align="left">
@@ -161,7 +160,7 @@ svg.selectAll("circle")
   .style("fill", function(d){ return color_scale(d.region); })
 ```
 
-# Demonstration
+# Linked Plots with Animint
 ```{r worldbankdemo, eval=FALSE}
 library(animint)
 data(WorldBank)
@@ -182,6 +181,31 @@ viz <-
                      showSelected2=year), data=WorldBank)+
        make_text(WorldBank, 5, 80, "year"))
 gg2animint(viz)
+```
+```{r worldbankdemo2,eval=FALSE,echo=FALSE,include=FALSE}
+data(WorldBank)
+WorldBank <- subset(WorldBank, !is.na(life.expectancy) & !is.na(year) & !is.na(fertility.rate))
+WorldBank$region <- factor(gsub(" (all income levels)", "", as.character(WorldBank$region), fixed=T))
+viz <-
+  list(ts=ggplot()+
+       make_tallrect(WorldBank, "year")+
+       geom_line(aes(year, life.expectancy, group=country, colour=region,
+                     clickSelects=country),
+                 data=WorldBank, size=3, alpha=3/5),
+       time=list(variable="year",ms=3000),
+       duration=list(year=1000),
+       scatter=ggplot()+
+       geom_point(aes(fertility.rate, life.expectancy, clickSelects=country,
+                      showSelected=year, colour=region, size=population),
+                  data=WorldBank)+
+       geom_text(aes(fertility.rate, life.expectancy, label=country,
+                     showSelected=country, showSelected2=year),
+                 data=WorldBank)+
+       make_text(WorldBank, 5, 80, "year")+
+       continuous_scale("size","area",palette=function(x){
+         scales:::rescale(sqrt(abs(x)), c(2,20), c(0,1))
+       },breaks=10^(4:9)))
+gg2animint(viz, out.dir = "./worldbank")
 ```
 [Animated plot](worldbank/index.html)
 </section>
