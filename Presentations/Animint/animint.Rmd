@@ -8,6 +8,7 @@ output:
     center: false
     transition: fade
     fig_caption: true
+    fig_retina: false
     width: 1388
     height: 768
 ---
@@ -17,7 +18,10 @@ output:
 <br></br>    
 <br></br>     
 <h1>Packages for Interactive and Animated Graphics</h1>
-
+```{r setup, cache=FALSE,include=F,echo=F}
+require(knitr)
+opts_chunk$set(cache=TRUE,out.width='60%',message=FALSE,warning=FALSE)
+```
 # Animation
 <br></br>
 <div class="fragment" align="left">
@@ -208,4 +212,94 @@ viz <-
 gg2animint(viz, out.dir = "./worldbank")
 ```
 [Animated plot](worldbank/index.html)
+
+# Creating an animint plot
+```{r plotdemo,eval=TRUE,message=FALSE,warning=FALSE,echo=-c(1:9, 11),size="small", fig.width=8, fig.height=4, out.width="60%"}
+library(animint)
+library(ggplot2)
+library(plyr)
+library(maps)
+data(UStornadoes) # load the Tornadoes data from the animint package
+
+UStornadoCounts <- ddply(UStornadoes, .(state, year), summarize, count=length(state))
+# Count the number of tornadoes in each state, each year
+
+USpolygons <- map_data("state")
+USpolygons$state = state.abb[match(USpolygons$region, tolower(state.name))]
+
+map <- ggplot() + 
+  geom_polygon(aes(x=long, y=lat, group=group, clickSelects=state),
+               data=USpolygons, fill="black", colour="grey") +
+  geom_segment(aes(x=startLong, y=startLat, xend=endLong, yend=endLat,
+                   showSelected=year),
+               colour="#55B1F7", data=UStornadoes) + 
+  theme(axis.line=element_blank(), axis.text=element_blank(), 
+        axis.ticks=element_blank(), axis.title=element_blank())
+map
+```
+
+# Creating an animint plot
+```{r plotdemo2,eval=TRUE,message=FALSE,warning=FALSE,size="small", fig.width=8, fig.height=4, out.width="60%"}
+ts <- ggplot() + 
+  geom_bar(aes(year, count, clickSelects=year, showSelected=state),
+           data=UStornadoCounts, stat="identity", position="identity") + 
+  ylab("Number of Tornadoes") + 
+  xlab("Year")
+ts
+```
+
+
+# Creating an animint plot
+```{r plotdemo3,eval=TRUE,message=FALSE,warning=FALSE,size="small", fig.width=8, fig.height=4, out.width="60%"}
+tornado.bar <- list(map = map, ts = ts, 
+                    width=list(map = 970, ts = 500),  
+                    height=list(400)) 
+# specify plot widths to be 970px and 500px respectively, 
+# and specify 400 px as the plot height for both plots
+
+gg2animint(tornado.bar, out.dir = "tornado-bar")
+```
+    
+<br></br>
+[Plot Output](tornado-bar/index.html)
+
+# Adding dynamic plot labels
+```{r plotdemo4,eval=FALSE,message=FALSE,warning=FALSE,size="small", fig.width=8, fig.height=4, out.width="60%", dependson=c("plotdemo", "plotdemo2", "plotdemo3")}
+UStornadoCounts <-
+  ddply(UStornadoes, .(state, year), summarize, count=length(state))
+# Count the number of tornadoes in each state, each year
+
+map <- map + make_text(UStornadoCounts, x=-100, y=50, 
+                       label.var="year", format="Tornadoes in %d")
+
+ts <- ts + make_text(UStornadoes, x=1980, y=200, 
+                     label.var="state")
+
+tornado.bar <- list(map = map, ts = ts, 
+                    width=list(map = 970, ts = 500),  
+                    height=list(400)) 
+gg2animint(tornado.bar, out.dir = "tornado-bar2")
+
+```
+    
+<br></br>
+[Plot Output](tornado-bar2/index.html)
+
+# Animating with animint
+```{r plotdemo5,eval=TRUE, dependson=c("plotdemo", "plotdemo2", "plotdemo3", "plotdemo4")}
+time <- list(variable="year", ms=2000) 
+  # new part of the list passed to gg2animint().
+
+tornado.anim <- list(map=map, ts=ts, time=time, 
+                     width=list(map = 970, ts = 400),  
+                     height=list(400)) 
+# pass the time object in as another object in the main list. 
+
+gg2animint(tornado.anim, out.dir = "tornado-anim")
+```
+    
+<br></br>
+[Plot Output](tornado-anim/index.html)
+
+
 </section>
