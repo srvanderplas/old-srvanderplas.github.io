@@ -1,10 +1,12 @@
 // Define functions to render linked interactive plots using d3.
 // Another script should define e.g.
 // <script>
-//   var plot = new animint("#plot","plot.json");
+//   var plot = new animint("#plot","path/to/plot.json");
 // </script>
 // Constructor for animint Object.
 var animint = function (to_select, json_file) {
+  var dirs = json_file.split("/");
+  dirs.pop(); //if a directory path exists, remove the JSON file from dirs
   var element = d3.select(to_select);
   this.element = element;
   var Widgets = {};
@@ -89,7 +91,7 @@ var animint = function (to_select, json_file) {
     g_info.data = {};
     g_info.download_status = {};
     Geoms[g_name] = g_info;
-    update_geom(g_name);
+    update_geom(g_name, null);
   }
   var add_plot = function (p_name, p_info) {
     // Each plot may have one or more legends. To make space for the
@@ -265,11 +267,14 @@ var animint = function (to_select, json_file) {
   }
   // update_geom is called from add_geom and update_selector. It
   // downloads data if necessary, and then calls draw_geom.
-  var update_geom = function (g_name) {
+  var update_geom = function (g_name, selector_name) {
     var g_info = Geoms[g_name];
     // First apply chunk_order selector variables.
     var chunk_id = g_info.chunks;
     g_info.chunk_order.forEach(function (v_name) {
+      if(chunk_id == null){
+	return; //no data in a higher up chunk var.
+      }
       var value = Selectors[v_name].selected;
       if(chunk_id.hasOwnProperty(value)){
 	chunk_id = chunk_id[value];
@@ -278,13 +283,14 @@ var animint = function (to_select, json_file) {
       }
     });
     if(chunk_id == null){
+      draw_geom(g_info, [], selector_name); //draw nothing.
       return;
     }
     var tsv_name = get_tsv(g_info, chunk_id);
     // get the data if it has not yet been downloaded.
     g_info.tr.select("td.chunk").text(tsv_name);
     if(g_info.data.hasOwnProperty(tsv_name)){
-      draw_geom(g_info, g_info.data[tsv_name]);
+      draw_geom(g_info, g_info.data[tsv_name], selector_name);
     }else{
       g_info.tr.select("td.status").text("downloading");
       var svg = SVGs[g_name];
@@ -298,7 +304,7 @@ var animint = function (to_select, json_file) {
       ;
       download_chunk(g_info, tsv_name, function(chunk){
       	loading.remove();
-	draw_geom(g_info, chunk);
+	draw_geom(g_info, chunk, selector_name);
       });
     }
   }
@@ -334,7 +340,8 @@ var animint = function (to_select, json_file) {
       return; // do not download twice.
     }
     g_info.download_status[tsv_name] = "downloading";
-    d3.tsv(tsv_name, function (error, response) {
+    var tsv_file = dirs.concat(tsv_name).join("/"); //prefis tsv file with appropriate path
+    d3.tsv(tsv_file, function (error, response) {
       // First convert to correct types.
       g_info.download_status[tsv_name] = "processing";
       response.forEach(function (d) {
@@ -374,7 +381,7 @@ var animint = function (to_select, json_file) {
   }
   // update_geom is responsible for obtaining a chunk of downloaded
   // data, and then calling draw_geom to actually draw it.
-  var draw_geom = function(g_info, chunk){
+  var draw_geom = function(g_info, chunk, selector_name){
     g_info.tr.select("td.status").text("displayed");
     var svg = SVGs[g_info.classed];
     var data = chunk;
@@ -417,7 +424,7 @@ var animint = function (to_select, json_file) {
     if(g_info.geom == "text"){
       size = 12;
     }
-    if (g_info.params.size) {
+    if (g_info.params.hasOwnProperty("size")) {
       size = g_info.params.size;
     }
     var get_size = function (d) {
@@ -478,7 +485,12 @@ var animint = function (to_select, json_file) {
     }
 
     var eActions, eAppend;
-
+    var key_fun = null;
+    if(g_info.aes.hasOwnProperty("key")){
+      key_fun = function(d){ 
+	return d.key;
+      };
+    }
     if (g_info.geom == "line" || g_info.geom == "path" || g_info.geom ==
 	"polygon" || g_info.geom == "ribbon") {
 
@@ -578,8 +590,17 @@ var animint = function (to_select, json_file) {
           .y(toXY("y", "y"))
 	;
       }
-
-      elements = elements.data(kv); //select the correct group before returning anything
+      //select the correct group before returning anything.
+      var group_key_fun = null;
+      if(key_fun != null){
+	group_key_fun = function(group_info){
+	  var one_group = data[group_info.value];
+	  var one_row = one_group[0];
+	  //take key from first value in the group.
+	  return key_fun(one_row);
+	};
+      }
+      elements = elements.data(kv); 
       eActions = function (e) {
         e.attr("d", function (d) {
           var one_group = data[d.value];
@@ -629,7 +650,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "path";
     } else if (g_info.geom == "segment") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("x1", function (d) {
           return svg.x(d["x"]);
@@ -649,7 +670,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "line";
     } else if (g_info.geom == "linerange") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("x1", function (d) {
           return svg.x(d["x"]);
@@ -669,7 +690,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "line";
     } else if (g_info.geom == "vline") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("x1", toXY("x", "xintercept"))
           .attr("x2", toXY("x", "xintercept"))
@@ -682,7 +703,7 @@ var animint = function (to_select, json_file) {
       eAppend = "line";
     } else if (g_info.geom == "hline") {
       //pretty much a copy of geom_vline with obvious modifications
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("y1", toXY("y", "yintercept"))
           .attr("y2", toXY("y", "yintercept"))
@@ -694,7 +715,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "line";
     } else if (g_info.geom == "text") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       // TODO: how to support vjust? firefox doensn't support
       // baseline-shift... use paths?
       // http://commons.oreilly.com/wiki/index.php/SVG_Essentials/Text
@@ -710,7 +731,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "text";
     } else if (g_info.geom == "point") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("cx", toXY("x", "x"))
           .attr("cy", toXY("y", "y"))
@@ -720,7 +741,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "circle";
     } else if (g_info.geom == "jitter") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("cx", toXY("x", "x"))
           .attr("cy", toXY("y", "y"))
@@ -730,7 +751,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "circle";
     } else if (g_info.geom == "tallrect") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("x", toXY("x", "xmin"))
           .attr("width", function (d) {
@@ -744,7 +765,7 @@ var animint = function (to_select, json_file) {
       }
       eAppend = "rect";
     } else if (g_info.geom == "rect") {
-      elements = elements.data(data);
+      elements = elements.data(data, key_fun);
       eActions = function (e) {
         e.attr("x", toXY("x", "xmin"))
           .attr("width", function (d) {
@@ -947,14 +968,16 @@ var animint = function (to_select, json_file) {
       }
     }
     eActions(enter);
-    if (g_info.duration) {
-      elements = elements.transition().duration(g_info.duration);
+    if(g_info.duration && g_info.duration.selector == selector_name) {
+      elements = elements.transition().duration(g_info.duration.ms);
     }
     eActions(elements);
   }
   var update_selector = function (v_name, value) {
     Selectors[v_name].selected = value;
-    Selectors[v_name].update.forEach(update_geom);
+    Selectors[v_name].update.forEach(function(g_name){
+      update_geom(g_name, v_name);
+    });
     //Selectors[v_name].hilite.forEach(update_geom);
   }
   var ifSelectedElse = function (d, v_name, selected, not_selected) {
@@ -1090,7 +1113,24 @@ var animint = function (to_select, json_file) {
       add_selector(s_name, response.selectors[s_name]);
     }
     // loading table.
-    var loading = element.append("table");
+    element.append("br");
+    var show_hide_table = element.append("button")
+      .text("Show download status table")
+    ;
+    show_hide_table
+      .on("click", function(){
+	if(this.textContent == "Show download status table"){
+	  loading.style("display", "");
+	  show_hide_table.text("Hide download status table");
+	}else{
+	  loading.style("display", "none");
+	  show_hide_table.text("Show download status table");
+	}
+      })
+    ;
+    var loading = element.append("table")
+      .style("display", "none")
+    ;
     Widgets["loading"] = loading;
     var tr = loading.append("tr");
     tr.append("th").text("geom");

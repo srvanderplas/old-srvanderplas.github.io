@@ -293,13 +293,11 @@
 "xname": "",
 "xline": false,
 "xticks": false,
-"xangle":      0,
 "y": [ 0.040705, 0.22347, 0.40624, 0.58901, 0.77178, 0.95455 ],
 "yrange": [ 23.886, 51.244 ],
 "yname": "",
 "yline": false,
-"yticks": false,
-"yangle":      0 
+"yticks": false 
 },
 "legend": {},
 "options": {
@@ -319,14 +317,12 @@
 "xname": "Year",
 "xline": true,
 "xticks": true,
-"xangle":      0,
 "y": [ 0.045455, 0.27273,    0.5, 0.72727, 0.95455 ],
 "ylab": [ "0", "50", "100", "150", "200" ],
 "yrange": [    -10,    210 ],
 "yname": "Number of Tornadoes",
 "yline": true,
-"yticks": true,
-"yangle":      0 
+"yticks": true 
 },
 "legend": {},
 "options": {

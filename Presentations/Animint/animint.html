@@ -289,30 +289,25 @@ d3 graphics in R with ggplot2 syntax
 <h1>Linked Plots with Animint</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(animint)
 <span class="kw">data</span>(WorldBank)
-viz &lt;-
-<span class="st">  </span><span class="kw">list</span>(<span class="dt">ts=</span>
-         <span class="kw">ggplot</span>()+
-<span class="st">           </span><span class="kw">make_tallrect</span>(WorldBank, <span class="st">&quot;year&quot;</span>)+
-<span class="st">           </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(year, life.expectancy, 
-                         <span class="dt">group=</span>country, <span class="dt">colour=</span>region,
-                         <span class="dt">clickSelects=</span>country),
+
+ts &lt;-<span class="st"> </span><span class="kw">ggplot</span>() +<span class="st"> </span><span class="kw">make_tallrect</span>(WorldBank, <span class="st">&quot;year&quot;</span>)+
+<span class="st">           </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(year, life.expectancy, <span class="dt">group=</span>country,
+                         <span class="dt">colour=</span>region, <span class="dt">clickSelects=</span>country),
                      <span class="dt">data=</span>WorldBank, <span class="dt">size=</span><span class="dv">4</span>, <span class="dt">alpha=</span><span class="dv">3</span>/<span class="dv">5</span>),
-       <span class="dt">scatter=</span>
-         <span class="kw">ggplot</span>()+
-<span class="st">           </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(life.expectancy, fertility.rate, 
-                          <span class="dt">clickSelects=</span>country, <span class="dt">showSelected=</span>year, 
-                          <span class="dt">colour=</span>region, <span class="dt">size=</span>population,
-                          <span class="dt">key=</span>country), 
-                      <span class="co"># key aesthetic for animated transitions!</span>
-                      <span class="dt">data=</span>WorldBank)+
-<span class="st">           </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(life.expectancy, fertility.rate,
-                          <span class="dt">label=</span>country, <span class="dt">showSelected=</span>country,
-                          <span class="dt">showSelected2=</span>year, <span class="dt">key=</span>country), 
-                      <span class="co">#also use key here!</span>
-                      <span class="dt">data=</span>WorldBank)+
-<span class="st">           </span><span class="kw">make_text</span>(WorldBank, <span class="dv">5</span>, <span class="dv">80</span>, <span class="st">&quot;year&quot;</span>), 
-       <span class="dt">time=</span><span class="kw">list</span>(<span class="dt">variable=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ms=</span><span class="dv">3000</span>),
-       <span class="dt">duration=</span><span class="kw">list</span>(<span class="dt">year=</span><span class="dv">1000</span>))
+scatter &lt;-<span class="st"> </span><span class="kw">ggplot</span>() +<span class="st"> </span><span class="kw">make_text</span>(WorldBank, <span class="dv">5</span>, <span class="dv">80</span>, <span class="st">&quot;year&quot;</span>) +<span class="st"> </span>
+<span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(life.expectancy, fertility.rate, 
+                  <span class="dt">clickSelects=</span>country, <span class="dt">showSelected=</span>year, 
+                  <span class="dt">colour=</span>region, <span class="dt">size=</span>population, <span class="dt">key=</span>country), 
+              <span class="co"># key aesthetic for animated transitions!</span>
+              <span class="dt">data=</span>WorldBank)+
+<span class="st">   </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(life.expectancy, fertility.rate,
+                  <span class="dt">label=</span>country, <span class="dt">showSelected=</span>country,
+                  <span class="dt">showSelected2=</span>year, <span class="dt">key=</span>country), 
+              <span class="co">#also use key here!</span>
+              <span class="dt">data=</span>WorldBank), 
+viz &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">ts =</span> ts, <span class="dt">scatter =</span> scatter, 
+            <span class="dt">time =</span> <span class="kw">list</span>(<span class="dt">variable=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ms=</span><span class="dv">3000</span>), 
+            <span class="dt">duration =</span> <span class="kw">list</span>(<span class="dt">year=</span><span class="dv">1000</span>))
 <span class="kw">gg2animint</span>(viz, <span class="dt">open.browser=</span><span class="ot">FALSE</span>)</code></pre>
 <p><a href="worldbank/index.html">Animated plot</a></p>
 </section>
@@ -345,6 +340,7 @@ ts</code></pre>
 </section>
 <section id="creating-an-animint-plot-2" class="slide level1">
 <h1>Creating an animint plot</h1>
+<p><br /></p>
 <pre class="sourceCode r"><code class="sourceCode r">tornado.bar &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">map =</span> map, <span class="dt">ts =</span> ts) 
 
 <span class="kw">gg2animint</span>(tornado.bar, <span class="dt">out.dir =</span> <span class="st">&quot;tornado-bar&quot;</span>, <span class="dt">open.browser=</span><span class="ot">FALSE</span>)</code></pre>
