@@ -345,8 +345,12 @@ Set selected element aesthetics (color, alpha, size, fill, linetype) separately
 
 - [Github page](https://github.com/tdhock/animint)    
 
-- [d3 graphics](http://bl.ocks.org/mbostock)
+- [Examples of d3 graphics](http://bl.ocks.org/mbostock)
 
-- [Today's Slides](https://srvanderplas.github.io/Presentations/Animint/animint.html#/)
+- Slides:    
+[http://srvanderplas.github.io/Presentations/Animint/animint.html](https://srvanderplas.github.io/Presentations/Animint/animint.html#/)
+
+- Paper (submitted to InfoVis) -     
+[https://github.com/tdhock/animint-paper/](https://github.com/tdhock/animint-paper/)
 
 </section>
