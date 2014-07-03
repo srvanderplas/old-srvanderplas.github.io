@@ -19,3 +19,14 @@ output:
 
 - [shinyRGL](https://github.com/trestletech/shinyRGL): provides webGL bindings, so that 3D graphics can be manipulated within shiny apps. Somewhat more difficult to set up the shiny-server backend, but still a very neat effect. 
 
+
+
+## Shiny library extensions: 
+- [leaflet-shiny](https://github.com/jcheng5/leaflet-shiny): adds shiny bindings for [Leaflet.js](http://leafletjs.com/), which makes mobile-friendly interactive maps
+
+- [shiny-gridster](https://github.com/wch/shiny-gridster): use the [gridster](http://gridster.net/) library with shiny. Drag-and-drop multi-column grid layouts for web pages. 
+
+- [shiny-jsdemo](https://github.com/wch/shiny-jsdemo): R shiny bindings for [gridster](http://gridster.net/), [justgage](http://justgage.com/), and [highcharts](http://www.highcharts.com/). Calls the shiny-gridster package as a dependency. Also includes a status panel. 
+
+- [shiny-sky](https://github.com/AnalytixWare/ShinySky): Includes styled buttons and alerts not present in default shiny apps. Also adds event buttons and busy indicators, and includes [handsontable](http://handsontable.com/) and [jsTree](http://www.jstree.com/) bindings. Adds color input as well. 
+- 
