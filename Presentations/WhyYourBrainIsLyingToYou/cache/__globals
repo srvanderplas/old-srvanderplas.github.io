@@ -1,0 +1,8 @@
+mullerlyer	~	c	data.frame	element_blank	element_rect	element_text	facet_grid	group	qplot	rbind	theme	x	xlim	y
+neckercube	~	==	[<-	$	$<-	&	c	cbind	data.frame	element_blank	element_rect	element_text	facet_grid	factor	group	line	qplot	rbind	scale_colour_manual	scale_linetype_discrete	theme	x	y
+sineillusion	^	$<-	abs	atan	coord_equal	cos	data.frame	diff	element_blank	element_rect	I	length	pi	qplot	range	rep	seq	sin	sqrt	theme	x	xend	yend	ystart
+sineillusion3d	~	$	acast	c	data.frame	do.call	lapply	lines	max	par	persp	pi	points	seq	sin	sort	text	trans3d	unique
+gasprices-setup	==	>=	.	$	$<-	as.data.frame	avg	c	date	days	ddply	decimal_date	F	floor_date	ifelse	library	max	mean	median	min	month	predict	price	read.csv	rep	round.year	sd	season	smooth.spline	subset	summarize	transform	unique	var	year	ymd
+gasprices-picture	>=	aes	c	date	decimal_date	gasprices	geom_jitter	geom_point	ggplot	I	price	subset	theme	theme_bw	unit	xlab	year	ylab
+gasprices-sdev	>=	aes	c	geom_point	geom_smooth	ggplot	month	monthly	sd	subset	theme	theme_bw	unit	xlab	year	ylab	ylim
+orthogonalwidth	$	$<-	aes	c	coord_equal	cos	data.frame	element_blank	geom_line	geom_segment	ggplot	grp	label	pi	rbind	scale_colour_manual	seq	sin	theme	theme_bw	uniroot	x	xend	y	yend

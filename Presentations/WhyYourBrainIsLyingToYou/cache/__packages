@@ -1,0 +1,11 @@
+base
+ggplot2
+gridExtra
+knitr
+lubridate
+msm
+plyr
+quantreg
+reshape2
+scales
+SparseM
