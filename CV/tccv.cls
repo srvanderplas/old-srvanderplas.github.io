@@ -64,10 +64,12 @@
 
 \pagestyle{empty}
 \setlength\parindent{0pt}
-\color[HTML]{303030} % Default foreground color
-\definecolor{link}{HTML}{008B8B} % Hyperlinks
+\color[HTML]{000000} % Default foreground color
+\definecolor{link}{HTML}{0099CC} % Hyperlinks
+\definecolor{darklink}{HTML}{003399}
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}      
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
-\setkomafont{disposition}{\color[HTML]{801010}}
+\setkomafont{disposition}{\color[HTML]{003399}}
 \setkomafont{section}{\scshape\Large\mdseries}
 
 % In tccv \part must contain the subject of the curriculum vitae.
@@ -114,15 +116,17 @@
 % ]|
 \newcommand\personal[4][]{%
     \newcommand\SYMBOL[1]{\raisebox{-2pt}{\Large\ding{##1}}}%
+    \changeurlcolor{darklink}
     \needspace{0.5\textheight}%
     \newdimen\boxwidth%
     \boxwidth=\dimexpr\linewidth-2\fboxsep\relax%
-    \colorbox[HTML]{DDFFFF}{%
+    \colorbox[HTML]{CCFFCC}{%
     \begin{tabularx}{\boxwidth}{c|X}
     \SYMBOL{45} & {#2}\smallskip\\
     \SYMBOL{37} & {#3}\smallskip\\
     \SYMBOL{41} & \href{mailto:#4}{#4}
     \ifstrempty{#1}{}{\smallskip\\ \SYMBOL{218} & \href{http://#1}{#1}}
+    \changeurlcolor{link}
     \end{tabularx}}}
 
 % Every \item can be followed by one or more paragraphs

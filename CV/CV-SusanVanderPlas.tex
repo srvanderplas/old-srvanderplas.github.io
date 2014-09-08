@@ -2,7 +2,20 @@
 \usepackage[english]{babel}
 \usepackage{cite}
 \nocite{*}
-\definecolor{titlecolor}{HTML}{801010}
+
+% Color combination: 0099cc, ccffcc, 66ccff, 003399
+
+
+\definecolor{titlecolor}{HTML}{003399}
+\definecolor{link}{HTML}{0099CC}
+
+\hypersetup{colorlinks, breaklinks, 
+            linkcolor=link, 
+            urlcolor=link, 
+            citecolor=link}
+ 
+
+
 \makeatletter
 \renewenvironment{thebibliography}[1]
      {\list{\@biblabel{\@arabic\c@enumiv}}%
@@ -32,7 +45,7 @@
     {802 17th St, Auburn, NE 68305}
     {(515) 509-6613}
     {srvanderplas@gmail.com}
-
+\changeurlcolor{link}
 \section{Education}
 
 \begin{yearlist}
@@ -92,7 +105,7 @@ Designed and analyzed experiments to understand human perception of statistical 
 \item{Fall 2013-Present}{USDA and ISU Statistics}{Research Assistant}{
 Analyzed large quantities of soybean genetics data to identify inheritance, important genes, and copy number variation. Created interactive applets presenting the data along with graphics designed to encourage biologists to explore the results. Assembled a database of known soybean parentage to facilitate further research and wrote code to efficiently search the database to identify the lineage of any variety in the database. }
 
-\item{Fall 2012-Present}{}{Informal Consulting}{Provided informal statistical advice to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to answer questions involving estimated capacity factor, probability theory, model assessment, and violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
+\item{Fall 2012-Present}{}{Informal Consulting}{Provided informal statistical advice to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answed questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
 
 \item{Spring 2013-Present}{ISU Statistics}{R Course Instructor}{
 Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with plyr, reshape2, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny. }
