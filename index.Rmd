@@ -1,7 +1,7 @@
 ---
-title: "Cool Packages"
+title: "Random (and not-so-random) Data"
 author: "Susan VanderPlas"
-date: "07/03/2014"
+date: "09/08/2014"
 output:
   knitrBootstrap::bootstrap_document:
     title: "Cool Packages"
@@ -10,9 +10,27 @@ output:
     theme.chooser: FALSE
     highlight.chooser: FALSE
 ---
+<div class="jumbotron">
+<h1> Random (and not-so-random) Data</h1>
 
-# Useful Links
+This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). It contains links to my CV, projects I find interesting, and slides from some of my presentations. 
 
+</div>
+
+# CV
+[Here](CV/CV-SusanVanderPlas.pdf) is a link to my current CV/resume. I expect to graduate in Spring 2015 with my PhD in Statistics and am looking for a job that is flexible with regards to geographic location.
+
+
+# Presentations
+* [The Curse of Three Dimensions: Why Your Brain is Lying To You](Presentations/WhyYourBrainIsLyingToYou/JSM2014.html) - given at JSM 2014. This work won the Graphics section Student Paper Award. More information (and the current paper draft) is available [here](www.github.com/srvanderplas/LieFactorSine/AcmTransactions).
+
+* [Animint presentation](Presentations/Animint/animint.html) - given at the Great Plains R User group in May 2014. Animint is an R package I started working on due to Google Summer of Code. 
+
+* [User Testing Panel, JSM 2014](Presentations/UserTestingJSM2014/UserTesting.html)
+
+
+# Other Links
+I add to these when I get a chance; most recently, I was exploring shiny extensions. 
 
 ## Awesome packages: 
 - [shinyTable](https://github.com/trestletech/shinyTable): implements [Handsontable](http://handsontable.com/) for shiny, providing a spreadsheet-like editor in a web browser (data can then be read into R)
@@ -21,7 +39,7 @@ output:
 
 
 
-## Shiny library extensions: 
+### Shiny library extensions: 
 - [leaflet-shiny](https://github.com/jcheng5/leaflet-shiny): adds shiny bindings for [Leaflet.js](http://leafletjs.com/), which makes mobile-friendly interactive maps
 
 - [shiny-gridster](https://github.com/wch/shiny-gridster): use the [gridster](http://gridster.net/) library with shiny. Drag-and-drop multi-column grid layouts for web pages. 
@@ -29,4 +47,3 @@ output:
 - [shiny-jsdemo](https://github.com/wch/shiny-jsdemo): R shiny bindings for [gridster](http://gridster.net/), [justgage](http://justgage.com/), and [highcharts](http://www.highcharts.com/). Calls the shiny-gridster package as a dependency. Also includes a status panel. 
 
 - [shiny-sky](https://github.com/AnalytixWare/ShinySky): Includes styled buttons and alerts not present in default shiny apps. Also adds event buttons and busy indicators, and includes [handsontable](http://handsontable.com/) and [jsTree](http://www.jstree.com/) bindings. Adds color input as well. 
-- 
