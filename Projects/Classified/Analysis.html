@@ -878,6 +878,7 @@ Mining Classified Ads
 
 (a.k.a. there are really creepy people on the internet)</small>
 </div>
+<p>Disclaimer: This post looks at personal ads on online classifieds. These ads are often sexually explicit and crude, and are likely &quot;Not Safe For Work&quot; in all but the most liberal workplaces. Personal ads may also be known to the state of California to cause cancer.</p>
 <h1 id="motivation">Motivation</h1>
 <p>This project was inspired by a <a href="http://go.galegroup.com/ps/i.do?id=GALE|A315069654&amp;v=2.1&amp;u=lom_kentdl&amp;it=r&amp;inPS=true&amp;prodId=ITOF&amp;userGroupName=lom_kentdl&amp;p=ITOF">Psychology Today article</a> which included the following picture:</p>
 <p><img src="CraigslistMissedConnectionsByState.jpg" width="100%" height="auto"></p>
@@ -1015,8 +1016,218 @@ qplot(x=min_date, xend=max_date, y=city, yend=city,
 <a href="#" class="thumbnail"><img src="data:image/png;base64,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" title="plot of chunk clPostDistribution" alt="plot of chunk clPostDistribution" style="display: block; margin: auto;" /></a>
 </div>
 </div></div>
-</div></div>
-<div class="navbar navbar-fixed-bottom navbar-inverse"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+
+<p>I'm currently re-running the sampling script in the hopes that I can get both a longer time-period (on the order of a month or so of data) and more locales. Hopefully, there will be more data (with a more even distribution) in the next few weeks... then we can finally settle this!</p>
+<h1 id="words-words-words---text-analysis-of-posts-and-titles">Words, words, words - Text analysis of posts and titles</h1>
+I'll use the tm package to get a sense of the text in the posts. We'll start by looking at the most common words in the corpus (the collection of all posts).
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">library(tm)
+
+# need to clean up text before putting it into tm_map...
+posts$post.text2 <- str_replace_all(posts$post.text, "[\'\"]", "")
+posts$post.text2 <- str_replace_all(posts$post.text2, "[[:punct:]]", " ")
+posts$post.text2 <- str_replace_all(posts$post.text2, "\\n", " ")
+
+# create the corpus
+myCorpus <- Corpus(VectorSource(posts$post.text2))
+
+dict <- unlist(lapply(tolower(posts$post.text2), strsplit, " "))
+dict.table <- table(dict)
+dict.table <- dict.table[order(dict.table, decreasing=TRUE)]
+
+# Most common words: 
+names(dict.table[1:20])</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##  [1] ""        "and"     "to"      "a"       "i"       "you"     "for"     "the"     "looking" "in"      "me"      "im"      "be"      "with"   
+## [15] "or"      "if"      "have"    "your"    "of"      "am"
+</code></pre><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># conclusion: we need to remove stopwords. </code></pre></div>
+
+<h2 id="frequent-terms">Frequent Terms</h2>
+<p>We'll use functions in the tm package to remove stopwords, punctuation, and numbers from the corpus. We will then take the corrected text and make a matrix associating terms with the texts they appear in.</p>
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># transform the content, removing stopwords, numbers, and punctuation
+myCorpus <- tm_map(myCorpus, content_transformer(tolower))
+myCorpus <- tm_map(myCorpus, content_transformer(removePunctuation))
+myCorpus <- tm_map(myCorpus, content_transformer(removeNumbers))
+myStopwords <- stopwords('english')
+myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
+
+# Create a DocumentTermMatrix 
+myDtm <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf)))
+findFreqTerms(myDtm, lowfreq=800) # terms in at least 800 posts (total)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##   [1] "able"         "age"          "also"         "always"       "another"      "anyone"       "anything"     "area"         "around"      
+##  [10] "ass"          "attractive"   "back"         "bi"           "big"          "black"        "body"         "bottom"       "build"       
+##  [19] "can"          "cant"         "care"         "clean"        "cock"         "come"         "contact"      "couple"       "cum"         
+##  [28] "cut"          "day"          "ddf"          "dick"         "discreet"     "discrete"     "disease"      "dont"         "email"       
+##  [37] "enjoy"        "even"         "eyes"         "face"         "feel"         "female"       "find"         "first"        "fit"         
+##  [46] "free"         "friend"       "friends"      "fuck"         "fun"          "get"          "gets"         "getting"      "girl"        
+##  [55] "give"         "go"           "going"        "good"         "got"          "great"        "guy"          "guys"         "hair"        
+##  [64] "hard"         "head"         "hear"         "help"         "hey"          "hi"           "hit"          "home"         "hope"        
+##  [73] "horny"        "host"         "hot"          "hung"         "hwp"          "ill"          "im"           "interested"   "ive"         
+##  [82] "just"         "know"         "lady"         "lbs"          "let"          "lets"         "life"         "like"         "line"        
+##  [91] "little"       "live"         "long"         "look"         "looking"      "love"         "make"         "male"         "man"         
+## [100] "married"      "maybe"        "meet"         "men"          "message"      "mine"         "mouth"        "much"         "must"        
+## [109] "need"         "never"        "new"          "nice"         "night"        "now"          "nsa"          "number"       "old"         
+## [118] "older"        "one"          "open"         "oral"         "people"       "person"       "pic"          "pics"         "picture"     
+## [127] "place"        "play"         "please"       "prefer"       "pussy"        "put"          "race"         "ready"        "real"        
+## [136] "really"       "relationship" "reply"        "respond"      "right"        "safe"         "see"          "seeking"      "send"        
+## [145] "serious"      "sex"          "sexy"         "shape"        "single"       "size"         "someone"      "something"    "soon"        
+## [154] "spam"         "stats"        "still"        "straight"     "subject"      "suck"         "take"         "talk"         "tall"        
+## [163] "tell"         "text"         "thanks"       "thats"        "thick"        "thing"        "things"       "think"        "time"        
+## [172] "today"        "together"     "tonight"      "top"          "travel"       "try"          "two"          "type"         "ur"          
+## [181] "us"           "wanna"        "want"         "wants"        "watch"        "way"          "well"         "white"        "will"        
+## [190] "willing"      "woman"        "women"        "work"         "year"         "years"        "young"        "younger"      "youre"
+</code></pre></div>
+
+<h2 id="word-associations">Word Associations</h2>
+Now that the document term matrix has been created, we can look at word associations. As these are personal ads, let's see what words are associated with the word &quot;attractive&quot;:
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "attractive", .125)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##                attractive
+## addressed            0.13
+## authenticated        0.13
+## communicates         0.13
+## cradar               0.13
+## craigs               0.13
+## deniability          0.13
+## dillsburg            0.13
+## elects               0.13
+## enable               0.13
+## identification       0.13
+## identifying          0.13
+## identities           0.13
+## impulsively          0.13
+## impulsiveness        0.13
+## naming               0.13
+## plausible            0.13
+## recourses            0.13
+## safeguard            0.13
+## sitters              0.13
+## thoughtfulness       0.13
+## thusday              0.13
+## unproductive         0.13
+</code></pre></div>
+The results are thoroughly confusing. Moving on... what about &quot;single&quot;?
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "single", .10)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##              single
+## appriciated    0.15
+## homophobes     0.15
+## children       0.13
+## married        0.13
+## orgy           0.13
+## annual         0.12
+## family         0.12
+## male           0.12
+## relationship   0.12
+## specify        0.12
+## dont           0.10
+## flaggers       0.10
+## honest         0.10
+</code></pre></div>
+<p>&quot;Single&quot; is associated with &quot;married&quot;, &quot;orgy&quot;, &quot;appriciated&quot; (I presume they meant appreciated), &quot;family&quot;, etc. Clearly, association is not the same as synonym.</p>
+Let's try something that should produce a more crude response: words associated with &quot;long&quot;.
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "long", .15)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##              long
+## term         0.43
+## relationship 0.19
+## lasting      0.16
+## dont         0.15
+## know         0.15
+## time         0.15
+</code></pre></div>
+<p>No surprises there. Or were you thinking dirty already?</p>
+I also wonder if &quot;married&quot; is going to be as confusing as &quot;single&quot;?
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "married", .1)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##              married
+## single          0.13
+## wife            0.13
+## discreet        0.12
+## looking         0.12
+## attached        0.11
+## bi              0.11
+## relationship    0.11
+## situation       0.11
+## woman           0.11
+## dont            0.10
+## just            0.10
+## kids            0.10
+</code></pre></div>
+<p>Ok, so &quot;married&quot; isn't quite as confusing, even if people can't spell &quot;discrete&quot;.</p>
+Personal Ads are known for using abbreviations (even when space isn't restricted, as is the case online). &quot;nsa&quot; stands for &quot;No Strings Attached&quot; - let's see what it's associated with (we won't have the resolution necessary to determine whether it's associated with the National Security Administration).
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "nsa", .075)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##               nsa
+## fun          0.13
+## fwb          0.11
+## afun         0.08
+## andnine      0.08
+## bathe        0.08
+## birdtwo      0.08
+## carter       0.08
+## earlythree   0.08
+## friendlies   0.08
+## geteight     0.08
+## hotone       0.08
+## investments  0.08
+## looking      0.08
+## prematurely  0.08
+## theseven     0.08
+## transmission 0.08
+## withand      0.08
+## yro          0.08
+</code></pre></div>
+<p>Odd; seems that it's associated with &quot;fwb&quot; (friends with benefits) and many words that appear to be concatenated - &quot;earlythree&quot;, &quot;andnine&quot;, etc.</p>
+A few terms chosen to be a bit superficial (weight, appearance, etc.)
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "lbs", .1)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##        lbs
+## ft    0.20
+## cut   0.16
+## hair  0.15
+## brown 0.12
+## blue  0.11
+## eyes  0.11
+</code></pre></div>
+<p>Ok, posts with &quot;lbs&quot; also specify appearance. That makes sense.</p>
+Another appearance-related term; its associations will probably not surprise you.
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">findAssocs(myDtm, "thick", .1)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">##        thick
+## cock    0.16
+## cut     0.12
+## inches  0.12
+## inch    0.10
+</code></pre></div>
+
+We will move on to more sophisticated analyses eventually.
+</div>
+</div>
+<div class="navbar navbar-fixed-bottom navbar-inverse">
+<div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 </button></div>
 <div id="bottom-navbar" class="navbar-collapse collapse navbar-responsive-collapse"><ul class="nav navbar-nav navbar-right"><li class="nav"><p class="navbar-text">

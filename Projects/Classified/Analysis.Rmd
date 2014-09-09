@@ -17,6 +17,8 @@ output:
 (a.k.a. there are really creepy people on the internet)</small>
 </div>
 
+Disclaimer: This post looks at personal ads on online classifieds. These ads are often sexually explicit and crude, and are likely "Not Safe For Work" in all but the most liberal workplaces. Personal ads may also be known to the state of California to cause cancer. 
+
 # Motivation 
 This project was inspired by a [Psychology Today article](http://go.galegroup.com/ps/i.do?id=GALE|A315069654&v=2.1&u=lom_kentdl&it=r&inPS=true&prodId=ITOF&userGroupName=lom_kentdl&p=ITOF) which included the following picture: 
 
@@ -28,9 +30,10 @@ I had to wonder... what exactly was going on in Indiana?
 
 The data was collected by sampling online personal ads (in English) from random cities in North America at periodic intervals using an R script coupled with a cron job (the frequency of the job changed over time as I tuned the script). Originally, data was written to a MySQL database; the database has been filtered to include only personal ads (of the type one might see [here](http://desmoines.craigslist.org/ppp/)).
 
-```{r setup, message=FALSE, warning=FALSE, echo=-c(1:2), bootstrap.show.code=FALSE}
+```{r setup, message=FALSE, warning=FALSE, echo=-c(1:3), bootstrap.show.code=FALSE}
 library(knitr)
 opts_chunk$set(fig.align='center', par=TRUE, cache=TRUE, autodep=TRUE, message=FALSE, warning=FALSE, tidy=FALSE, bootstrap.show.code=FALSE)
+options(width=150)
 
 library(doMC)
 registerDoMC()
@@ -150,7 +153,7 @@ qplot(x=city, geom="histogram", data=posts) + coord_flip() + theme_bw() + xlab("
 I'm currently re-running the sampling script in the hopes that I can get both a longer time-period (on the order of a month or so of data) and more locales. Hopefully, there will be more data (with a more even distribution) in the next few weeks... then we can finally settle this!
 
 # Words, words, words - Text analysis of posts and titles
-I'll use the tm package to get a sense of the text in the posts.
+I'll use the tm package to get a sense of the text in the posts. We'll start by looking at the most common words in the corpus (the collection of all posts). 
 ```{r textminingsetup}
 library(tm)
 
@@ -162,21 +165,71 @@ posts$post.text2 <- str_replace_all(posts$post.text2, "\\n", " ")
 # create the corpus
 myCorpus <- Corpus(VectorSource(posts$post.text2))
 
+dict <- unlist(lapply(tolower(posts$post.text2), strsplit, " "))
+dict.table <- table(dict)
+dict.table <- dict.table[order(dict.table, decreasing=TRUE)]
+
+# Most common words: 
+names(dict.table[1:20])
+# conclusion: we need to remove stopwords. 
+```
+
+## Frequent Terms
+
+We'll use functions in the tm package to remove stopwords, punctuation, and numbers from the corpus. We will then take the corrected text and make a matrix associating terms with the texts they appear in. 
+
+```{r textminingcorpus}
 # transform the content, removing stopwords, numbers, and punctuation
 myCorpus <- tm_map(myCorpus, content_transformer(tolower))
 myCorpus <- tm_map(myCorpus, content_transformer(removePunctuation))
 myCorpus <- tm_map(myCorpus, content_transformer(removeNumbers))
 myStopwords <- stopwords('english')
 myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
-dict <- unlist(lapply(tolower(posts$post.text2), strsplit, " "))
-dict.table <- table(dict)
-dict.table <- dict.table[order(dict.table, decreasing=TRUE)]
-
-# Most common words: 
-dict.table[1:100]
-# conclusion: we need to remove stopwords. 
 
 # Create a DocumentTermMatrix 
 myDtm <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf)))
-findFreqTerms(myDtm, lowfreq=500)
+findFreqTerms(myDtm, lowfreq=800) # terms in at least 800 posts (total)
 ```
+
+## Word Associations
+
+Now that the document term matrix has been created, we can look at word associations. As these are personal ads, let's see what words are associated with the word "attractive": 
+```{r wordassociations-attractive}
+findAssocs(myDtm, "attractive", .125)
+```
+The results are thoroughly confusing. Moving on... what about "single"?
+```{r wordassociations-single}
+findAssocs(myDtm, "single", .10)
+```
+"Single" is associated with "married", "orgy", "appriciated" (I presume they meant appreciated), "family", etc. Clearly, association is not the same as synonym. 
+
+Let's try something that should produce a more crude response: words associated with "long". 
+```{r wordassociations-long}
+findAssocs(myDtm, "long", .15)
+```
+No surprises there. Or were you thinking dirty already? 
+
+I also wonder if "married" is going to be as confusing as "single"? 
+```{r wordassociations-married}
+findAssocs(myDtm, "married", .1)
+```
+Ok, so "married" isn't quite as confusing, even if people can't spell "discrete". 
+
+Personal Ads are known for using abbreviations (even when space isn't restricted, as is the case online). "nsa" stands for "No Strings Attached" - let's see what it's associated with (we won't have the resolution necessary to determine whether it's associated with the National Security Administration). 
+```{r wordassociations-nsa}
+findAssocs(myDtm, "nsa", .075)
+```
+Odd; seems that it's associated with "fwb" (friends with benefits) and many words that appear to be concatenated - "earlythree", "andnine", etc.
+
+A few terms chosen to be a bit superficial (weight, appearance, etc.)
+```{r wordassociations-lbs}
+findAssocs(myDtm, "lbs", .1)
+```
+Ok, posts with "lbs" also specify appearance. That makes sense. 
+
+Another appearance-related term; its associations will probably not surprise you. 
+```{r wordassociations-thick}
+findAssocs(myDtm, "thick", .1)
+```
+
+We will move on to more sophisticated analyses eventually. 
