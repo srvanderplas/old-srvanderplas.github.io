@@ -1,0 +1,149 @@
+---
+title: "Classified Personal Ads"
+author: "Susan VanderPlas"
+date: "09/08/2014"
+output:
+  knitrBootstrap::bootstrap_document:
+    title: "Cool Packages"
+    theme: cerulean
+    highlight: sunburst
+    theme.chooser: FALSE
+    highlight.chooser: FALSE
+---
+
+<div class="jumbotron"> 
+<h1>Mining Classified Ads </h1>
+
+(a.k.a. there are really creepy people on the internet)</small>
+</div>
+
+# Motivation 
+This project was inspired by a [Psychology Today article](http://go.galegroup.com/ps/i.do?id=GALE|A315069654&v=2.1&u=lom_kentdl&it=r&inPS=true&prodId=ITOF&userGroupName=lom_kentdl&p=ITOF) which included the following picture: 
+
+<img src="CraigslistMissedConnectionsByState.jpg" width="100%" height="auto">
+
+I had to wonder... what exactly was going on in Indiana?
+
+# Setup
+
+The data was collected by sampling online personal ads (in English) from random cities in North America at periodic intervals using an R script coupled with a cron job (the frequency of the job changed over time as I tuned the script). Originally, data was written to a MySQL database; the database has been filtered to include only personal ads (of the type one might see [here](http://desmoines.craigslist.org/ppp/)).
+
+```{r setup, message=FALSE, warning=FALSE, echo=-c(1:2), bootstrap.show.code=FALSE}
+library(knitr)
+opts_chunk$set(fig.align='center', par=TRUE, cache=TRUE, autodep=TRUE, message=FALSE, warning=FALSE, tidy=FALSE, bootstrap.show.code=FALSE)
+
+library(doMC)
+registerDoMC()
+library(lubridate)
+library(stringr)
+library(ggplot2)
+```
+
+
+As this data includes dates and times, we'll use the lubridate package to get these into a more workable format. Similarly, we'll use stringr to manipulate the text of the post more easily. 
+
+# Initial Exploration - Dates, Times, Timezones, and Locations
+
+```{r datesandtimes, message=FALSE, warning=FALSE}
+# Read in the data
+posts <- read.csv("PersonalAdsPost.csv", row.names=1)
+
+# strip timezone information
+posts$timezone <- str_sub(posts$post.date, -5, -1)
+# posts$post.date2 <- str_sub(posts$post.date, 1, -6)
+posts$post.date2 <- posts$post.date
+posts$post.date2 <- str_replace(posts$post.date2, "T", " ")
+posts$post.date2 <- ymd_hms(posts$post.date2)
+posts$post.last.update2 <- str_replace(posts$post.last.update, "T", " ")
+posts$post.last.update2 <- ymd_hms(posts$post.last.update)
+posts$post.time <- hour(posts$post.date2) + minute(posts$post.date2)/60
+posts <- subset(posts, !is.na(post.date2) & !is.na(post.time))
+```
+
+Now that we've got workable dates and times, let's plot some basic characteristics of the data. 
+
+```{r clSections, fig.width=10, fig.height=5}
+# Relative proportions of posts
+posts$post.subcltype2 <- factor(posts$post.subcltype, 
+                                levels=c("casual encounters", 
+                                         "men seeking men", 
+                                         "men seeking women", 
+                                         "women seeking men", 
+                                         "women seeking women", 
+                                         "strictly platonic", 
+                                         "miscellaneous romance", 
+                                         "missed connections", 
+                                         "rants & raves"))
+qplot(posts$post.subcltype2) + 
+  theme(axis.text.x=element_text(angle=20, hjust=.75)) + 
+  xlab("Classified Section") + 
+  ylab("Posts") + theme_bw()
+```
+
+I was somewhat dissatisfied by the "top 100 posts when the data were collected" explanation in the article (What day was data collected? What time of day? How many days worth of posts were in the top 100, since posts to NYC classifieds are bound to be more numerous than posts to Western Nebraska classifieds?)
+
+In the interests of transparency, here are some basic plots of the "when" of data collection. Times reported are with respect to Central Time, so there are slight discrepancies between Eastern and Pacific time. Lubridate doesn't let you vectorize the time zone argument, though, so this will have to do. 
+
+```{r postsByTimezone, fig.width=10, fig.height=8}
+# Posting times, by timezone
+posts$timezone2 <- factor(posts$timezone, levels=c("-0500", "-0600", "-0700", "-0800"), labels=c("Eastern", "Central", "Mountain", "Pacific"))
+qplot(x=post.time, fill=timezone2, geom="histogram", 
+      data=subset(posts, !is.na(timezone2)), binwidth=1) + 
+  scale_fill_brewer("Time Zone", palette="Set1") + 
+  theme_bw() + 
+  facet_grid(timezone2~., scales="free") + 
+  scale_x_continuous("Time", limits=c(0, 24), breaks=c(0, 6, 12, 18, 24)) +
+  scale_y_continuous("Posts")
+```
+
+There are also many fewer posts in the mountain time zone than in other areas. 
+
+```{r postsByDay, fig.width=10, fig.height=5}
+# Histogram of post days
+qplot(wday(post.date2, label=TRUE, abbr=TRUE), 
+      data=subset(posts, !is.na(wday(post.date2)))) + 
+  xlab("Day Posted") + ylab("Posts") + theme_bw()
+```
+
+Most of the posts were collected on the night of January 14th and 15th (Tuesday and Wednesday, respectively), when I was testing to see how far I could get my script to scale (pretty far, as it turns out; at the end I was scraping 20-30 randomly selected cities every 10 minutes. Duplicate posts were removed, but the bias is still very obvious.)
+
+```{r postsByDate, fig.width=10, fig.height=4}
+# Density of posts
+qplot(post.date2, geom="density", data=posts) + 
+  xlab("Post Date") + 
+  ylab("Density") + 
+  theme_bw()
+```
+
+Data collection was conducted in January, and shortly thereafter I had to do a distribution upgrade on the server and the script was broken afterwards (likely due to formatting changes on the site in question). Once the spring semester started, I didn't have time to fix the script, so we have about 6 weeks worth of data to explore, collected between January 14-15. 
+
+The skewed distribution here is a result of the way the online classified site works: I scraped the top 300 posts from each randomly selected location. In more populated areas, 300 posts might represent an hour or two of posts; in less populated areas, 300 posts might represent an entire month of activity. 
+
+```{r postSpan, fig.width=6, fig.height=10}
+library(dplyr)
+
+post.location <- group_by(posts, cityurl) %>% 
+  summarize(min_date=min(post.date2), 
+            max_date=max(post.date2))
+
+# remove web address
+post.location$city <- str_replace(post.location$cityurl, "http://", "")
+post.location$city <- str_replace(post.location$city, "\\.(en\\.)?(\\w*)\\.(org)?(ca)?", "")
+
+posts$city <- str_replace(posts$cityurl, "http://", "")
+posts$city <- str_replace(posts$city, "\\.(en\\.)?(\\w*)\\.(org)?(ca)?", "")
+
+qplot(x=min_date, xend=max_date, y=city, yend=city, 
+      geom="segment", data=post.location) + 
+  xlab("Range of Collected Posts") + ylab("City/Region") + 
+  ggtitle("Time Coverage of Classified Ads") + 
+  geom_point(data=posts, aes(x=post.date2, y=city), 
+             alpha=.2, inherit.aes=FALSE) + theme_bw()
+```
+
+When we plot the total number of posts in our database by classified location, we can see that there are between 300 and 600 posts per City/Region. A large city which has many posts that happened to be sampled twice during the process (as I sampled with replacement for this project) might have more than 300 unique posts, where a more rural area which had fewer posts might have only 300 unique posts (fewer if links were broken). 
+
+```{r clPostDistribution, fig.width=6, fig.height=10}
+qplot(x=city, geom="histogram", data=posts) + coord_flip() + theme_bw() + xlab("City/Region") + ylab("Posts Collected")
+```
+

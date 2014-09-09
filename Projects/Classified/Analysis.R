@@ -1,21 +1,21 @@
 library(RMySQL)
 
-setwd("/home/susan/Documents/R Projects/Craigslist/")
+setwd("./Projects/Classified/")
 library(doMC)
-registerDoMC(8)
-
-# Get updated CL Information
-con <- dbConnect(MySQL(), user="susan", dbname="susan", host="localhost")
-cl <- dbReadTable(con, "craigslist", row.names=0)
-cl <- cl[!is.na(cl$post_id),-1]
-dbDisconnect(con)
-
-posts <- cl
-names(posts) <- gsub("_", ".", names(posts), fixed=TRUE)
-posts <- subset(posts, subcl=="ppp")
-
-# Write to CSV for github replication
-write.csv(posts, "PersonalAdsPost.csv")
+registerDoMC()
+# 
+# # Get updated CL Information
+# con <- dbConnect(MySQL(), user="susan", dbname="susan", host="localhost")
+# cl <- dbReadTable(con, "craigslist", row.names=0)
+# cl <- cl[!is.na(cl$post_id),-1]
+# dbDisconnect(con)
+# 
+# posts <- cl
+# names(posts) <- gsub("_", ".", names(posts), fixed=TRUE)
+# posts <- subset(posts, subcl=="ppp")
+# 
+# # Write to CSV for github replication
+# write.csv(posts, "PersonalAdsPost.csv")
 
 posts <- read.csv("PersonalAdsPost.csv")
 library(lubridate)

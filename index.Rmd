@@ -20,6 +20,8 @@ This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). 
 # CV
 [Here](CV/CV-SusanVanderPlas.pdf) is a link to my current CV/resume. I expect to graduate in Spring 2015 with my PhD in Statistics and am looking for a job that is flexible with regards to geographic location.
 
+# Personal Projects
+* [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html)
 
 # Presentations
 * [The Curse of Three Dimensions: Why Your Brain is Lying To You](Presentations/WhyYourBrainIsLyingToYou/JSM2014.html) - given at JSM 2014. This work won the Graphics section Student Paper Award. More information (and the current paper draft) is available [here](www.github.com/srvanderplas/LieFactorSine/AcmTransactions).
