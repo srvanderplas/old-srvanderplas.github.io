@@ -117,7 +117,7 @@ qplot(post.date2, geom="density", data=posts) +
 
 Data collection was conducted in January, and shortly thereafter I had to do a distribution upgrade on the server and the script was broken afterwards (likely due to formatting changes on the site in question). Once the spring semester started, I didn't have time to fix the script, so we have about 6 weeks worth of data to explore, collected between January 14-15. 
 
-The skewed distribution here is a result of the way the online classified site works: I scraped the top 300 posts from each randomly selected location. In more populated areas, 300 posts might represent an hour or two of posts; in less populated areas, 300 posts might represent an entire month of activity. 
+The skewed distribution here is a result of the way the online classified site works: I scraped the top 300 posts from each randomly selected location. In more populated areas, 300 posts might represent activity from a couple of days; in less populated areas, 300 posts might represent an entire month of activity. 
 
 ```{r postSpan, fig.width=6, fig.height=10}
 library(dplyr)
@@ -147,3 +147,36 @@ When we plot the total number of posts in our database by classified location, w
 qplot(x=city, geom="histogram", data=posts) + coord_flip() + theme_bw() + xlab("City/Region") + ylab("Posts Collected")
 ```
 
+I'm currently re-running the sampling script in the hopes that I can get both a longer time-period (on the order of a month or so of data) and more locales. Hopefully, there will be more data (with a more even distribution) in the next few weeks... then we can finally settle this!
+
+# Words, words, words - Text analysis of posts and titles
+I'll use the tm package to get a sense of the text in the posts.
+```{r textminingsetup}
+library(tm)
+
+# need to clean up text before putting it into tm_map...
+posts$post.text2 <- str_replace_all(posts$post.text, "[\'\"]", "")
+posts$post.text2 <- str_replace_all(posts$post.text2, "[[:punct:]]", " ")
+posts$post.text2 <- str_replace_all(posts$post.text2, "\\n", " ")
+
+# create the corpus
+myCorpus <- Corpus(VectorSource(posts$post.text2))
+
+# transform the content, removing stopwords, numbers, and punctuation
+myCorpus <- tm_map(myCorpus, content_transformer(tolower))
+myCorpus <- tm_map(myCorpus, content_transformer(removePunctuation))
+myCorpus <- tm_map(myCorpus, content_transformer(removeNumbers))
+myStopwords <- stopwords('english')
+myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
+dict <- unlist(lapply(tolower(posts$post.text2), strsplit, " "))
+dict.table <- table(dict)
+dict.table <- dict.table[order(dict.table, decreasing=TRUE)]
+
+# Most common words: 
+dict.table[1:100]
+# conclusion: we need to remove stopwords. 
+
+# Create a DocumentTermMatrix 
+myDtm <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf)))
+findFreqTerms(myDtm, lowfreq=500)
+```

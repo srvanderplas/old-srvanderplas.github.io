@@ -39,22 +39,22 @@ qplot(posts$post.time)
 qplot(wday(posts$post.date2, label=TRUE, abbr=TRUE)) + xlab("Day Posted")
 
 
-# Map of lower 48 Craigslist proximity regions
-load("CLPolygons.rda")
-library(ggplot2)
-library(maps)
-#load us map data
-states <- map_data("state")
-
-# CraigslistPolygons$fill <- as.numeric(as.factor(CraigslistPolygons$craigslist))%%15
+# # Map of lower 48 Craigslist proximity regions
+# load("CLShapes.RData")
+# library(ggplot2)
+# library(maps)
+# #load us map data
+# states <- map_data("state")
+# 
+# CraigslistShapes$fill <- as.numeric(as.factor(CraigslistShapes$craigslist))%%15
 # ggplot() + 
-#   geom_polygon(data=states, aes(x=long, y=lat, group=group), fill="white", colour="black")  + 
+# #   geom_polygon(data=states, aes(x=long, y=lat, group=group), fill="white", colour="black")  + 
 #   coord_map() +
-#   geom_polygon(data=CraigslistPolygons, 
+#   geom_polygon(data=CraigslistShapes, 
 #                aes(x=x, y=y, group=group, fill=factor(fill)), alpha=.25) +
 #   scale_fill_discrete(guide="none") + 
 #   ylim(c(25, 50)) + xlim(c(-125, -65))
-
+# 
 
 library(tm)
 # need to clean up text before putting it into tm_map...
