@@ -32,7 +32,7 @@ This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). 
 
 
 # Other Links
-I add to these when I get a chance; most recently, I was exploring shiny extensions. 
+I add to these when I get a chance; most recently, I was exploring shiny extensions in preparation for teaching a workshop on Shiny. 
 
 ## Awesome packages: 
 - [shinyTable](https://github.com/trestletech/shinyTable): implements [Handsontable](http://handsontable.com/) for shiny, providing a spreadsheet-like editor in a web browser (data can then be read into R)
