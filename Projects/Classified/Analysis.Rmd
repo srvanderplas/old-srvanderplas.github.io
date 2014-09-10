@@ -161,6 +161,7 @@ library(tm)
 posts$post.text2 <- str_replace_all(posts$post.text, "[\'\"]", "")
 posts$post.text2 <- str_replace_all(posts$post.text2, "[[:punct:]]", " ")
 posts$post.text2 <- str_replace_all(posts$post.text2, "\\n", " ")
+posts$post.text2 <- str_replace_all(posts$post.text2, "[[:digit:]]", " ")
 
 # create the corpus
 myCorpus <- Corpus(VectorSource(posts$post.text2))
@@ -232,4 +233,33 @@ Another appearance-related term; its associations will probably not surprise you
 findAssocs(myDtm, "thick", .1)
 ```
 
-We will move on to more sophisticated analyses eventually. 
+
+## Topic Modeling
+
+```{r topicmodeling}
+library(topicmodels)
+library(LDAtools)
+
+# Use a stemmed DTM for this part
+stem.corpus <- tm_map(myCorpus, stemDocument)
+stem.dtm <- DocumentTermMatrix(stem.corpus)
+
+# Remove sparse terms
+
+dtm.common <- removeSparseTerms(stem.dtm, 0.95)
+
+# Carson's steps (https://github.com/cpsievert/cpsievert.github.com/blob/master/projects/615/xkcd/fitLDA.R)
+
+doc.id <- rep(dtm.common$i, dtm.common$v)
+word.id <- rep(dtm.common$j, dtm.common$v)
+n.iter <- 1000
+ks <- seq(5, 50, by=5)
+res <- NULL
+ctr <- 1
+for(i in ks){
+  res[[ctr]] <- fitLDA(word.id, doc.id, k=i, n.chains=3, n.iter=n.iter, alpha=25/i, beta=0.1)
+}
+
+# Start with the 9 sub-boards for posting classifieds
+model <- LDA(as.TermDocumentMatrix(dtm.common), k=9)
+```
