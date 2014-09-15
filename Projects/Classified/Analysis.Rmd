@@ -234,32 +234,65 @@ findAssocs(myDtm, "thick", .1)
 ```
 
 
-## Topic Modeling
+## Measuring Dirty Words
 
-```{r topicmodeling}
-library(topicmodels)
-library(LDAtools)
+### Is there a dictionary for this kind of thing?
 
-# Use a stemmed DTM for this part
-stem.corpus <- tm_map(myCorpus, stemDocument)
-stem.dtm <- DocumentTermMatrix(stem.corpus)
+Yes, yes, there is. In fact, I think there are many. I'd like to avoid scraping UrbanDictionary, however, so we'll go with the (current) [first search hit](http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true) on google for "dirty words dictionary". 
 
-# Remove sparse terms
+```{r dirtywords}
 
-dtm.common <- removeSparseTerms(stem.dtm, 0.95)
+url <- "http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true"
 
-# Carson's steps (https://github.com/cpsievert/cpsievert.github.com/blob/master/projects/615/xkcd/fitLDA.R)
+library(scrapeR)
+library(stringr)
 
-doc.id <- rep(dtm.common$i, dtm.common$v)
-word.id <- rep(dtm.common$j, dtm.common$v)
-n.iter <- 1000
-ks <- seq(5, 50, by=5)
-res <- NULL
-ctr <- 1
-for(i in ks){
-  res[[ctr]] <- fitLDA(word.id, doc.id, k=i, n.chains=3, n.iter=n.iter, alpha=25/i, beta=0.1)
-}
+site <- scrape(url)[[1]]
 
-# Start with the 9 sub-boards for posting classifieds
-model <- LDA(as.TermDocumentMatrix(dtm.common), k=9)
+defs <- tolower(sapply(getNodeSet(site, "//*[@id='BlogsBlogPost']/div[1]/div[2]/p"), xmlValue))
+defs <- subset(defs, nchar(defs)>3)
+defs <- defs[!grepl("jump to:", defs)]
+
+sex.synonyms <- defs[grepl("sex: ask your mother.", defs)]
+defs <- defs[-grepl("sex: ask your mother.", defs)]
+
+guy.stuff <- gsub("^\\s|(\\.\\.\\.)", "", paste(unlist(str_split(gsub("^[[:alpha:]]:", "", defs[grepl("^[[:alpha:]]:", defs)]), pattern = ", ")), ": male masturbation", sep=""))
+defs <- defs[!grepl("^[[:alpha:]]:", defs)]
+
+
+problem.entries <- subset(defs, str_count(defs, ":")>1)
+
+# Fix entries with synonyms at the end by repeating the definition and adding a new line for each synonym. (Not perfect, but it'll do)
+synonyms <- problem.entries[grepl("(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", problem.entries)]
+problem.entries <- problem.entries[!grepl("(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", problem.entries)]
+
+term <- str_split(word(synonyms, sep="(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", start=-1), ",")
+term.def <- str_replace(word(synonyms, sep=":", 2), "(synonym(s)?(y)?)|(variation(s)?)|(related to)|(similar( to)?)|(also)", "")
+synonyms.fixed <- gsub("\\.:", ":", unlist(lapply(1:length(term), function(i) paste0(str_replace(unlist(term[i]), "^(\\s)+|\\.$", ""), ":", term.def[i]))))
+synonyms.fixed <- synonyms.fixed[!grepl("^:", synonyms.fixed)]
+synonyms.fixed <- gsub(":$", "", synonyms.fixed)
+rm(term, term.def)
+
+# Remove "origins" at the end of definition
+origins <- problem.entries[grepl("origins:", problem.entries)]
+origins <- word(origins, sep="origin")
+problem.entries <- problem.entries[!grepl("origins:", problem.entries)]
+
+# Remove other addenda
+problem.entries <- word(problem.entries, sep="usage:")
+problem.entries <- word(problem.entries, sep="antonym(s)?:")
+problem.entries <- word(problem.entries, sep="pop-culture reference(s)?:")
+problem.entries <- word(problem.entries, sep="quote:")
+problem.entries <- word(problem.entries, sep="see:")
+problem.entries <- word(problem.entries, sep=": see")
+problem.entries <- word(problem.entries, sep="history: ")
+
+# Split definitions that aren't separated
+notseparated <- problem.entries[grepl("\\.\\w*( \\w*)?:", problem.entries)]
+problem.entries <- problem.entries[!grepl("\\.\\w*( \\w*)?:", problem.entries)]
+
+notseparated <- c(word(notseparated, sep="\\.\\w*( \\w*)?:"), gsub("^\\.", "", str_extract(notseparated, "\\.\\w*( \\w*)?:.*$")))
+
+# Combine everything together again: 
 ```
+
