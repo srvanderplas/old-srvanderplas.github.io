@@ -39,6 +39,8 @@ I add to these when I get a chance; most recently, I was exploring shiny extensi
 
 - [shinyRGL](https://github.com/trestletech/shinyRGL): provides webGL bindings, so that 3D graphics can be manipulated within shiny apps. Somewhat more difficult to set up the shiny-server backend, but still a very neat effect. 
 
+- shinyBS package: Make bootstrap work nicely with Shiny and allows modal windows that are overlays. Good for documentation - help files show up elsewhere. 
+
 
 
 ### Shiny library extensions: 
