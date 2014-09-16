@@ -29,7 +29,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.8.9/jquery.magnific-popup.min.js"></script>
   
   <script type="text/javascript"
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
   <script defer="defer">
   // Function to generate the dynamic table of contents
@@ -1028,6 +1028,7 @@ I'll use the tm package to get a sense of the text in the posts. We'll start by 
 posts$post.text2 <- str_replace_all(posts$post.text, "[\'\"]", "")
 posts$post.text2 <- str_replace_all(posts$post.text2, "[[:punct:]]", " ")
 posts$post.text2 <- str_replace_all(posts$post.text2, "\\n", " ")
+posts$post.text2 <- str_replace_all(posts$post.text2, "[[:digit:]]", " ")
 
 # create the corpus
 myCorpus <- Corpus(VectorSource(posts$post.text2))
@@ -1039,7 +1040,7 @@ dict.table <- dict.table[order(dict.table, decreasing=TRUE)]
 # Most common words: 
 names(dict.table[1:20])</code></pre><button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">##  [1] ""        "and"     "to"      "a"       "i"       "you"     "for"     "the"     "looking" "in"      "me"      "im"      "be"      "with"   
+</button><pre style=""><code class="output r">##  [1] ""        "and"     "to"      "a"       "i"       "you"     "for"     "the"     "in"      "looking" "me"      "im"      "be"      "with"   
 ## [15] "or"      "if"      "have"    "your"    "of"      "am"
 </code></pre><button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
@@ -1065,23 +1066,24 @@ findFreqTerms(myDtm, lowfreq=800) # terms in at least 800 posts (total)</code></
 ##  [19] "can"          "cant"         "care"         "clean"        "cock"         "come"         "contact"      "couple"       "cum"         
 ##  [28] "cut"          "day"          "ddf"          "dick"         "discreet"     "discrete"     "disease"      "dont"         "email"       
 ##  [37] "enjoy"        "even"         "eyes"         "face"         "feel"         "female"       "find"         "first"        "fit"         
-##  [46] "free"         "friend"       "friends"      "fuck"         "fun"          "get"          "gets"         "getting"      "girl"        
-##  [55] "give"         "go"           "going"        "good"         "got"          "great"        "guy"          "guys"         "hair"        
-##  [64] "hard"         "head"         "hear"         "help"         "hey"          "hi"           "hit"          "home"         "hope"        
-##  [73] "horny"        "host"         "hot"          "hung"         "hwp"          "ill"          "im"           "interested"   "ive"         
-##  [82] "just"         "know"         "lady"         "lbs"          "let"          "lets"         "life"         "like"         "line"        
-##  [91] "little"       "live"         "long"         "look"         "looking"      "love"         "make"         "male"         "man"         
-## [100] "married"      "maybe"        "meet"         "men"          "message"      "mine"         "mouth"        "much"         "must"        
-## [109] "need"         "never"        "new"          "nice"         "night"        "now"          "nsa"          "number"       "old"         
-## [118] "older"        "one"          "open"         "oral"         "people"       "person"       "pic"          "pics"         "picture"     
-## [127] "place"        "play"         "please"       "prefer"       "pussy"        "put"          "race"         "ready"        "real"        
-## [136] "really"       "relationship" "reply"        "respond"      "right"        "safe"         "see"          "seeking"      "send"        
-## [145] "serious"      "sex"          "sexy"         "shape"        "single"       "size"         "someone"      "something"    "soon"        
-## [154] "spam"         "stats"        "still"        "straight"     "subject"      "suck"         "take"         "talk"         "tall"        
-## [163] "tell"         "text"         "thanks"       "thats"        "thick"        "thing"        "things"       "think"        "time"        
-## [172] "today"        "together"     "tonight"      "top"          "travel"       "try"          "two"          "type"         "ur"          
-## [181] "us"           "wanna"        "want"         "wants"        "watch"        "way"          "well"         "white"        "will"        
-## [190] "willing"      "woman"        "women"        "work"         "year"         "years"        "young"        "younger"      "youre"
+##  [46] "five"         "free"         "friend"       "friends"      "fuck"         "fun"          "get"          "gets"         "getting"     
+##  [55] "girl"         "give"         "go"           "going"        "good"         "got"          "great"        "guy"          "guys"        
+##  [64] "hair"         "hard"         "head"         "hear"         "help"         "hey"          "hi"           "hit"          "home"        
+##  [73] "hope"         "horny"        "host"         "hot"          "hung"         "hwp"          "ill"          "im"           "interested"  
+##  [82] "ive"          "just"         "know"         "lady"         "lbs"          "let"          "lets"         "life"         "like"        
+##  [91] "line"         "little"       "live"         "long"         "look"         "looking"      "love"         "make"         "male"        
+## [100] "man"          "married"      "maybe"        "meet"         "men"          "message"      "mine"         "mouth"        "much"        
+## [109] "must"         "need"         "never"        "new"          "nice"         "night"        "now"          "nsa"          "number"      
+## [118] "old"          "older"        "one"          "open"         "oral"         "people"       "person"       "pic"          "pics"        
+## [127] "picture"      "place"        "play"         "please"       "prefer"       "pussy"        "put"          "race"         "ready"       
+## [136] "real"         "really"       "relationship" "reply"        "respond"      "right"        "safe"         "see"          "seeking"     
+## [145] "send"         "serious"      "sex"          "sexy"         "shape"        "single"       "size"         "someone"      "something"   
+## [154] "soon"         "spam"         "stats"        "still"        "straight"     "subject"      "suck"         "take"         "talk"        
+## [163] "tall"         "tell"         "text"         "thanks"       "thats"        "thick"        "thing"        "things"       "think"       
+## [172] "time"         "today"        "together"     "tonight"      "top"          "travel"       "try"          "two"          "type"        
+## [181] "ur"           "us"           "wanna"        "want"         "wants"        "watch"        "way"          "well"         "white"       
+## [190] "will"         "willing"      "woman"        "women"        "work"         "year"         "years"        "young"        "younger"     
+## [199] "youre"
 </code></pre></div>
 
 <h2 id="word-associations">Word Associations</h2>
@@ -1196,8 +1198,7 @@ Personal Ads are known for using abbreviations (even when space isn't restricted
 </code></pre></div>
 <p>Odd; seems that it's associated with &quot;fwb&quot; (friends with benefits) and many words that appear to be concatenated - &quot;earlythree&quot;, &quot;andnine&quot;, etc.</p>
 A few terms chosen to be a bit superficial (weight, appearance, etc.)
-<div class="row">
-<button class="source R toggle btn btn-xs btn-primary">
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
 </button><pre style="display:none"><code class="source r">findAssocs(myDtm, "lbs", .1)</code></pre><button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
@@ -1211,8 +1212,7 @@ A few terms chosen to be a bit superficial (weight, appearance, etc.)
 </code></pre></div>
 <p>Ok, posts with &quot;lbs&quot; also specify appearance. That makes sense.</p>
 Another appearance-related term; its associations will probably not surprise you.
-<div class="row">
-<button class="source R toggle btn btn-xs btn-primary">
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
 </button><pre style="display:none"><code class="source r">findAssocs(myDtm, "thick", .1)</code></pre><button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
@@ -1220,14 +1220,82 @@ Another appearance-related term; its associations will probably not surprise you
 ## cock    0.16
 ## cut     0.12
 ## inches  0.12
-## inch    0.10
 </code></pre></div>
 
-We will move on to more sophisticated analyses eventually.
-</div>
-</div>
-<div class="navbar navbar-fixed-bottom navbar-inverse">
-<div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+
+<h2 id="measuring-dirty-words">Measuring Dirty Words</h2>
+<h3 id="is-there-a-dictionary-for-this-kind-of-thing">Is there a dictionary for this kind of thing?</h3>
+<p>Yes, yes, there is. In fact, I think there are many. I'd like to avoid scraping UrbanDictionary, however, so we'll go with the (current) <a href="http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true">first search hit</a> on google for &quot;dirty words dictionary&quot;.</p>
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># Scrape Dirty Words list
+
+url <- "http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true"
+
+library(scrapeR)
+library(stringr)
+
+site <- scrape(url)[[1]]
+
+defs <- tolower(sapply(getNodeSet(site, "//*[@id='BlogsBlogPost']/div[1]/div[2]/p"), xmlValue))
+defs <- subset(defs, nchar(defs)>3)
+defs <- defs[!grepl("jump to:", defs)]
+
+sex.synonyms <- defs[grepl("sex: ask your mother.", defs)]
+defs[grepl("sex: ask your mother.", defs)] <- "sex: ask your mother. apparently she is an expert on the subject."
+sex.synonyms <- gsub("sex: ask your mother. apparently she is an expert on the subject. sex.synonyms: ", "", sex.synonyms)
+sex.synonyms <- str_split(sex.synonyms, pattern="(([[:alpha:]]|#): )|(, )")[[1]]
+sex.synonyms <- sex.synonyms[!grepl(":", sex.synonyms) & nchar(sex.synonyms)>1]
+sex.synonyms <- paste0(sex.synonyms, ": sex")
+
+guy.stuff <- gsub("^\\s|(\\.\\.\\.)", "", paste(unlist(str_split(gsub("^[[:alpha:]]:", "", defs[grepl("^[[:alpha:]]:", defs)]), pattern = ", ")), ": male masturbation", sep=""))
+defs <- defs[!grepl("^[[:alpha:]]:", defs)]
+
+girl.stuff <- paste0(str_trim(str_split(word(defs[grepl("—female ", defs)], sep=":", 2), ",")[[1]]), ": ", "female masturbation")
+defs <- defs[!grepl("—female ", defs)]
+
+
+problem.entries <- subset(defs, str_count(defs, ":")>1)
+
+# Fix entries with synonyms at the end by repeating the definition and adding a new line for each synonym. (Not perfect, but it'll do)
+synonyms <- problem.entries[grepl("(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", problem.entries)]
+problem.entries <- problem.entries[!grepl("(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", problem.entries)]
+
+term <- str_split(word(synonyms, sep="(synonym(s)?(y)?:)|(variation(s)?:)|(related to:)|(similar( to)?:)|(also:)", start=-1), ",")
+term.def <- str_replace(word(synonyms, sep=":", 2), "(synonym(s)?(y)?)|(variation(s)?)|(related to)|(similar( to)?)|(also)", "")
+synonyms.fixed <- gsub("\\.:", ":", unlist(lapply(1:length(term), function(i) paste0(str_replace(unlist(term[i]), "^(\\s)+|\\.$", ""), ":", term.def[i]))))
+synonyms.fixed <- synonyms.fixed[!grepl("^:", synonyms.fixed)]
+synonyms.fixed <- gsub(":$", "", synonyms.fixed)
+rm(term, term.def)
+
+# Remove "origins" at the end of definition
+origins <- problem.entries[grepl("origins:", problem.entries)]
+origins <- word(origins, sep="origin")
+problem.entries <- problem.entries[!grepl("origins:", problem.entries)]
+
+# Remove other addenda
+problem.entries <- word(problem.entries, sep="usage:")
+problem.entries <- word(problem.entries, sep="antonym(s)?:")
+problem.entries <- word(problem.entries, sep="pop-culture reference(s)?:")
+problem.entries <- word(problem.entries, sep="quote:")
+problem.entries <- word(problem.entries, sep="see:")
+problem.entries <- word(problem.entries, sep=": see")
+problem.entries <- word(problem.entries, sep="history: ")
+
+# Split definitions that aren't separated
+notseparated <- problem.entries[grepl("\\.\\w*( \\w*)?:", problem.entries)]
+problem.entries <- problem.entries[!grepl("\\.\\w*( \\w*)?:", problem.entries)]
+
+notseparated <- c(word(notseparated, sep="\\.\\w*( \\w*)?:"), gsub("^\\.", "", str_extract(notseparated, "\\.\\w*( \\w*)?:.*$")))
+
+defs2 <- c(defs, synonyms, synonyms.fixed, sex.synonyms, girl.stuff, guy.stuff, origins, problem.entries)
+rm(list=ls()[ls()!="defs2"])
+
+df <- data.frame(word = word(defs2, sep=":", 1))
+df$definition <- str_replace(defs2, paste0(df$word, ":"), "")</code></pre></div>
+</div></div>
+<div class="navbar navbar-fixed-bottom navbar-inverse"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 </button></div>
 <div id="bottom-navbar" class="navbar-collapse collapse navbar-responsive-collapse"><ul class="nav navbar-nav navbar-right"><li class="nav"><p class="navbar-text">
@@ -1238,7 +1306,7 @@ Toggle
 <ul class="dropdown-menu"><li class="dropdown-header">
 Languages
 </li>
-<li class="active">
+<li >
 <a href="#" class="toggle-global source R" type="source.R">R</a>
 </li>
 <li >
