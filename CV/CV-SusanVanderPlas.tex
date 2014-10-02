@@ -1,7 +1,8 @@
 \documentclass[10pt]{tccv}
 \usepackage[english]{babel}
-\usepackage{cite}
-\usepackage{xstring}
+\usepackage[nosort]{cite}
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
 \nocite{*}
 \def\FormatMaidenName#1{%
   \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
@@ -45,7 +46,6 @@
 
 \part{Susan VanderPlas}
 
-
 \personal
     [https://github.com/srvanderplas]
     {802 17th St, Auburn, NE 68305}
@@ -58,7 +58,7 @@
 
 \item{2011-2015*}
      {Ph.D. in Statistics}
-     {Iowa State University}
+     {\begin{minipage}{.3125\textwidth}\textsc{\small The Perception of Statistical Graphics}\\ Iowa State University\end{minipage}}
 
 \item{2009-2011}
      {M.S. in Statistics}
@@ -84,10 +84,10 @@ Familiar with RStudio's Shiny web applet framework, d3 interactive graphics, use
 
 \section{Awards}
 \begin{factlist}[leftmargin=.1cm,itemindent=.1cm,labelwidth=\itemindent,labelsep=.1cm]\itemsep-2pt
-\item[ASA Student Paper Award] Graphics section
+\item[ASA Student Paper Award (Graphics)] 2013
 \item[NSF IGERT Fellowship] 2009-2011
-\item[Texas A\&M] Foundation, University, Liberal Arts, Psychology, and Math Honors
-\item[Research Fellow] Texas A\&M, 2009
+\item[Texas A\&M] Foundation, University, Liberal Arts, Psychology, and Mathematics Honors
+\item[Ugrad. Research Fellow] Texas A\&M, 2009
 \item[University Scholar] Texas A\&M, 2006-2009
 \item[Astronaut Scholar] 2009
 \item[President's Endowed Scholarship] 2005-2009
@@ -106,7 +106,7 @@ Familiar with RStudio's Shiny web applet framework, d3 interactive graphics, use
 % Description
 
 \item{Summer 2012-Present}{Iowa State University}{Ph.D. Research}{
-Designed and analyzed experiments to understand human perception of statistical graphics. Optimized graphics to clearly communicate statistical results and counteract perceptual biases identified during experiments.\cite{sineillusionjcgs,jsm2014,jsm2014userpanel,jsm2013}}
+Designed and analyzed experiments to understand human perception of statistical graphics. Optimized graphics to clearly communicate statistical results and counteract perceptual biases identified during experiments. Explored the hierarchy of graphical features, how visual reasoning abilities relate to the ability to understand charts, and the occurrence of optical illusions in statistical graphics. \cite{sineillusionjcgs,jsm2014,jsm2014userpanel,jsm2013}}
 
 \item{Fall 2013-Present}{USDA and ISU Statistics}{Research Assistant}{
 Analyzed large quantities of soybean genetics data to identify inheritance, important genes, and copy number variation. Created interactive applets presenting the data along with graphics designed to encourage biologists to explore the results. Assembled a database of known soybean parentage to facilitate further research and wrote code to efficiently search the database to identify the lineage of any variety in the database. }
@@ -124,8 +124,8 @@ Created and redesigned web-based applets to teach statistical techniques interac
 \item{Summer 2013, 2014}{R Project}{Google Summer of Code}{
 Worked to develop the \texttt{animint} package for R to translate ggplot2 into d3 interactive JavaScript graphics. Participated in the project in 2013, adding support for all ggplot2 geoms as well as most scales and axes. Returned to serve as a mentor for the project in 2014. \cite{gprug2014}}
 
-\item{Fall 2011, 2012, Spring 2013}{ISU Statistics}{Teaching Assistant}{
-Created interesting and relevant lab materials and demonstrated statistical methodology to undergraduate and graduate students in business, biology, social sciences, and engineering along with the use of statistical software (R, SAS, and JMP). Taught lab sections for business and graduate statistics in the social sciences.}
+\item{Fall 2011 - Spring 2013}{ISU Statistics}{Teaching Assistant}{
+Created interesting and relevant lab materials and demonstrated statistical methodology to undergraduate and graduate students in business, biology, social sciences, and engineering along with the use of statistical software (R, SAS, and JMP).}
 
 \item{Jan-Aug 2012}{Iowa DOT and ISU Statistics}{Research Assistant}{
 Developed a hierarchical Bayesian model to determine the effectiveness of road interventions on traffic accidents and fatalities. Discovered a previously unknown error in the available data that was used in prior analyses using exploratory techniques, and developed a method to compensate for missing data. }
@@ -142,9 +142,10 @@ Created a mathematical model describing electrical impulse transmission and deca
 
 \vspace{4.5in}
 \section{Publications \& Presentations}
-\bibliographystyle{myacm}
+\bibliographystyle{myunsrt}
 \bibliography{papers,presentations}
 \nocite{*}
+
 \end{document}
 
 % 
