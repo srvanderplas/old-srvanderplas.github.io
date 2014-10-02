@@ -1,8 +1,14 @@
 \documentclass[10pt]{tccv}
 \usepackage[english]{babel}
 \usepackage{cite}
+\usepackage{xstring}
 \nocite{*}
-
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
 % Color combination: 0099cc, ccffcc, 66ccff, 003399
 
 
@@ -70,13 +76,13 @@ Experience with linear, generalized, and mixed models as well as bayesian regres
 \paragraph{\textbf{Statistical Software}}
 R (programming, graphics, package development), SAS (for linear and mixed models), JMP (for basic analysis and data mining)\vspace{-6pt}
 \paragraph{\textbf{Programming and Database Software}}
-C and C++, with integration of binary files into R programs; JavaScript, git, SQL and MySQL.\vspace{-6pt}
+C and C++, with integration of binary files into R programs; JavaScript, git, SQL and MySQL. Some python for web scraping. \vspace{-6pt}
 \paragraph{\textbf{Web Development}}
 Familiar with RStudio's Shiny web applet framework, d3 interactive graphics, use of knitr and pandoc to integrate code and documentation in R, Apache and MySQL web server configuration and administration.\vspace{-6pt}
-\paragraph{\textbf{Other}}
-Proficient in Word, Powerpoint, and Excel, as well as LaTeX. Familiar with Linux and Windows, as well as computer hardware. 
+% \paragraph{\textbf{Other}}
+% Proficient in Word, Powerpoint, and Excel, as well as LaTeX. Familiar with Linux and Windows, as well as computer hardware. 
 
-\section{Awards and Grants}
+\section{Awards}
 \begin{factlist}[leftmargin=.1cm,itemindent=.1cm,labelwidth=\itemindent,labelsep=.1cm]\itemsep-2pt
 \item[ASA Student Paper Award] Graphics section
 \item[NSF IGERT Fellowship] 2009-2011
@@ -105,7 +111,7 @@ Designed and analyzed experiments to understand human perception of statistical 
 \item{Fall 2013-Present}{USDA and ISU Statistics}{Research Assistant}{
 Analyzed large quantities of soybean genetics data to identify inheritance, important genes, and copy number variation. Created interactive applets presenting the data along with graphics designed to encourage biologists to explore the results. Assembled a database of known soybean parentage to facilitate further research and wrote code to efficiently search the database to identify the lineage of any variety in the database. }
 
-\item{Fall 2012-Present}{}{Informal Consulting}{Provided informal statistical advice to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answed questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
+\item{Fall 2012-Present}{}{Consulting}{Provided statistical advice to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answed questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
 
 \item{Spring 2013-Present}{ISU Statistics}{R Course Instructor}{
 Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with plyr, reshape2, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny. }
@@ -115,12 +121,11 @@ Created and redesigned web-based applets to teach statistical techniques interac
 
 \item{Fall 2013-Spring 2013}{Iowa State}{Consulting}{Provided modeling advice and statistical expertise to aerospace engineering professsors conducting research on teaching methods.}
 
-
 \item{Summer 2013, 2014}{R Project}{Google Summer of Code}{
 Worked to develop the \texttt{animint} package for R to translate ggplot2 into d3 interactive JavaScript graphics. Participated in the project in 2013, adding support for all ggplot2 geoms as well as most scales and axes. Returned to serve as a mentor for the project in 2014. \cite{gprug2014}}
 
 \item{Fall 2011, 2012, Spring 2013}{ISU Statistics}{Teaching Assistant}{
-Created interesting and relevant lab materials and demonstrated statistical methodology to undergraduate and graduate students in business, biology, and engineering along with the use of statistical software (R, SAS, and JMP). }
+Created interesting and relevant lab materials and demonstrated statistical methodology to undergraduate and graduate students in business, biology, social sciences, and engineering along with the use of statistical software (R, SAS, and JMP). Taught lab sections for business and graduate statistics in the social sciences.}
 
 \item{Jan-Aug 2012}{Iowa DOT and ISU Statistics}{Research Assistant}{
 Developed a hierarchical Bayesian model to determine the effectiveness of road interventions on traffic accidents and fatalities. Discovered a previously unknown error in the available data that was used in prior analyses using exploratory techniques, and developed a method to compensate for missing data. }
@@ -137,7 +142,7 @@ Created a mathematical model describing electrical impulse transmission and deca
 
 \vspace{4.5in}
 \section{Publications \& Presentations}
-\bibliographystyle{plain}
+\bibliographystyle{myacm}
 \bibliography{papers,presentations}
 \nocite{*}
 \end{document}
