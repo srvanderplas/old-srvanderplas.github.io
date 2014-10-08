@@ -901,7 +901,7 @@ library(ggplot2)</code></pre></div>
 <button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
 </button><pre style="display:none"><code class="source r"># Read in the data
-posts <- read.csv("PersonalAdsPost.csv", row.names=1)
+posts <- read.csv("PersonalAdsPost.csv", row.names=1, stringsAsFactors=FALSE)
 
 # strip timezone information
 posts$timezone <- str_sub(posts$post.date, -5, -1)
@@ -1170,7 +1170,7 @@ I also wonder if &quot;married&quot; is going to be as confusing as &quot;single
 ## just            0.10
 ## kids            0.10
 </code></pre></div>
-<p>Ok, so &quot;married&quot; isn't quite as confusing, even if people can't spell &quot;discrete&quot;.</p>
+<p>Ok, so &quot;married&quot; isn't quite as confusing.</p>
 Personal Ads are known for using abbreviations (even when space isn't restricted, as is the case online). &quot;nsa&quot; stands for &quot;No Strings Attached&quot; - let's see what it's associated with (we won't have the resolution necessary to determine whether it's associated with the National Security Administration).
 <div class="row"><button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
@@ -1223,11 +1223,110 @@ Another appearance-related term; its associations will probably not surprise you
 </code></pre></div>
 
 
+<h2 id="generating-classified-posts-pictures-not-included">Generating Classified Posts (pictures not included!)</h2>
+<p>We can use our posts to generate new posts as well. Using n-grams (strings of <span class="math"><em>n</em></span> words), we can generate new posts that are based on the conditional probability that &quot;this&quot; follows &quot;that&quot;.</p>
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">library(ngram)
+
+post.len <- as.numeric(sapply(as.character(posts$post.text), wordcount))
+
+# Fix punctuation, then collapse all posts into a single string
+babble.text <- str_replace_all(posts$post.text, "http:\\\\[a-zA-Z1-9]{1,}\\.[a-zA-Z]{1,4}", " ")
+babble.text <- str_replace_all(babble.text, "([\\.,\\?!\\()]{1,})", " \\1 ")
+babble.text <- str_replace_all(babble.text, "\\n", " ")
+babble.text <- tolower(babble.text)
+babble.text <- str_replace_all(babble.text, "( ){2,}", " ")
+babble.text <- paste("  BEGIN ", babble.text)
+babble.text <- paste("  END ", babble.text)
+babble.text <- concat(babble.text, collapse = " ")
+
+# preprocess text
+babble.text <- preprocess(babble.text, case=NULL)
+
+# Create 2-grams
+ngram.res <- ngram(babble.text, n=2)
+
+# Looking at the object
+print(ngram.res, output="truncated")</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">## case solved 
+## ! {1} | 
+## 
+## hubby's i 
+## have {1} | 
+## 
+## alcohol ok 
+## . {1} | 
+## 
+## get peed 
+## on {1} | 
+## 
+## but in 
+## case {1} | a {3} | the {2} | an {2} | bed {2} | descent {2} | need {2} | all {2} | need {2} | good {2} | the {2} | it {2} | there {2} | a {2} | the {2} | an {2} | reality {2} | all {2} | case {2} | reality {2} | need {2} | a {2} | time {2} | this {2} | all {2} | the {2} | all {2} | a {2} | honesty {2} | different {2} | reality {2} | good {2} | return {2} | a {2} | time {2} | reality {2} | all {2} | an {2} | my {2} | all {2} | shape {2} | ! {2} | truth {2} | the {2} | desperate {1} | 
+## 
+## [[ ... results truncated ... ]]
+</code></pre><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># Generate a new ad with 200 words
+babble(ngram.res, 200)</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">## [1] "question yourself as a short attention span to make women cum if you're serious bout cumming by and have few extra pounds that i'm working till then don't message with just one mwf that is mind blowing head , big smile ) because if you have an awesome new year and i won't send a pic lets go to work . END BEGIN mwm mid 40's , discreet , fit , and puts their partner's needs and contact info . i reach the top and or sucking cock . 6'2 265 brown hair , blue eyes . looking for a man with a really great sex then reply , i am relaxed and comfortable with your see through societal norms foisted upon us made it that way . of course the vision to know anything about yourself , ill pleasure you if it feels a little brighter for her . should be codependent so that i get one . someone who actually likes to get you . reply withkittycat in the subject line so i don't care if you are interested in all ways till they shoot their hot load in my 50s , professional and personal and intimate relationship "
+</code></pre><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># Want to ensure complete sentances (not like the originals) and also break ngrams apart by BEGIN and END
+fix.babble <- function(text){
+  gen.posts <- str_trim(str_split(text, "END BEGIN")[[1]])
+  gen.posts <- gen.posts[-c(1,length(gen.posts))]
+  fixed <- str_replace_all(gen.posts, " ([\\.,\\?!\\()]{1,}) ", "\\1 ")
+  return(fixed)
+}
+
+tmp <- babble(ngram.res, 1000)
+# tmp
+fix.babble(tmp)[1:2]</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">## [1] "_____________________________________________________________________________________"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+## [2] "male young bubble booty, huge 8-9\" cock looking for serious men only!!! 32y/o pix for interested in pic. put \"i want to get close with.... we could meet up get some while he's driving, got any ideas hit me up. pics and if things work out every weekend new people see what happens in the sub is white, asian are italian indian or afican please no gay men that are clean and disease free. dont mind hanging out. i kept forgeting things lol the benifits part, but most of the more we just have to pay. i just have a nice big dick. i know what ya want. send stats and exactly want you can even play some pool or something and the dui's 10. 5 inch cock and cum... then age shouldnt matter. looking for a reg thing, or are scared of relationships that did it. if this sounds like something real that may want to have it all. i'd like to meet you anywhere you want to start the new policies, overreaches into the gay scene and decided that she shares with those who send clear & recent facepix get priority response. mobile and i will make some plans 4 4 zero"
+</code></pre></div>
+<p>Not awful, but we can do better. Let's repeat this using 3-grams.</p>
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># Create 3-grams
+ngram.res <- ngram(babble.text, n=3)
+
+# Looking at the object
+print(ngram.res, output="truncated")</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">## thick cock lot 
+## cum {1} | 
+## 
+## you now !! 
+## no {1} | 
+## 
+## , 25 or 
+## older {1} | 
+## 
+## will be sucked 
+## your {1} | 
+## 
+## because listening to 
+## you {1} | 
+## 
+## [[ ... results truncated ... ]]
+</code></pre><button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r"># Generate a new sequence of 1000 words
+fix.babble(babble(ngram.res, 1000))[1:2]</code></pre><button class="output R toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> R output
+</button><pre style=""><code class="output r">## [1] "i need a girl to hookup with hot younger bi/straight men in town... max of 30 min of 18" 
+## [2] "36 bimarried thin gl ddfree looking for fun and conversation nsa. am looking to travel ."
+</code></pre></div>
+
 <h2 id="measuring-dirty-words">Measuring Dirty Words</h2>
 <h3 id="is-there-a-dictionary-for-this-kind-of-thing">Is there a dictionary for this kind of thing?</h3>
-<p>Yes, yes, there is. In fact, I think there are many. I'd like to avoid scraping UrbanDictionary, however, so we'll go with the (current) <a href="http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true">first search hit</a> on google for &quot;dirty words dictionary&quot;.</p>
-<div class="row">
-<button class="source R toggle btn btn-xs btn-primary">
+<p>Yes, yes, there is. In fact, I think there are many. In an effort to avoid scraping UrbanDictionary, we'll go with the (current) <a href="http://cltampa.com/dailyloaf/archives/2012/09/16/dirty-sex-dictionary?showFullText=true">first search hit</a> on google for &quot;dirty words dictionary&quot;.</p>
+<div class="row"><button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-up"></span> R source
 </button><pre style="display:none"><code class="source r"># Scrape Dirty Words list
 
@@ -1290,11 +1389,26 @@ problem.entries <- problem.entries[!grepl("\\.\\w*( \\w*)?:", problem.entries)]
 notseparated <- c(word(notseparated, sep="\\.\\w*( \\w*)?:"), gsub("^\\.", "", str_extract(notseparated, "\\.\\w*( \\w*)?:.*$")))
 
 defs2 <- c(defs, synonyms, synonyms.fixed, sex.synonyms, girl.stuff, guy.stuff, origins, problem.entries)
-rm(list=ls()[ls()!="defs2"])
+rm(notseparated, problem.entries, origins, synonyms.fixed, synonyms, defs, sex.synonyms, girl.stuff, guy.stuff)
 
 df <- data.frame(word = word(defs2, sep=":", 1))
 df$definition <- str_replace(defs2, paste0(df$word, ":"), "")</code></pre></div>
-</div></div>
+
+<p>We can then use this dictionary (or at least, the list of words and phrases) and look for occurrences in our document matrix.</p>
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-up"></span> R source
+</button><pre style="display:none"><code class="source r">library(slam)
+myTerms <- str_trim(gsub("[[:punct:]]", " ", gsub(",", " ", gsub("//", " ", tolower(df$word)))))
+dirtyDTM <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf), dictionary=myTerms))
+
+# keep only words that occurred at least 15 times in the corpus
+dirtyDTM <- dirtyDTM[,which(col_sums(dirtyDTM)>=15)]</code></pre></div>
+
+
+<h2>Topic Modeling</h2>
+<p>We'll use the mallet package and LDAvis to try to model the various topics in Craigslist personal ads. I'm following the <a href="https://cpsievert.github.io/LDAvis/reviews/reviews.html">LDAvis documentation</a> and examples (written by the most awesome Carson Sievert) to complete this step.</p>
+<iframe src = "vis/index.html" width=900 height=700></iframe></div></div>
 <div class="navbar navbar-fixed-bottom navbar-inverse"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 </button></div>
