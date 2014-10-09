@@ -17,7 +17,7 @@ output:
 (a.k.a. there are really creepy people on the internet)</small>
 </div>
 
-Disclaimer: This post looks at personal ads on online classifieds. These ads are often sexually explicit and crude, and are likely "Not Safe For Work" in all but the most liberal workplaces. Personal ads may also be known to the state of California to cause cancer. 
+Disclaimer: This post looks at personal ads on online classifieds. These ads are often sexually explicit and crude, and are likely "Not Safe For Work" in all but the most liberal workplaces. 
 
 # Motivation 
 This project was inspired by a [Psychology Today article](http://go.galegroup.com/ps/i.do?id=GALE|A315069654&v=2.1&u=lom_kentdl&it=r&inPS=true&prodId=ITOF&userGroupName=lom_kentdl&p=ITOF) which included the following picture: 
@@ -235,7 +235,9 @@ findAssocs(myDtm, "thick", .1)
 
 
 ## Generating Classified Posts (pictures not included!)
-We can use our posts to generate new posts as well. Using n-grams (strings of $n$ words), we can generate new posts that are based on the conditional probability that "this" follows "that". 
+We can use our posts to generate new posts as well. Using n-grams (strings of $n$ words), we can generate new posts that are based on the conditional probability that "this" follows "that". Specifically, if $x$ is a string of $n$ words and $y$ is the $(n+1)$th word, we are modeling $P(y | x)$, that is, the probability that $y$ is next after $x$. So if we're modeling 2-grams, and the last 2 words we read were "Just in", we'd likely consider "case" to have high probability of being the next word. 
+
+The `ngram` package splits our text up into ngrams and then recombines the ngrams to form an entirely new text using the `babble()` function. We'll use the functions in the ngram package to create new craigslist ads. 
 
 ```{r ngrams}
 library(ngram)
@@ -244,12 +246,14 @@ post.len <- as.numeric(sapply(as.character(posts$post.text), wordcount))
 
 # Fix punctuation, then collapse all posts into a single string
 babble.text <- str_replace_all(posts$post.text, "http:\\\\[a-zA-Z1-9]{1,}\\.[a-zA-Z]{1,4}", " ")
-babble.text <- str_replace_all(babble.text, "([\\.,\\?!\\()]{1,})", " \\1 ")
+babble.text <- str_replace_all(babble.text, "[\\()]", " ")
+babble.text <- str_replace_all(babble.text, "([\\.,\\?!]{1,})", " \\1 ")
+babble.text <- str_replace_all(babble.text, " ([\\.,\\?!]{1})", "\\1")
 babble.text <- str_replace_all(babble.text, "\\n", " ")
 babble.text <- tolower(babble.text)
 babble.text <- str_replace_all(babble.text, "( ){2,}", " ")
-babble.text <- paste("  BEGIN ", babble.text)
-babble.text <- paste("  END ", babble.text)
+babble.text <- paste(" - - BEGIN ", babble.text)
+babble.text <- paste(" END - - ", babble.text)
 babble.text <- concat(babble.text, collapse = " ")
 
 # preprocess text
@@ -261,22 +265,21 @@ ngram.res <- ngram(babble.text, n=2)
 # Looking at the object
 print(ngram.res, output="truncated")
 
-# Generate a new ad with 200 words
-babble(ngram.res, 200)
-
 # Want to ensure complete sentances (not like the originals) and also break ngrams apart by BEGIN and END
 fix.babble <- function(text){
-  gen.posts <- str_trim(str_split(text, "END BEGIN")[[1]])
+  gen.posts <- str_trim(str_split(text, "END (- ){1,}BEGIN")[[1]])
   gen.posts <- gen.posts[-c(1,length(gen.posts))]
   fixed <- str_replace_all(gen.posts, " ([\\.,\\?!\\()]{1,}) ", "\\1 ")
   return(fixed)
 }
 
+set.seed(240958208)
 tmp <- babble(ngram.res, 1000)
 # tmp
 fix.babble(tmp)[1:2]
 ```
-Not awful, but we can do better. Let's repeat this using 3-grams. 
+
+This sounds slightly more schizophrenic than the typical Craigslist ad, so let's ramp up our game and use 3-grams in our model. Conditioning on an extra word should give us more sentance continuity, so that the topic doesn't change back and forth quite so much. 
 
 ```{r 3grams}
 # Create 3-grams
@@ -286,8 +289,25 @@ ngram.res <- ngram(babble.text, n=3)
 print(ngram.res, output="truncated")
 
 # Generate a new sequence of 1000 words
-fix.babble(babble(ngram.res, 1000))[1:2]
+out.posts <- fix.babble(babble(ngram.res, 1000))
+out.posts[1:3]
 ```
+
+Better, but still quite prone to rambling and such. The originals are a bit better, at least. 
+
+```{r 4grams}
+# Create 6-grams
+ngram.res <- ngram(babble.text, n=6)
+
+# Looking at the object
+print(ngram.res, output="truncated")
+
+# Generate a new sequence of 1000 words
+out.posts <- fix.babble(babble(ngram.res, 500))
+out.posts[1:3]
+```
+
+
 
 ## Measuring Dirty Words
 
