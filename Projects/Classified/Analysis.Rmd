@@ -1,16 +1,15 @@
 ---
-title: "Classified Personal Ads"
-author: "Susan VanderPlas"
-date: "09/08/2014"
-output:
+output:   
   knitrBootstrap::bootstrap_document:
-    title: "Cool Packages"
+    toc: true
+    toc_depth: 2
+    fig_caption: true
     theme: cerulean
     highlight: sunburst
-    theme.chooser: FALSE
-    highlight.chooser: FALSE
 ---
-
+<!----
+html_document
+--->
 <div class="jumbotron"> 
 <h1>Mining Classified Ads </h1>
 
@@ -32,14 +31,16 @@ The data was collected by sampling online personal ads (in English) from random 
 
 ```{r setup, message=FALSE, warning=FALSE, echo=-c(1:3), bootstrap.show.code=FALSE}
 library(knitr)
-opts_chunk$set(fig.align='center', par=TRUE, cache=TRUE, autodep=TRUE, message=FALSE, warning=FALSE, tidy=FALSE, bootstrap.show.code=FALSE)
-options(width=150)
+opts_chunk$set(fig.align='center', par=TRUE, cache=T, autodep=TRUE, message=FALSE, warning=FALSE, tidy=FALSE, bootstrap.show.code=FALSE)
+options(width=120)
 
 library(doMC)
 registerDoMC()
 library(lubridate)
 library(stringr)
 library(ggplot2)
+library(plyr)
+library(dplyr)
 ```
 
 
@@ -123,8 +124,6 @@ Data collection was conducted in January, and shortly thereafter I had to do a d
 The skewed distribution here is a result of the way the online classified site works: I scraped the top 300 posts from each randomly selected location. In more populated areas, 300 posts might represent activity from a couple of days; in less populated areas, 300 posts might represent an entire month of activity. 
 
 ```{r postSpan, fig.width=6, fig.height=10}
-library(dplyr)
-
 post.location <- group_by(posts, cityurl) %>% 
   summarize(min_date=min(post.date2), 
             max_date=max(post.date2))
@@ -152,7 +151,8 @@ qplot(x=city, geom="histogram", data=posts) + coord_flip() + theme_bw() + xlab("
 
 I'm currently re-running the sampling script in the hopes that I can get both a longer time-period (on the order of a month or so of data) and more locales. Hopefully, there will be more data (with a more even distribution) in the next few weeks... then we can finally settle this!
 
-# Words, words, words - Text analysis of posts and titles
+# Words, words, words
+
 I'll use the tm package to get a sense of the text in the posts. We'll start by looking at the most common words in the corpus (the collection of all posts). 
 ```{r textminingsetup}
 library(tm)
@@ -189,7 +189,7 @@ myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
 
 # Create a DocumentTermMatrix 
 myDtm <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf)))
-findFreqTerms(myDtm, lowfreq=800) # terms in at least 800 posts (total)
+findFreqTerms(myDtm, lowfreq=1500) # terms in at least 1500 posts (total)
 ```
 
 ## Word Associations
@@ -317,10 +317,13 @@ compare.posts <- function(post){
 
 out.posts <- babble(ngram.res, 1000, seed=241205828)
 out.posts <- fix.babble(out.posts)
-out.posts[1:2]
 compare <- compare.posts(out.posts)
 
 ```
+
+> `r out.posts[1]`
+
+> `r out.posts[2]`
 
 This sounds only slightly more schizophrenic than the typical Craigslist ad. Just for fun, let's ramp up our game and use 3-grams in our model. Conditioning on an extra word should give us more sentance continuity, so that the topic doesn't change back and forth quite so much. 
 
@@ -333,9 +336,12 @@ print(ngram.res, output="truncated")
 
 # Generate a new sequence of 1000 words
 out.posts <- fix.babble(babble(ngram.res, 1000, seed=109897276))
-out.posts[1:2]
 compare <- compare.posts(out.posts)
 ```
+
+> `r out.posts[1]`
+
+> `r out.posts[2]`
 
 These are still quite prone to rambling - the originals are a bit better, at least. We still haven't increased complexity to the point where we're running the risk of duplicating ads from the database - this would occur if we used a larger value for $n$ in our $n$-grams. We aren't even matching the first 6-8 words in any post: of the `r length(out.posts)` posts we generated, we got `r sum(!is.na(compare$original.match))` matches back. 
 
@@ -398,6 +404,7 @@ compare <- compare.posts(out.posts)
 
 We're searching our database for the first 6-8 words in the generated post; any matches should contain those words. 
 Looking at our results, the first sequence is not too bad - starts off the same, but transitions nicely. 
+
 > `r compare[1,]`
 
 The rest of the `r length(out.posts)` posts that comprise the 1000 word sequence we generated aren't so bad either. 
