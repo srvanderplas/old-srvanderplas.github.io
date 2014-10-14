@@ -81,8 +81,8 @@
     \begin{center}
 	\vskip-\lastskip%
 	{\usekomafont{part} #1} \medskip\\
-	{\fontfamily{pzc}\selectfont\Large Curriculum vitae}
-	\bigskip
+% 	{\fontfamily{pzc}\selectfont\Large Curriculum vitae}
+% 	\bigskip
     \end{center}]}
 
 % Overrides the \section command to capitalize every
