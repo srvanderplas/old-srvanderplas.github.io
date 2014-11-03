@@ -6,7 +6,7 @@
 % available at http://www.latex-project.org/lppl/.
 
 
-\documentclass[10pt,letterpaper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+\documentclass[10pt,letterpaper,sans,unicode]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
 
 \usepackage[nosort]{cite}
 \usepackage{xstring} % bold individual name in bib entries
@@ -20,7 +20,8 @@
 }
 % Color combination: 0099cc, ccffcc, 66ccff, 003399
 
-
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
 
 % moderncv themes
 \moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
@@ -28,8 +29,7 @@
 %\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
 %\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
 
-% character encoding
-\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
 %\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
 
 % adjust the page margins
@@ -120,20 +120,22 @@ the cognitive load necessary to understand the information presented in the grap
 \item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do outliers matter more than trend lines? 
 \end{itemize}}
 
-\tlcventry{2013}{0}{Research Asst., USDA Soybean Genome Project}{Iowa State Univ.}{Ames, IA}{}{
+\tlcventry{2013}{0}{Research Assistant, USDA Soybean Genome Project}{Iowa State University}{Ames, IA}{}{
 \begin{itemize}
 \item Analyzed large quantities of soybean genetics data to identify inheritance, important genes, single nucleotide polymorphisms, and copy number variation.
 \item Created interactive applets presenting the data and appropriate graphics designed to encourage exploration of the results by biologists.
 \item Assembled a database of known soybean parantage to facilitate further research, and created an interactive applet to display the lineage of any variety in the database.
 \end{itemize}}
 
-\tllabelcventry{2012}{2012.8}{Jan-Aug 2012}{Research Asst., Iowa Dept. of Transportation}{Iowa State Univ.}{Ames, IA}{}{Developed a hierarchical Bayesian model to determine the effectivieness of road interventions on traffic accidents and fatalities. Discovered a previously unknown error in the data used in prior analyses using exploratory techniques, and developed a method to compensate for the missing data.}
+\tllabelcventry{2012}{2012.8}{Jan-Aug 2012}{Research Assistant, Iowa Dept. of Transportation}{Iowa State University}{Ames, IA}{}{Developed a hierarchical Bayesian model to determine the effectivieness of road interventions on traffic accidents and fatalities. Discovered a previously unknown error in the data used in prior analyses using exploratory techniques, and developed a method to compensate for the missing data.}
 
-\tlcventry{2010}{2011}{M.S. Research}{Iowa State University}{Ames, IA}{}{Worked with materials scientists and engineers to develop and implement nonparametric methods for automatic peak detection in mass spectroscopy data. Helped to fit systems of differential equations to spectroscopy data based on theoretical concepts from quantum physics to failictate inference about the atomic structure of a material.}
+\tlcventry{2010}{2011}{M.S. Research}{Iowa State University}{Ames, IA}{}{Worked with materials scientists and engineers to develop and implement nonparametric methods for automatic peak detection in mass spectroscopy data. Fit systems of differential equations to spectroscopy data based on theoretical concepts from quantum physics to failictate inference about the atomic structure of a material.}
 
-\tllabelcventry{2009.4}{2009.8}{Summer 2009}{NSF Research Experience for Undergraduates}{Iowa State University}{Ames, IA}{}{Worked with biologists and bioinformaticians to compare homologous gene expression in humans, pigs, and mice.\cite{towfic2010detection}}
+\tllabelcventry{2009.7}{2010}{Fall 2009}{Research Rotations in Bioinformatics}{Iowa State University}{Ames, IA}{}{Explored applications of the EM algorithm to next-generation sequencing data error detection and modeled the relationship between age and fertility in reptiles. Each project lasted about 6 weeks; rotations were structured to allow new students to explore several facets of bioinformatics, and included wet-lab and computational experiences. }
 
-\tllabelcventry{2008.4}{2008.8}{Summer 2008}{NSF Research Experience for Undergraduates}{University of Nebraska}{Lincoln, NE}{}{Created a mathematical model describing electrical impulse transmission and decay along neurons with varying states of myelination.}
+\tllabelcventry{2009.45}{2009.7}{Summer 2009}{NSF Research Experience for Undergraduates}{Iowa State University}{Ames, IA}{}{Worked with biologists and bioinformaticians to compare homologous gene expression in humans, pigs, and mice.\cite{towfic2010detection}}
+
+\tllabelcventry{2008.45}{2008.7}{Summer 2008}{NSF Research Experience for Undergraduates}{University of Nebraska}{Lincoln, NE}{}{Created a mathematical model describing electrical impulse transmission and decay along neurons with varying states of myelination.}
 
 \section{Teaching}
 \tlcventry{2013}{0}{R Course Instructor}{Iowa State University Stat Dept.}{Ames, IA}{}{Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with plyr, reshape2, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny.}
