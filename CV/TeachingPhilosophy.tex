@@ -1,0 +1,112 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[10pt,letterpaper,sans,unicode]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+\usepackage[nosort]{cite}
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+% Color combination: 0099cc, ccffcc, 66ccff, 003399
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
+% moderncv themes
+\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+\setlength{\hintscolumnwidth}{2.3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% Timeline
+% \usepackage{moderntimeline}
+% \tlmaxdates{0}{0} % Set the scale
+% \tlwidth{0ex} % Set the line width - space under the top label is 1pt more
+% \tltext{\tiny} % set label text size
+
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks, 
+            linkcolor=link, 
+            urlcolor=link, 
+            citecolor=link}
+            
+% personal data
+\name{Susan}{VanderPlas}
+\title{Statement of Teaching Philosophy}                               % optional, remove / comment the line if not wanted
+\address{802 17th St.}{Auburn, NE 68305}{}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{(515) 509-6613}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+% \phone[fixed]{+2~(345)~678~901}
+% \phone[fax]{+3~(456)~789~012}
+\email{srvanderplas@gmail.com}                               % optional, remove / comment the line if not wanted
+\homepage{www.srvanderplas.github.io}                         % optional, remove / comment the line if not wanted
+% \social[linkedin]{john.doe}                        % optional, remove / comment the line if not wanted
+% \social[twitter]{jdoe}                             % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                              % optional, remove / comment the line if not wanted
+% \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+% \photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+% \usepackage{multibib}
+% \newcites{papers,presentations}{{Publications},{Presentations}}
+
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+
+Statistics courses often makes a bad first impression: students walk away from introductory classes with the idea that statistics is hard, extremely theoretical, or not particularly relevant to everyday life (outside of election season polls and choosing colored balls from a box). The rise of ``big data" and ``data science" have created a climate where statistics is vital to many different areas of business, government, and science, but only if it masquerades as something ``cool". It is important to counter this trend by making statistics accessible, fun, and relevant to students learning statistics for use in other disciplines, as well as students in the field. 
+
+\vspace{1cm}\noindent {\large\textbf{Course Structure}}\hspace{12pt}
+In my experience, the best courses set students up for success with clear objectives, well-organized reference materials, and numerous sample problems. Ideally, the textbook should complement the lectures; in particular, the lectures and the textbook should provide different approaches to the material, so that students who do not understand one explanation have alternatives which may be more suited to their learning style. Lecture notes or outlines allow students to prepare for class ahead of time, so that lectures can focus on assessing and reinforcing students' understanding the material; they also facilitate student questions on confusing material. For each topic, the lectures and examples should begin with a basic overview of the material, provide more detail to facilitate a more nuanced understanding of the topic, and opportunities for exploration of open-ended problems which encourage students to engage with the material.  
+
+\vspace{1cm}\noindent {\large\textbf{Feedback}}\hspace{12pt}
+At every stage of the learning process, mutual feedback is important. Feedback from students should shape future lessons, so that examples are relevant and the lecture style is helpful to as many students as possible; feedback to students should clarify misconceptions, identify problems, and provide additional resources (other references, peer tutoring, office hours). 
+Instructors should also be prepared to assist students with situations that may not be directly related to the course material: disabilities, medical problems, or personal issues may affect student performance in class or their ability to learn the material, and accommodating these students can have an incredible impact. As an undergraduate, I received accommodations for a medical condition which allowed me to complete a full load of difficult courses with limited class attendance; my success in graduate school is in part due to those accommodations. I have also frequently had to ask professors to modify class materials to accommodate red-green colorblindness; those modifications encourage good visualization practice and may help others in the class with similar problems. 
+
+\vspace{1cm}\noindent {\large\textbf{Course Design}}\hspace{12pt}
+Statistics courses are typically designed for a specific audience; introductory classes may be targeted toward students in engineering, business, or scientific disciplines, while more advanced courses may be designed to accommodate majors and non-majors simultaneously. Introductory classes tend to focus on literacy (understanding statistical analyses) while encouraging students to develop competency (the ability to design, perform, and interpret their own analyses); students in these classes do not generally have time to develop fluency (the ability to solve a novel problem and explain the solution and why it is appropriate), while classes for majors generally are designed to encourage students to develop fluency.
+
+\textbf{Literacy} is a prerequisite for statistical competency and fluency; literate students can read and assess statistical analyses and conclusions. For students in introductory courses, statistical literacy is often the most important goal: students need to be able to think critically about statistical claims, but they do not necessarily need to perform analyses independently or have a nuanced understanding of the theoretical underpinnings of statistical models years after the course is complete. Breaking lectures up with demonstrations, worked examples, and group work reinforces a literate approach to the material, and short assessments (true/false, multiple choice, or short answer questions) provide mutual feedback. 
+
+\textbf{Competency}, the ability to correctly execute and interpret a statistical analysis, requires a deeper understanding of the material. Students must engage the topic in a more abstract way and may need to understand some theoretical details; this is often where students with sparse mathematical backgrounds ``tune out" or become hopelessly confused. In my experience teaching introductory statistics labs and R programming classes, group discussions, hands-on problems, and individual exploration (working entire problems through start-to-finish) are valuable tools for encouraging students to transition from literacy to competency. I have also found that outrageous and fun topics (zombie apocalypse, velociraptor attacks, data from online dating sites, etc.) motivate students to attempt problems that would otherwise seem too dry or difficult; they also help students remember important examples. Homework problems and open-ended test questions can be used to assess a student's ability to execute and interpret an analysis from start-to-finish. 
+% Structuring the course so that there is a consistent, logical progression from one topic to the next also facilitates competency; for instance, discussing probability at the beginning of the course, teaching randomization tests as an extension of probability and sampling, and then teaching t-tests as approximations to randomization tests using distributional assumptions. This encourages students to more clearly encode the logic underlying the material, avoiding the confusion that usually accompanies a new unit of the course that seems entirely disconnected from previous topics.  
+
+% Competency can be assessed through homework problems and open-ended test questions, however, as these questions generally depend on previous steps, it can be difficult to distinguish students who have a general understanding of the material but are fuzzy on details from students who are hopelessly lost. Allowing students to submit test corrections, or giving students the opportunity to trade points for ``hints" can help to differentiate different levels of student comprehension and reduce the effect of test anxiety on student performance. 
+
+The ability to apply course material to novel problems easily and independently requires \textbf{fluency}. Open ended questions, discussions, and projects can encourage students to develop their understanding of the material and to think critically about the subject, but fluency requires time and exposure to a variety of problems as well as student engagement. Fluency is particularly important (and time-consuming) for computational topics, as students must be able to use the software fluently before they can apply their knowledge to novel problems or understand the intricacies of a particular approach to a problem. 
+
+\vspace{1cm}\noindent Courses and learning environments which are well-designed, engaging, and responsive encourage students to develop a deeper and more nuanced understanding of the subject matter. As a student, I have experienced courses which exhibited all of these traits; as a teacher, I design courses so that students have multiple types of contact with the material, opportunitites to give and receive feedback, and fun, engaging, and relevant examples. 
+
+\end{document}
