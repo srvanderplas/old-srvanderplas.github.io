@@ -1,0 +1,102 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[10pt,letterpaper,sans,unicode]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+\usepackage[nosort]{cite}
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+% Color combination: 0099cc, ccffcc, 66ccff, 003399
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
+% moderncv themes
+\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+\setlength{\hintscolumnwidth}{2.3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% Timeline
+% \usepackage{moderntimeline}
+% \tlmaxdates{0}{0} % Set the scale
+% \tlwidth{0ex} % Set the line width - space under the top label is 1pt more
+% \tltext{\tiny} % set label text size
+
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks, 
+            linkcolor=link, 
+            urlcolor=link, 
+            citecolor=link}
+            
+% personal data
+\name{Susan}{VanderPlas}
+\title{Statement of Research Interests}                               % optional, remove / comment the line if not wanted
+\address{802 17th St.}{Auburn, NE 68305}{}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{(515) 509-6613}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+% \phone[fixed]{+2~(345)~678~901}
+% \phone[fax]{+3~(456)~789~012}
+\email{srvanderplas@gmail.com}                               % optional, remove / comment the line if not wanted
+\homepage{www.srvanderplas.github.io}                         % optional, remove / comment the line if not wanted
+% \social[linkedin]{john.doe}                        % optional, remove / comment the line if not wanted
+% \social[twitter]{jdoe}                             % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                              % optional, remove / comment the line if not wanted
+% \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+% \photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+% \usepackage{multibib}
+% \newcites{papers,presentations}{{Publications},{Presentations}}
+
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+
+% Para 1: A brief paragraph sketching the overarching thematics and topic of your research, situating it disciplinarily.
+
+% Para 2: A summary of the dissertation research. This may replicate to some extent the paragraph on the dissertation in the cover letter, but it must have more detail about the methods, the theoretical foundations, and most of all, the core arguments.  Here, give a chapter summary, approximately one sentence per chapter.
+
+% Para 3: A brief description of the contribution of the dissertation research to your field or fields, and a summary of publications associated with the dissertation research, including a plan for the book, if you are in a book field.
+
+% [Addendum: Other ongoing research can be described here in more paragraphs in the event that you are going for a 2 page document]
+
+% Para 4: A summary of the next research project, providing a topic, methods, a theoretical orientation, and brief statement of contribution to your field or fields. Mention publications, conference talks, or grants related to the new project.
+
+% Para 5: A brief summary of the wider impact of your research agenda(s) writ large—what do they “tell us” that is valuable and important, both for a discipline but also for a wider scholarly community, and in some cases, for humanity in general.
+
+
+\end{document}
