@@ -1,0 +1,140 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[10.5pt,letterpaper,sans,unicode]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+\usepackage[nosort]{cite}
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+% Color combination: 0099cc, ccffcc, 66ccff, 003399
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
+% moderncv themes
+\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.86]{geometry}
+\setlength{\hintscolumnwidth}{2.3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% Timeline
+% \usepackage{moderntimeline}
+% \tlmaxdates{0}{0} % Set the scale
+% \tlwidth{0ex} % Set the line width - space under the top label is 1pt more
+% \tltext{\tiny} % set label text size
+
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks, 
+            linkcolor=link, 
+            urlcolor=link, 
+            citecolor=link}
+            
+% personal data
+\name{Susan}{VanderPlas}
+\title{Statement of Research Interests}                               % optional, remove / comment the line if not wanted
+\address{802 17th St.}{Auburn, NE 68305}{}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{(515) 509-6613}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+% \phone[fixed]{+2~(345)~678~901}
+% \phone[fax]{+3~(456)~789~012}
+\email{srvanderplas@gmail.com}                               % optional, remove / comment the line if not wanted
+% \homepage{www.srvanderplas.github.io}                         % optional, remove / comment the line if not wanted
+% \social[linkedin]{john.doe}                        % optional, remove / comment the line if not wanted
+% \social[twitter]{jdoe}                             % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                             % optional, remove / comment the line if not wanted
+% \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+% \photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+% \usepackage{multibib}
+% \newcites{papers,presentations}{{Publications},{Presentations}}
+
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+% \makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+\noindent\textbf{\Large Research Statement \hfill Susan VanderPlas}\vspace{-3pt}\\\hrule\vspace{6pt}
+% Para 1: A brief paragraph sketching the overarching thematics and topic of your research, situating it disciplinarily.
+Statistical graphics are important during every stage of the statistical process: exploratory analysis, examining model assumptions, and presenting statistical results. 
+Graphics summarize the data visually, freeing cognitive resources to consider the implications of the data. 
+% Graphics serve as a form of guided external cognition: by summarizing the data in an effective visual format, they free up cognitive resources, allowing the viewer to consider the implications of the data, rather than trying to organize the data internally. 
+As cognitive aids, it is important that graphics are carefully designed to display important features of the data in a way that facilitates visual inference. 
+I study this interplay between statistical graphics and the brain, seeking to understand how the brain processes statistical graphics and applying that knowledge to create intuitive and effective graphs. 
+% This research is highly interdisciplinary, integrating work from statistics, cognitive psychology, education, neuroscience, and human-computer interaction in order to communicate statistical information more effectively through graphics. 
+
+% Para 2: A summary of the dissertation research. This may replicate to some extent the paragraph on the dissertation in the cover letter, but it must have more detail about the methods, the theoretical foundations, and most of all, the core arguments.  Here, give a chapter summary, approximately one sentence per chapter.
+
+% Para 3: A brief description of the contribution of the dissertation research to your field or fields, and a summary of publications associated with the dissertation research, including a plan for the book, if you are in a book field.
+
+% I've combined these paragraphs so that things flow a bit better and don't jump around as much. 
+
+\vspace{.3cm}\noindent {\textbf{Perception of Statistical Graphics}}\hspace{8pt} My dissertation examines the impact of several facets of human perception of statistical graphics: optical illusions, visual aptitude, and the hierarchy of features in graph perception, arguing that it is important to consider human perception in the design and evaluation of statistical graphics. 
+
+In the first chapter, I explore the sine illusion, which affects the graphical perception of data along nonlinear trend lines, in two separate user studies. 
+% The first study presents two transformations which break the illusion and evaluate those transformations with user preferences collected from an interactive applet, establishing both the presence of the illusion and the efficacy of the transformations. 
+% The second study explores the psychological underpinnings of the illusion in order to establish that the illusion is pervasive and occurs as a result of binocular depth perception (with evidence from a case study of an individual lacking that ability); it also examines the distribution of the distortion in the general population with another user study. 
+The sine illusion research highlights a neglected issue in statistical graphics: how do we ensure that information is perceived by the brain as it is presented graphically? This work has been well received - the first study has been submitted to and accepted by JCGS; the second study was selected for the ASA graphics section student paper award at JSM in 2014, and an expanded paper is in preparation for publication. The papers are largely designed to raise awareness of the illusion and its effect on a wide array of oft-used graphics, such as scatter plots, time-series charts, hammock plots, stream graphs, ribbon charts, and candlestick plots. 
+
+The remaining chapters are more focused on visual inference, exploring the use of statistical lineups (sets of 20 plots: one containing real data and 19 generated by permutation) to conduct formal \textit{graphical inference}. 
+In the second chapter, I explore the interaction between tests of spatial ability and visual inference using lineups; the results suggest lineups are ultimately a classification task, though performance is also a function of the type of chart, overall visual ability, and demographic factors.
+% such as STEM training, research experience, age, and gender. 
+An article exploring the results from this study is currently in preparation for publication.
+In the final chapter, I examine the hierarchy of visual features in statistical graphics in the context of the lineup protocol; that is, which graphical features are most visually salient.
+% - are we more sensitive to outliers or skew in qq plots? 
+While this experiment is still in the design stage, I expect the results to reinforce the importance of carefully highlighting notable features of the data using aesthetics such as color, shape, and size.
+%, freeing cognitive resources for higher-level tasks. 
+
+% [Addendum: Other ongoing research can be described here in more paragraphs in the event that you are going for a 2 page document]
+\vspace{.3cm}\noindent {\textbf{Interdisciplinary Collaboration}}\hspace{8pt}In addition to my research on statistical graphics, I also collaborate with researchers in other disciplines to create effective graphics for large data sets or multidimensional data. 
+% I have contributed to the development of the \texttt{animint} package for R, which extends the grammar of graphics (as implemented in \texttt{ggplot2}) to create interactive, animated graphics for the web. 
+%I have also worked 
+Recently, I have worked with soybean researchers at the USDA to analyze and visualize soybean genetic data at the population and individual level; the result is a series of topic-specific interactive applets 
+%(using \texttt{animint} and RStudio's \texttt{Shiny} package) 
+which integrate the data and analysis for use by biologists. 
+Working with co-authors, I have also created interactive applets for use in the statistics classroom; these applets were designed to intuitively demonstrate difficult statistical concepts. 
+During my masters research, I worked with engineers to model and identify peaks in mass spectroscopy data using Bayesian and nonparametric statistical techniques. 
+
+
+% Para 4: A summary of the next research project, providing a topic, methods, a theoretical orientation, and brief statement of contribution to your field or fields. Mention publications, conference talks, or grants related to the new project.
+\vspace{.3cm}\noindent {\textbf{Future Research}}\hspace{8pt} As data sets grow larger, interactive visualizations become more critical because user interaction can be used to display subsets of larger data, adding complexity and utility. 
+I would like to investigate the relationship between the user experience and different types of interactivity, utilizing tools such as eye and cursor tracking, recording user interactions, and analyzing participant descriptions of the charts and data; these tools provide insight into both the perceptual process and the information communicated by the visualization. 
+This research would build on existing literature examining static graphics, but would also incorporate sensory integration research, as the motion used in interactive graphics triggers specific perceptual organization schemes. 
+In parallel with this research, I would also like to explore methods for reducing the complexity of graphics; this research is more directly applicable to visualization in the field, as current interactive plots typically rely on JavaScript and do not scale well to ``big data". 
+
+
+% Para 5: A brief summary of the wider impact of your research agenda(s) writ large—what do they “tell us” that is valuable and important, both for a discipline but also for a wider scholarly community, and in some cases, for humanity in general.
+\vspace{.3cm}Statisticians can assemble huge databases of information, but in order to communicate findings (particularly outside of the field), one of our most effective tools is still a well-designed chart. Understanding the interaction between human perception and statistical graphics provides an essential foundation for optimizing graphics to more effectively communicate with each other and with those outside of the field. 
+
+\end{document}
