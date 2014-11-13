@@ -13,7 +13,7 @@ html_document
 <div class="jumbotron"> 
 <h1>Mining Classified Ads </h1>
 
-(a.k.a. there are really creepy people on the internet)</small>
+<small>(a.k.a. there are really creepy people on the internet)</small>
 </div>
 
 Disclaimer: This post looks at personal ads on online classifieds. These ads are often sexually explicit and crude, and are likely "Not Safe For Work" in all but the most liberal workplaces. 
