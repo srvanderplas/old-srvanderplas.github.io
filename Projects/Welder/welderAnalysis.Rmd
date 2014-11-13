@@ -1,0 +1,346 @@
+---
+title: "Welder Analysis"
+author: "Susan VanderPlas"
+date: "10/29/2014"
+output: 
+  knitrBootstrap::bootstrap_document:
+    toc: true
+    toc_depth: 2
+    fig_caption: true
+    theme: cerulean
+    highlight: sunburst
+    includes:
+      in_header: datatables.html
+---
+
+<!----
+html_document:
+--->
+
+
+<div class="jumbotron alert alert-info"> 
+<h1>Comparing Welders </h1>
+<h2>Utility, Features, and Price </h2>
+</div>
+# Data 
+```{r setup,echo=F}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(knitr)
+library(xtable)
+library(htmltools)
+
+options(width=100)
+opts_knit$set(header=htmlPreserve('<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.js"></script>
+<style type="text/css">
+p{clear:both;}
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#allwelders_table").DataTable();
+    } );
+</script>'))
+opts_chunk$set(cache=FALSE, echo=F, fig.width=6, fig.height=4)
+
+sanitize <- function(text){
+  gsub("Pr\\(>(.*)\\)", "Pr$(>\\1)$", text)
+}
+```
+```{r read-data, echo=F, tidy=F}
+# matrix of features with weights for importance
+use.weights <- matrix(c(10.5, 2.25, 1.5, 0.75, 0.06, 35, 7.5, 5, 2.5, 0.2, 17.5, 3.75, 2.5, 1.25, 0.1, 7, 1.5, 1, 0.5, 0.04), nrow=4, byrow=T)
+
+# matrix of features without weights for importance
+use <- matrix(1, nrow=4, ncol=5)
+
+rownames(use) <- rownames(use.weights) <- c("Stick", "MIG", "TIG", "Pulse")
+colnames(use) <- colnames(use.weights) <- c("Ferrites", "Austenites", "Aluminum", "RedMetals", "Titanium")
+longweights <- melt(use.weights) # column vector form
+
+# get list of welder utility matrices
+source("WelderUtility.R")
+
+welderstats <- read.csv("WelderSpecs_rev1.csv", stringsAsFactors=F)
+welderstats <- welderstats[,which(names(welderstats)!="MIG")]
+welderstats$Model <- names(welderlist)
+      	   
+# convert welder list to a data frame with one row for each entry in the use matrix
+welders <- ldply(welderlist, melt)
+names(welders) <- c("Model", "WeldType", "Material", "value")
+# add weights to the use matrix
+welders <- ddply(welders, .(Model), transform, weight=longweights$value*value/sum(longweights$value))
+
+# merge with other statistics, like amps and type
+welderstats <- merge(welderstats, ddply(welders, .(Model), summarize, utility=sum(weight), versatility=sum(value)))
+welderstats$RyanList <- welderstats$Model%in%names(welderlist2)
+welderstats$efficiency <- with(welderstats, amps/plug.amps)
+```
+
+`r length(names(welderlist))` welders were evaluated on feature set and price. As not all features are equally useful, the following "utility matrix" was used to assess the functionality of each welder individually. Many of the results that follow (particularly models which use utility as an independent variable) depend on these values. A welder's total utility is simply the weighted sum of all available features. 
+
+```{r, echo=F, warning=F, message=F}
+kable(use.weights, caption="Welder feature importance weights")
+```
+
+In addition to utility, we calculated the versatility  (number of metal/weld combinations) of each welder. The versatility is more generalizable to situations, as it does not depend on specific utility weights that were based on the probability of using a certain type of weld for a single situation. 
+
+
+Additional specifications, such as brand, price, amps, duty cycle, plug amps, welder type (buzzer, inverter, or transformer), are included for each welder. A derived quantity, efficiency, was calculated by dividing the amperage available for welding by the plug amps. 
+
+```{r, echo=F}
+tmp <- data.frame(Color=c("blue", "red", "orange", "green", "maroon"), Brand=c("Miller", "Lincoln Electric", "HTC", "Everlast", "Thermal Arc"), Country = c("US", "US", "Italy", "China", "China"), Support=c("high", "high", "low", "low", "moderate"))
+
+kable(tmp, caption="Welder Brands")
+```
+
+For the remainder of the analysis, welder brands will be referenced by color. 
+
+Of all of the welders examined during this experiment, six (plus an additional addon option) are candidates for purchase: `r paste(welderstats$Model[welderstats$RyanList], collapse=", ")`
+
+# Welder Cost and Features
+
+Comparing utility with cost visually; there is some association, but there are obviously other factors. Some of the most over and under priced welders (considering utility, which is of course subjective) are highlighted, along with the seven welders under consideration. 
+
+```{r overall-cost-graph, echo=F, fig.width=6, fig.height=6}
+tmp <- lm(cost ~ utility, data=welderstats)
+
+idx <- 1:nrow(welderstats)%in%c(order(tmp$residuals, decreasing=T)[1:8], order(tmp$residuals, decreasing=F)[1:2], which(welderstats$RyanList)) 
+
+qplot(data=welderstats, x=utility, y=cost, geom="smooth", method="lm", alpha=I(.5)) + 
+  geom_text(data=subset(welderstats, idx), aes(label=Model), hjust=1, vjust=1.1, alpha=.5) + 
+  scale_x_continuous(limits=c(-.15, 1.05), breaks=seq(0, 1, by=.2)) + 
+  geom_point(alpha=I(c(.8, 1)[as.numeric(idx)+1])) + 
+  annotate(geom="text", x=c(0, 1), y=c(8000, 0), label=c("Bad Deal", "Good Deal"), 
+           hjust=c(0,1), vjust=c(1,0), colour=c("red", "green")) + 
+  ylab("Price") + xlab("Utility") + 
+  ggtitle("Welder Cost Evaluation") + theme_bw()
+```
+
+What factors are most important in assessing welder price? Each variable was regressed separately (for the initial screening) on cost. The results are shown below. 
+
+```{r singlevariabletests,echo=F}
+# Test each variable separately: 
+single.res <- ldply(names(welderstats)[-c(1:2, 10)], function(i) data.frame(variable=i, anova(lm(as.formula(paste0("cost~", i)), data=welderstats))[1,]))
+names(single.res)[6] <- "Pvalue"
+single.res <- single.res[order(single.res$Pvalue),]
+rownames(single.res) <- NULL
+kable(single.res[,c(1:2,4:6)], digits=c(1, 0, 0, 1, 5), caption="Single variable regression on welder price.")
+```
+
+Type is a variable describing the welder's power source: Buzzer, Transformer, or Inverter. Type and efficiency do not significantly contribute to welder cost if we ignore other significant factors. Of course, once we add these variables to the same model, some of the terms may be redundant due to correlations within the predictor variables (for instance, welders with high utility will have high versatility). 
+
+# Versatility model
+
+```{r regression1, echo=F}
+library(MASS)
+library(leaps)
+leap <- regsubsets(cost~ 0 + Type + efficiency + (amps + DutyCycle + plug.amps + versatility)^2, data=welderstats[,-c(1, 8, 10)], nbest=10, nvmax=10, method="backward")
+
+fullmodel <- lm(data=welderstats[,-1], cost~0 + amps+versatility+Type, model=TRUE, x=TRUE)
+```
+
+Using backwards selection (where all terms are added and the least significant terms are removed) for main effects (single variables) and first-degree interactions, we arrive at the following model: $$`r gsub(" ~ 0 + ", " = ", as.character(fullmodel$call[2]), fixed=T)`$$
+
+<div align="center">
+```{r regression1-out2, echo=F, results='asis'}
+print(xtable(summary(fullmodel)), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+There is no intercept term: welder price is predicted based on type and features. This allows price differences to be estimated directly, rather than in comparison to another type of welder. Increased versatility will increase the price, and increased amps also increases the price. Transformer welders are the most expensive (other things equal) and "Buzzers" are the least expensive. 
+
+<div align="center">
+```{r regression1-out, echo=F, results='asis'}
+print(xtable(summary(aov(fullmodel))), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+
+## Testing Type Differences
+
+```{r regression1means2, echo=F}
+library(agricolae)
+res <- HSD.test(aov(fullmodel), "Type", group=TRUE)$groups
+```
+
+
+```{r regression1means2-out,echo=F,results='asis'}
+names(res) <- c("Type", "Mean", "Differences")
+kable(as.data.frame(res), align=c('l', 'r', 'c'), caption="*Price Difference for Welder Power Supply Types*: Buzzers are significantly less expensive than Transformers, but not significantly cheaper than Inverters. Without accounting for other variables, Transformers and Inverters are not significantly different in price.")
+```
+
+
+## Model Evaluation 
+
+This model does a fairly good job of predicting the price for all but the most expensive (>$5000) welders. 
+
+```{r regression1resid,echo=F, include=T, fig.cap="Versatility Model Residuals."}
+tmp <- welderstats
+tmp$resid <- welderstats$cost - predict(fullmodel, newdata=welderstats)
+qplot(y=resid, x=cost, colour=Brand, size=I(3), data=tmp) + scale_colour_manual(values=c("Maroon" = "tomato4", "Red"="red", "Orange"="orange", "Green"="darkgreen", "Blue"="blue")) + xlab("Welder Price") + ylab("Residual") 
+```
+
+# Utility Model
+
+```{r regression2}
+library(MASS)
+library(leaps)
+leap <- regsubsets(cost~ 0 + Type + efficiency + (amps + DutyCycle + plug.amps + utility)^2, data=welderstats, nbest=10, nvmax=10, method="backward")
+
+fullmodel2 <- lm(data=welderstats[,-1], cost~utility+plug.amps+ DutyCycle+amps, model=TRUE, x=TRUE)
+```
+
+Using backwards selection (where all terms are added and the least significant terms are removed) for main effects (single variables) and first-degree interactions, we arrive at the following model: 
+$$`r gsub(" ~ ", " = ", as.character(fullmodel2$call[2]), fixed=T)`$$
+
+<div align="center">
+```{r regression2-out2, echo=F, results='asis'}
+print(xtable(summary(fullmodel2)), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+In this model, welder price is a function of utility (weighted feature set), amps and plug amps, and duty cycle. 
+
+<div align="center">
+```{r regression2-out, echo=F, results='asis'}
+print(xtable(summary(aov(fullmodel2))), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+Assessing the residuals, we see that we may be over-predicting the cost of luxury welders (particularly those costing more than $4000), but we also have less data in that price range. 
+
+```{r regression2resid,echo=F, include=T, fig.cap="Utility Model Residuals."}
+tmp <- welderstats
+tmp$resid <- welderstats$cost - predict(fullmodel2, newdata=welderstats)
+qplot(y=resid, x=cost, colour=Brand, size=I(3), data=tmp) + scale_colour_manual(values=c("Maroon" = "tomato4", "Red"="red", "Orange"="orange", "Green"="darkgreen", "Blue"="blue")) + xlab("Welder Price") + ylab("Residual")
+```
+
+
+# Weld Type Model
+
+Welder function was assessed using 4 variables, each representing the number of metals that could be welded using each weld type: Stick, MIG, TIG, and Pulse. Thus, the fitted coefficient for "Stick" would be the estimated price change for a welder capable of stick welding one additional type of metal.
+
+```{r weldsummary, echo=F}
+# Summarize versatility by type of weld
+weldsummary <- ldply(welderlist, function(i) rowSums(i/use))
+names(weldsummary)[1] <- "Model"
+weldsummary <- merge(welderstats, weldsummary)
+weldsummary$TIG.Pulse <- weldsummary$TIG+weldsummary$Pulse # Combine TIG + Pulse to get a more reliable measure
+weldmodel <- lm(data=weldsummary, cost~amps+DutyCycle+Stick+MIG+TIG*Pulse, model=TRUE, x=TRUE)
+```
+
+Again, backwards selection was used, considering second-order interactions. The final model was 
+
+$$`r gsub(" ~ ", " = ", as.character(weldmodel$call[2]), fixed=T)`$$
+
+<div align="center">
+```{r weldsummary-out2, echo=F, results='asis'}
+print(xtable(summary(weldmodel)), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+<div align="center">
+```{r weldsummary-out3, echo=F, results='asis'}
+print(xtable(anova(weldmodel)), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+A 220-amp welder with a duty cycle of 50% would have a base price of `r sprintf("%.2f", as.numeric(weldmodel$coefficients['(Intercept)']+220*weldmodel$coefficients['amps']+.5*weldmodel$coefficients['DutyCycle']))`, which would increase by $`r sprintf("%.2f", as.numeric(weldmodel$coefficients['Stick']))` for each metal that could be stick welded and by another $`r sprintf("%.2f", as.numeric(weldmodel$coefficients['MIG']))`, on average, for each metal that could be MIG welded.  
+
+The coefficient estimates for TIG and Pulse are somewhat less easily interpretable, because almost any welder which can TIG all 5 metal types has pulse capability, but if a welder cannot TIG all 5 metals, it generally does not have pulse capability. This interaction makes interpreting the coefficients a bit more difficult: TIG\*Pulse is between 0 and 25, so the coefficient for TIG:Pulse has the potential to add `r sprintf("%.2f", as.numeric(weldmodel$coefficients['TIG:Pulse']*25)+as.numeric(weldmodel$coefficients['TIG']*5)+as.numeric(weldmodel$coefficients['Pulse']*5)) ` to the price of the welder (25\*`r sprintf("%.2f", as.numeric(weldmodel$coefficients['TIG:Pulse']))` + 5\*`r sprintf("%.2f", as.numeric(weldmodel$coefficients['TIG']))` + 5\*`r sprintf("%.2f", as.numeric(weldmodel$coefficients['Pulse']))`).
+
+
+```{r weldregresid,echo=F, include=T, fig.cap="Weld Type Model Residuals."}
+tmp <- weldsummary
+tmp$resid <- weldsummary$cost - predict(weldmodel, newdata=weldsummary)
+qplot(y=resid, x=cost, colour=Brand, size=I(3), data=tmp) + scale_colour_manual(values=c("Maroon" = "tomato4", "Red"="red", "Orange"="orange", "Green"="darkgreen", "Blue"="blue")) + xlab("Welder Price") + ylab("Residual")
+```
+
+This model does a much better job of maintaining prediction accuracy for very expensive welders - it is fairly accurate up until the >$5500 price range
+
+# Metals Model 
+
+
+```{r metalsummary, echo=F}
+# Summarize versatility by type of metal
+metalsummary <- ldply(welderlist, function(i) colSums(i/use)>0)
+names(metalsummary)[1] <- "Model"
+metalsummary$Steel <- with(metalsummary, Ferrites+Austenites)
+metalsummary$CopperTitanium <- with(metalsummary, RedMetals+Titanium>0)
+metalsummary <- merge(welderstats, metalsummary[,c("Model", "Steel", "Aluminum", "CopperTitanium")])
+metalmodel <- lm(data=metalsummary, cost~amps+Aluminum+CopperTitanium, model=TRUE, x=TRUE)
+```
+
+Assessing the price of the ability to weld additional metals, we used backward selection to remove nonsignificant variables from the model.
+
+$$`r gsub(" ~ ", " = ", as.character(metalmodel$call[2]), fixed=T)`$$
+
+The significance of each term is shown below. 
+
+<div align="center">
+```{r metalsummary-out2, echo=F, results='asis'}
+print(xtable(summary(metalmodel)), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+Welders that can weld aluminum cost on average $`r sprintf("%.2f", as.numeric(metalmodel$coefficients['AluminumTRUE']))` more than welders that can only weld steel. Welders that can weld copper and titanium cost on average $`r sprintf("%.2f", as.numeric(metalmodel$coefficients['CopperTitaniumTRUE']))` more than equivalent welders without that ability.
+
+<div align="center">
+```{r metalsummary-out3, echo=F, results='asis'}
+print(xtable(summary(aov(metalmodel))), type="html", sanitize.colnames.function=sanitize)
+```
+</div>
+
+Assessing the residuals, we see that this model does a very good job of predicting the price of all but the most expensive (>$6000) welders. 
+
+```{r metalregresid,echo=F, include=T, fig.cap="Metals Model Residuals."}
+tmp <- metalsummary
+tmp$resid <- metalsummary$cost - predict(metalmodel, newdata=metalsummary)
+qplot(y=resid, x=cost, colour=Brand, size=I(3), data=tmp) + scale_colour_manual(values=c("Maroon" = "tomato4", "Red"="red", "Orange"="orange", "Green"="darkgreen", "Blue"="blue")) + xlab("Welder Price") + ylab("Residual")
+```
+
+
+# Rating Welders By Residuals
+
+We can use the four models to assess the "bargain" of specific welder models. Using multiple models provides a more robust result, and it is important to note the strengths of each model - very expensive welders were poorly predicted by all of the models, and the utility model was poor at predicting the price of   ~$4000 welders. In addition, if your use differs from the average materials engineering nerd who wants to TIG weld titanium for fun, you should ignore the utility model. 
+
+## Specific Welders
+
+```{r ratingresids, fig.cap="Welder models of interest, evaluated by difference between expected price and actual price."}
+model.eval <- data.frame()
+model.eval <- rbind.fill(model.eval, with(welderstats, data.frame(regtype="FullVersatility", Model = Model, resid=predict(fullmodel)-cost)))
+model.eval <- rbind.fill(model.eval, with(welderstats, data.frame(regtype="FullUtility", Model = Model, resid=predict(fullmodel2)-cost)))
+model.eval <- rbind.fill(model.eval, with(welderstats, data.frame(regtype="Metals", Model = Model, resid=predict(metalmodel)-cost)))
+model.eval <- rbind.fill(model.eval, with(welderstats, data.frame(regtype="Welds", Model = Model, resid=predict(weldmodel)-cost)))
+# model.eval <- subset(model.eval, Model%in%names(welderlist2))
+
+# model.eval <- ddply(model.eval, .(regtype), transform, resid=resid/max(abs(resid)))
+model.eval <- ddply(model.eval, .(Model), transform, x=regtype[which.max(abs(resid))], y=resid[which.max(abs(resid))])
+qplot(data=subset(model.eval, Model%in%names(welderlist2)), x=regtype, y=resid, group=Model, colour=Model, geom="line") + ylab("Predicted Price - Cost \n(Positive indicates a bargain)") + xlab("Regression Type") + geom_text(aes(x=x, y=y, label=Model, colour=Model)) + scale_colour_discrete(guide="none")
+```
+
+As the weld model explains the most variation in the data, the Syncrowave 210 is the best choice (cheapest for the feature set) of the seven we considered.
+
+## All Welders Examined
+
+The residuals for other welders are shown below. Positive values indicate a higher predicted price than actual price, and thus a deal.  
+
+
+```{r modelresideval-table, echo=F, results='asis'}
+resid.tab <- ddply(model.eval, .(Model), summarize, resid=mean(resid))
+resid.tab <- resid.tab[order(resid.tab$resid, decreasing=T),]
+rownames(resid.tab) <- NULL
+names(resid.tab)[2] <- "Residual"
+# kable(resid.tab, caption="Mean 'Bargain Rating' for each model of welder. Positive values indicate a bargain", digits=2)
+
+allresids <- dcast(model.eval, Model ~ regtype, value.var="resid")
+allresids$Avg <- rowMeans(allresids[,-1])
+names(allresids)[2:5] <- c("Versatility", "Utility", "MetalType", "WeldType")
+allresids <- allresids[order(allresids$Avg, decreasing=T),c(1, 6, 2:5)]
+
+rownames(allresids) <- NULL
+kable(allresids, caption="Residuals  (and mean residual) for each welder and model. Positive values indicate a bargain", digits=2, table.attr="id=\"allwelders_table\"", format="html")
+```
