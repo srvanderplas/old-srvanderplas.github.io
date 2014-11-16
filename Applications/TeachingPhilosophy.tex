@@ -1,0 +1,110 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,letterpaper,sans,unicode]{moderncv}        % possible options include font size ('10pt', '11pt' and '8pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+\usepackage[nosort]{cite}
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+% Color combination: 0099cc, ccffcc, 66ccff, 003399
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
+% moderncv themes
+\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+\setlength{\hintscolumnwidth}{2.3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% Timeline
+% \usepackage{moderntimeline}
+% \tlmaxdates{0}{0} % Set the scale
+% \tlwidth{0ex} % Set the line width - space under the top label is 1pt more
+% \tltext{\tiny} % set label text size
+
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks, 
+            linkcolor=link, 
+            urlcolor=link, 
+            citecolor=link}
+            
+% personal data
+\name{Susan}{VanderPlas}
+\title{Statement of Teaching Philosophy}                               % optional, remove / comment the line if not wanted
+\address{802 17th St.}{Auburn, NE 68305}{}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
+\phone[mobile]{(515) 509-6613}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+% \phone[fixed]{+2~(345)~678~901}
+% \phone[fax]{+3~(456)~789~012}
+\email{srvanderplas@gmail.com}                               % optional, remove / comment the line if not wanted
+% \homepage{www.srvanderplas.github.io}                         % optional, remove / comment the line if not wanted
+% \social[linkedin]{john.doe}                        % optional, remove / comment the line if not wanted
+% \social[twitter]{jdoe}                             % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                           % optional, remove / comment the line if not wanted
+% \extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+% \photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+% \usepackage{multibib}
+% \newcites{papers,presentations}{{Publications},{Presentations}}
+
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+
+Statistics courses often make a bad first impression: students walk away from introductory classes with the idea that statistics is hard, extremely theoretical, or not particularly relevant to everyday life (outside of election season polls and choosing colored balls from a box). The rise of ``big data" and ``data science" have created a climate where statistics is vital to many different areas of business, government, and science, but only if it masquerades as something ``cool". It is important to counter this trend by making statistics accessible, fun, and relevant to students learning statistics for use in other disciplines, as well as students in the field. 
+
+\vspace{.65cm}\noindent {\large\textbf{Course Structure}}\hspace{8pt}
+In my experience, the best courses set students up for success with clear objectives, well-organized reference materials, and numerous sample problems. Ideally, the textbook should complement the lectures; in particular, the lectures and the textbook should provide different approaches to the material, so that students who do not understand one explanation have alternatives which may be more suited to their learning style. Lecture notes or outlines (and code files for computational courses) allow students to prepare for class ahead of time, so that lectures can focus on assessing and reinforcing students' understanding the material. For each topic, the lectures and examples should mimic the student's iterative encoding of the material, by beginning with a basic overview, providing more detail to facilitate a nuanced understanding, and encouraging exploration of open-ended problems.  
+
+\vspace{.65cm}\noindent {\large\textbf{Feedback}}\hspace{8pt}
+At every stage of the learning process, mutual feedback is important. Feedback from students should shape the course structure and presentation, so that lectures and written materials help as many students as possible; feedback to students should clarify misconceptions, identify problems, and direct students to additional resources (other reference material, peer tutoring, office hours). 
+
+Instructors should also be prepared to assist students with situations that may not be directly related to the course material: disabilities, medical problems, or personal issues may affect student performance in class and their ability to engage with the material; accommodating these students can have a positive impact on the student, and in some situations, on others in the class. As an undergraduate, I received accommodations for a medical condition which allowed me to complete a full load of difficult courses with limited class attendance; my success in graduate school is partially due to those accommodations. I also frequently request that course materials accommodate red-green colorblindness; many times, other affected students do not realize that they are missing important information. In addition, those discussions reinforce best practices for data visualization and may raise other students' awareness of the issue. 
+
+\vspace{.65cm}\noindent {\large\textbf{Course Design}}\hspace{8pt}
+Statistics courses are typically designed for a specific audience; introductory classes may be targeted toward students in engineering, business, or scientific disciplines, while more advanced courses may be designed for students with a background in statistics. Introductory classes tend to focus on literacy (understanding statistical analyses) while encouraging students to develop competency (the ability to design, perform, and interpret their own analyses); students in these classes do not have time to develop fluency (the ability to solve a novel problem and explain and justify the solution), while advanced classes typically encourage students to develop competency and fluency.
+
+\textbf{Literacy} is a prerequisite for statistical competency and fluency; literate students can read and assess statistical analyses and conclusions. For students in introductory courses, statistical literacy is often the most important goal: students need to be able to think critically about statistical claims, but they do not necessarily need to perform analyses independently or understand the theoretical underpinnings of statistics years after the course is complete. In computational courses, literate students can understand well-structured code and make simple modifications; they do not typically generate their own novel code. Breaking lectures up with demonstrations, worked examples, and group work reinforces a literate approach to the material, and short assessments (true/false, multiple choice, or short answer questions) provide mutual feedback. 
+
+\textbf{Competency}, the ability to correctly execute and interpret a statistical analysis, requires a more thorough understanding of the material. Students must engage the topic in a more abstract way and may need to understand some theoretical details; this is often where students with sparse mathematical backgrounds ``tune out" or become hopelessly confused. In my experience teaching introductory statistics and programming classes, group discussions, hands-on problems, and individual exploration (working through open-ended problems start-to-finish) are valuable tools to encourage the transition to competency. I have also found that outrageous and fun examples (zombie apocalypse, velociraptor attacks, online dating profiles) motivate students to attempt problems that would otherwise seem too dry or difficult. In computational courses, competent students can write their own code (utilizing documentation) and solve new problems using an established set of tools. Homework problems and open-ended test questions can be used to assess a student's competency and provide appropriate feedback. 
+
+\textbf{Fluency}, the ability to apply course material to novel problems independently, requires time and exposure to a wide variety of problems. Open ended questions, discussions, and projects encourage students to develop an understanding of the material and to think critically about the subject, thus moving from competency to fluency. In computational courses, students must be able to use the software fluently before they can apply their knowledge of the material to new problems. The ultimate goal for most teachers at the end of a course is that students can be trusted to use their knowledge in the outside world: they can discuss a problem coherently, apply ``textbook" knowledge appropriately, communicate the logic behind their approach, and interpret the results correctly. 
+
+\vfill\noindent Courses and learning environments which are well-designed, engaging, and responsive encourage students to develop a more nuanced understanding of the subject matter, whether the goal is literacy, competency, or fluency. As a student, I have experienced courses which exhibited all of these traits (and those which did not); as a teacher, I work to design courses which engage the material on multiple levels, provide frequent, mutual feedback, and illustrate the subject matter with fun, engaging, memorable, and relevant examples. 
+
+\end{document}
