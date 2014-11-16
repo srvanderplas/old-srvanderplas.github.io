@@ -11,14 +11,14 @@ output:
     highlight.chooser: FALSE
 ---
 <div class="jumbotron">
-<h1> Random (and not-so-random) Data</h1>
+<h2> Random (and not-so-random) Stuff</h2>
 
 This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). It contains links to my CV, projects I find interesting, and slides from some of my presentations. 
 
 </div>
 
 # CV
-[Here](CV/CV-SusanVanderPlas.pdf) is a link to my current CV/resume. I expect to graduate in Spring 2015 with my PhD in Statistics and am looking for a job that is flexible with regards to geographic location.
+[Here](CV/CV-SusanVanderPlas.pdf) is a link to my current CV/resume. I expect to graduate in Spring 2015 with my PhD in Statistics.
 
 # Personal Projects
 * [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html)
