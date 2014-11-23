@@ -20,8 +20,16 @@ This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). 
 # CV
 [Here](CV/CV-SusanVanderPlas.pdf) is a link to my current CV/resume. I expect to graduate in Spring 2015 with my PhD in Statistics.
 
-# Personal Projects
-* [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html)
+# Papers and Projects
+* [Sine Illusion](https://github.com/heike/sine-illusion) (accepted to JCGS in October 2014)
+
+* [The Curse of Three Dimensions: Why Your Brain is Lying to You](https://github.com/srvanderplas/LieFactorSine) 
+
+* [Visual Aptitude and Statistical Graphics](https://github.com/srvanderplas/VisualAptitude)
+
+* [Animint](https://github.com/tdhock/animint) 
+    * [Animint Paper](https://github.com/tdhock/animint-paper)
+
 
 # Presentations
 * [The Curse of Three Dimensions: Why Your Brain is Lying To You](Presentations/WhyYourBrainIsLyingToYou/JSM2014.html) - given at JSM 2014. This work won the Graphics section Student Paper Award. More information (and the current paper draft) is available [here](www.github.com/srvanderplas/LieFactorSine/AcmTransactions).
@@ -29,6 +37,10 @@ This is the public homepage of [Susan Vanderplas](www.github.com/srvanderplas). 
 * [Animint presentation](Presentations/Animint/animint.html) - given at the Great Plains R User group in May 2014. Animint is an R package I started working on due to Google Summer of Code. 
 
 * [User Testing Panel, JSM 2014](Presentations/UserTestingJSM2014/UserTesting.html)
+
+
+# Personal Projects
+* [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html)
 
 
 # Other Links
