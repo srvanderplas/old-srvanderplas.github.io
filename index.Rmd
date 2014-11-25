@@ -45,6 +45,7 @@ A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found 
 # Personal Projects
 * [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html) - This analysis is still in progress; I began it to explore text mining and classification algorithms (and chose the topic because of its potential for amusement). 
 
+* [2012 Election Visualization](https://dicook.github.io/election2012/index.html) - I worked with Dianne Cook, Andee Kaplan, and Eric Hare to visualize data from the 2012 presidential election. I focused on analyzing political contributions, campaign spending, and voting technology.
 
 # Other Links
 
