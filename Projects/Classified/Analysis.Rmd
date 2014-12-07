@@ -280,7 +280,7 @@ babble.text <- preprocess(babble.text, case=NULL)
 ngram.res <- ngram(babble.text, n=2)
 
 # Looking at the object
-print(ngram.res, output="truncated")
+print(ngram.res)
 
 # Want to ensure complete sentances (not like the originals) and also break ngrams apart by BEGIN and END
 fix.babble <- function(text){
@@ -331,9 +331,6 @@ This sounds only slightly more schizophrenic than the typical Craigslist ad. Jus
 # Create 3-grams
 ngram.res <- ngram(babble.text, n=3)
 
-# Looking at the object
-print(ngram.res, output="truncated")
-
 # Generate a new sequence of 1000 words
 out.posts <- fix.babble(babble(ngram.res, 1000, seed=109897276))
 compare <- compare.posts(out.posts)
@@ -352,7 +349,7 @@ Just for fun, we'll try something crazy and use 6-grams. This is likely to get u
 ngram.res <- ngram(babble.text, n=6)
 
 # Looking at the object
-print(ngram.res, output="truncated")
+print(ngram.res)
 
 # Generate a new sequence of 500 words
 out.posts <- fix.babble(babble(ngram.res, 500, seed=609807796))
@@ -394,7 +391,7 @@ Moving backwards a bit, we can examine 4-grams in the same way to see whether th
 ngram.res <- ngram(babble.text, n=4)
 
 # Looking at the object
-print(ngram.res, output="truncated")
+print(ngram.res)
 
 # Generate a new sequence of 500 words
 out.posts <- fix.babble(babble(ngram.res, 1000, seed=90345987))
@@ -499,7 +496,7 @@ dirtyDTM <- DocumentTermMatrix(myCorpus, control = list(wordLengths = c(2, Inf),
 dirtyDTM <- dirtyDTM[,which(col_sums(dirtyDTM)>=15)]
 ```
 
-
+<!----
 ## Topic Modeling
 We'll use the mallet package and LDAvis to try to model the various topics in Craigslist personal ads. I'm following the [LDAvis documentation](https://cpsievert.github.io/LDAvis/reviews/reviews.html) and examples (written by the most awesome Carson Sievert) to complete this step. 
 
@@ -540,4 +537,5 @@ json <- with(out, createJSON(K = 25, phi, term.frequency,
 serVis(json, out.dir = 'vis', open.browser = FALSE)
 ```
 
-<iframe src = "vis/index.html" width=900 height=700></iframe>
+ <iframe src = "vis/index.html" width=900 height=700></iframe>
+--->
