@@ -171,7 +171,7 @@ qplot(data=data2, x=x, y=y-ymean, geom="jitter", shape=I(1)) +
 
 ---
 
-### Which Plot has Homogeneous Variance?
+### Do any of these plots have homogeneous variance?
 
 <img src="figure/fig-sineillusiondatademo-2.png" width='75%' style="border:0px">
 
