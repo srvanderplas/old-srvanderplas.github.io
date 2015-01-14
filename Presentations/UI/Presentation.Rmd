@@ -25,7 +25,7 @@ opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', 
 
 ```
 
-## Motivation
+## Does this data have homogeneous variance?
 <img src="figure/gasprices.png" width='100%' height='auto'>  
 
 ## Outline
@@ -43,7 +43,7 @@ opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', 
 
 ## Good Statistical Graphics
 
-<div align="left">
+<div style="text-align:left;margin-left:20%;">
 
 **Function:**  
 
@@ -93,15 +93,17 @@ How do I best communicate the data?
 
 <h2 style="width:100%;font-size:1.75em;">Statistical Graphics Literature</h2>
 
-<h4 style="text-align:left;margin-bottom:2px;margin-top:5px;">User Studies and Experiments:</h4>
+<h4 style="text-align:left;margin-bottom:2px;margin-top:5px;">Ranking of Simple Graphical Tasks</h4>
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
 <li style="font-size:80%;text-align:left;">[Cleveland & McGill](http://www.cs.ubc.ca/~tmm/courses/cpsc533c-04-spr/readings/cleveland.pdf)  
 <p style="font-size:95%;">
 Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods. (1984)  
 Additional Papers in 1985, 1987</p></li>
 <li style="font-size:80%;text-align:left;"> [Heer & Bostock (2010) Crowdsourcing graphical perception: using mechanical turk to assess visualization design](http://dl.acm.org/citation.cfm?id=1753357)
-<li style="font-size:80%;text-align:left;"> InfoVis: Task specific formal studies of interface design</li>
-<li style="font-size:80%;text-align:left;"> Statistical Lineups: Evaluating graphics using a hypothesis-testing framework
+</ul>
+<h4 style="text-align:left;margin-bottom:2px;margin-top:5px;">Visual Inference</h4>
+<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+<li style="font-size:80%;text-align:left;"> Statistical Lineups: Evaluating graphics with a hypothesis-testing framework
 <p style="font-size:95%;">
 Buja et al. (2009) [Statistical inference for exploratory data analysis and model diagnostics](http://rsta.royalsocietypublishing.org/content/367/1906/4361.short)  
 Hofmann et al. (2012) [Graphical Tests for the Power of Competing Designs](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6327249)  
@@ -119,14 +121,20 @@ Perceptual illusions that distort statistical charts</li>
   <li style="text-align:left;font-size:80%"> [The Curse of Three Dimensions: Why Your Brain is Lying To You (ASA Student Paper Award, 2014)](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/GraphicsPaperCompetition/Full%20Paper%20Unblinded.pdf)</li>
   </ul>
 <li style="text-align:left;margin-bottom:20px;margin-top=10px;">Visual Inference: Exploring the link between statistical graphics and visual ability </li>
+  <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+  <li style="text-align:left;font-size:80%"> [Manuscript in preparation for submission](https://github.com/srvanderplas/VisualAptitude)</li>
+  </ul>
 <li style="text-align:left;margin-bottom:20px;margin-top=10px;">Perception of Multiple Data Features:  
 <p style="font-size:80%">How the mapping between data and graphical features affects the hierarchy of graphical perception and feature recognition.</p></li>
+  <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+  <li style="text-align:left;font-size:80%"> [Manuscript in preparation for submission](https://github.com/srvanderplas/Feature Hierarchy)</li>
+  </ul>
 </ul>
 
 
 ---
 
-### Which Plot has Homogeneous Variance?
+### Do any of these plots have homogeneous variance?
 
 ```{r sineillusiondatademo, include=F, fig.width=6, fig.height=4.5}
 source("code/functions.r")
@@ -152,7 +160,7 @@ qplot(data=data2, x=x, y=y, geom="jitter", shape=I(1)) +
   xlim(lims$dx) + ylim(lims$dy)
 
 qplot(data=data2, x=x, y=y-ymean, geom="jitter", shape=I(1)) + 
-  geom_line(aes(x=x, y=ymean), colour="blue") + 
+#   geom_line(aes(x=x, y=ymean), colour="blue") + 
   facet_wrap(~display) + 
   coord_equal(ratio=1) + theme_stimuli() + 
   xlim(lims$dx) + ylim(lims$dy)
@@ -275,12 +283,12 @@ $l_{new_w}(x) = (1-w) \cdot l_{old} + w \cdot l_{new}(x)$
 <br>
 <table style="border:0px">
 <tr style="padding:10px;border:0px;">
-<td style="border:0px;vertical-align:middle;align:left;">
-<img src="figure/SineIllusion-ShinyApp.png" width=800 style="border:0px;">
+<td style="border:0px;vertical-align:middle;align:left;text-align:center;">
+<a href="http://localhost:3838/SineIllusionShiny/"><img src="figure/SineIllusion-ShinyApp.png" width=600 style="border:0px;"></a>
 </td>
 <td style="border:0px;vertical-align:middle;text-align:center;">
 - Corrections validated experimentally  
-- Amazon Mechanical Turk
+- Data collected using Amazon Mechanical Turk
 - 206 participants completed 1374 trials in 4 days
 - Goals: 
     - Identify range of acceptable weight values  
@@ -291,11 +299,26 @@ $l_{new_w}(x) = (1-w) \cdot l_{old} + w \cdot l_{new}(x)$
 
 ## Results 
 
-<img src="figure/sineIllusionResults.png" width="80%" style="border:0px;">  
+<div align="left">
+<ul>
+<li> Histograms show estimated parameter values</li>
+<li> Lines show individual estimated values </li>
+</ul>
+</div>
+
+<img src="figure/sineIllusionResults.png" width="75%" style="border:0px;">  
+
+<div align="left">
+<ul>
+<li> w=0 and w=1 (fully corrected) are not acceptable weights.</li>
+<li> Weight values are similar across correction type and individual </li>
+</ul>
+</div>
+
 
 ## Findings
 
-- Sine Illusion affects our perceptions of statistical graphics  
+- Sine Illusion affects our perception of heteroskedasticity in statistical plots  
 <br>
 - Corrections are effective at removing the illusion's effects  
 <br>
@@ -387,15 +410,15 @@ Web-based interactive graphics may be even more size-sensitive than static graph
 - New crosses with highest yield varieties  
 <small>(sequencing + field trials)</small>  
   <br>
-- Genealogy (1600 varieties)  
+- Genealogy as reported in the breeding literature (1600 varieties)  
 
-## Visualization Concerns:  
+## Visualizing SNPs:  
 <ul>
 <li class="fragment" style="margin:.5em"> Huge number of interesting genes (70 million ID'd SNPs)  
 <img src="figure/Chr18Snps.png" width='90%' style="border:0px;"></li>
 </ul>
 
-## Visualization Concerns:  
+## Visualizing SNPs:  
 <ul>
 <li style="margin:.5em"> Huge number of interesting genes (70 million ID'd SNPs)</li>
 <li style="margin:.5em"> 79 varieties, 20 chromosomes</li>
@@ -404,6 +427,8 @@ Web-based interactive graphics may be even more size-sensitive than static graph
 Must be able to zoom and filter</li>
 <li class="fragment" style="margin:.5em"> Optimized files for SNP results are still large (10 GB) and require significant computational resources</li>
 </ul>
+
+Above all, need an interface to allow people to pull new discoveries from the data systematically. 
 
 ## Visualizing SNPs
 
@@ -417,7 +442,7 @@ Must be able to zoom and filter</li>
 
 ## Applet Design
 
-<img src="figure/snpapp.svg", width="80%", height="auto", style="border:0px;">
+<a href="http://localhost:3838/SNP/"><img src="figure/snpapp.svg", width="80%", height="auto", style="border:0px;"></a>
 
 ---
 
@@ -454,7 +479,7 @@ Must be able to zoom and filter</li>
 
 ## Good Statistical Graphics
 
-<div align="left" style="color:#808080;">
+<div style="color:#808080;text-align:left;margin-left:20%;">
 
 **Function:**  
 
@@ -466,7 +491,7 @@ Must be able to zoom and filter</li>
 
 - Show a consistent story
 - Provide several levels of detail
-</div><div align="left">
+</div><div style="text-align:left;margin-left:20%;">
 
 <div align="center" style="padding:10px">(Ideally)</div>  
 
@@ -552,11 +577,12 @@ Goal: Understand which features are most visually important.
 
 <ul>
 <li style="margin:1em">  Visualization research is inherently interdisciplinary</li>
-<li style="margin:1em">  Graphics are evolving with new data</li>
+<li style="margin:1em">  Statistical graphics makes unique contributions to visualizing variation in data</li>
+<li style="margin:1em">  Statistical graphics will evolve to address new big data challenges</li>
 <li style="margin:1em">  Need to <u>quantify</u> perception to better evaluate graphs</li>
 </ul>
 
-# Questions? {.title}
+---
 
 ---
 
