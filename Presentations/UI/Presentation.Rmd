@@ -301,7 +301,7 @@ $l_{new_w}(x) = (1-w) \cdot l_{old} + w \cdot l_{new}(x)$
 
 <div align="left">
 <ul>
-<li> Histograms show estimated parameter values</li>
+<li> Histograms show (bootstrap) estimated parameter values</li>
 <li> Lines show individual estimated values </li>
 </ul>
 </div>
@@ -367,20 +367,6 @@ BUT...
 Web-based interactive graphics may be even more size-sensitive than static graphics. 
 
 
-## Interactive Visualization
-
-- Lacks the rigor of a grammar of interactivity  
-    <br></br>
-- Design is a function of necessity (for now!), which can lead to sub-optimal graphics
-    - Interactivity vs. Animation vs. Static Plots
-    - Many types of interactivity, with different use cases:  
-    <small>Brushing, linked plots, subsetting, zoom-and-filter</small>  
-    <br></br>
-- Perceptual research is limited
-    - Extremely specific use cases
-    - Low-level psychological effects
-    - Testing paradigms are somewhat difficult
-
 # Interactive Visualization of Soybean Population Genetic Data {.title}
 
 ---
@@ -426,9 +412,10 @@ Web-based interactive graphics may be even more size-sensitive than static graph
 <li class="fragment" style="margin:.5em"> Researchers tend to work on gene subsets:<br>
 Must be able to zoom and filter</li>
 <li class="fragment" style="margin:.5em"> Optimized files for SNP results are still large (10 GB) and require significant computational resources</li>
-</ul>
+</ul>  
 
-Above all, need an interface to allow people to pull new discoveries from the data systematically. 
+<p class="fragment" style="margin-top:1em;">Above all, need an interface to allow people to pull new discoveries from the data systematically. </p>
+
 
 ## Visualizing SNPs
 
@@ -535,6 +522,8 @@ How do I best communicate the data?
     - Content Questions
     - "At what point do humans get overloaded?"  
     <br>
+    
+- Grammar of Interactive Graphics
 
 - Color Perception for Statistical Plots
     - [Colorbrewer](http://colorbrewer2.org/) palettes for maps
