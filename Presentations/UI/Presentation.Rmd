@@ -265,7 +265,7 @@ Our brains sometimes inappropriately apply 3d heuristics to 2d images, producing
 
 ## Solution 1: Transform X
 
-<img src="figure/Xtransform.png" width="60%" style="border:0px;">  
+<img src="figure/Xtransform.png" width="70%" style="border:0px;">  
 <p style="font-size:50%">From: [Signs of the Sine Illusion: Why we need to care](http://amstat.tandfonline.com/doi/abs/10.1080/10618600.2014.951547) (JCGS, 2015) </p> 
 
 $(f \circ T)(x) = a + (b-a)\left(\int_{a}^x |f^\prime(z)| dz\right)/\left(\int_{a}^{b}|f^\prime(z)| dz\right)$
