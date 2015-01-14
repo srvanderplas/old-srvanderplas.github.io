@@ -95,11 +95,11 @@ How do I best communicate the data?
 
 <h4 style="text-align:left;margin-bottom:2px;margin-top:5px;">Ranking of Simple Graphical Tasks</h4>
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
-<li style="font-size:80%;text-align:left;">[Cleveland & McGill](http://www.cs.ubc.ca/~tmm/courses/cpsc533c-04-spr/readings/cleveland.pdf)  
+<li style="font-size:80%;text-align:left;">Cleveland & McGill
 <p style="font-size:95%;">
-Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods. (1984)  
+[Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.](http://www.cs.ubc.ca/~tmm/courses/cpsc533c-04-spr/readings/cleveland.pdf) (1984)  
 Additional Papers in 1985, 1987</p></li>
-<li style="font-size:80%;text-align:left;"> [Heer & Bostock (2010) Crowdsourcing graphical perception: using mechanical turk to assess visualization design](http://dl.acm.org/citation.cfm?id=1753357)
+<li style="font-size:80%;text-align:left;"> Heer & Bostock (2010) [Crowdsourcing graphical perception: using mechanical turk to assess visualization design](http://dl.acm.org/citation.cfm?id=1753357)
 </ul>
 <h4 style="text-align:left;margin-bottom:2px;margin-top:5px;">Visual Inference</h4>
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
