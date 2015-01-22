@@ -1,0 +1,26 @@
+---
+title: 'Applied Statistical Graphics'
+author: 'Susan VanderPlas<br><h4 style="margin-bottom:5px;padding-bottom:0px;">Statistics Department</h4><br><h3 style="margin-top:5px;padding-top:0px;">Iowa State University</h3>'
+css: Presentation.css
+output: 
+  revealjs::revealjs_presentation:
+    pandoc_args: [ "--slide-level", "2" ]
+    center: false
+    transition: fade
+    fig_caption: true
+    width: 1388
+    height: 768
+---
+
+```{r setup, fig.keep='all',echo=FALSE, eval=TRUE, error=FALSE, warning=FALSE, message=FALSE}
+options(replace.assign=TRUE,width=70)
+library(knitr)
+library(ggplot2)
+library(reshape2)
+library(plyr)
+library(gridExtra)
+
+opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', fig.width=5, fig.height=5, fig.show='hold', par=TRUE, cache=TRUE, concordance=TRUE, autodep=TRUE, warning=FALSE, message=FALSE, echo=FALSE)
+
+
+```
