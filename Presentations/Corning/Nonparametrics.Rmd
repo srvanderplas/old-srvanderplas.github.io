@@ -21,8 +21,6 @@ library(plyr)
 library(gridExtra)
 
 opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', fig.width=5, fig.height=5, fig.show='hold', par=TRUE, cache=TRUE, concordance=TRUE, autodep=TRUE, warning=FALSE, message=FALSE, echo=FALSE)
-
-
 ```
 
 ## Outline
@@ -123,8 +121,6 @@ Equivalently, Effective Full Power Days Lost (EFPDL)
 <p style="text-align:center;">$EFPDL = Days * (1-CF/100)$</p>
 </li>
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
 Maintenance approx. every 18 months (21-60 days)</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
 Reduced power for 2-4 days (every 3 months) to adjust fuel distribution</li>
@@ -135,10 +131,10 @@ Reduced power for 2-4 days (every 3 months) to adjust fuel distribution</li>
 Simulated data is extremely similar to observed data in average capacity factor, 
 autocorrelation, and other properties. </p>
 
----
+## Data
 
-```{r monthData, fig.width=8, fig.height=6, out.width='100%'}
-source("Simulate.R") 
+```{r monthData, fig.width=8, fig.height=4, out.width='100%'}
+load("Simulate.Rdata") 
 outage <- subset(month.summary, outage)
 outage$monthend <- outage$monthyear+days(15)
 outage$monthyear <- outage$monthyear-days(15)
@@ -166,14 +162,13 @@ ggplot() +
 
 ## Diagnostics
 
-- Very little evidence of a "bathtub" curve - end of cycle is not more likely to have maintenance issues, beginning may be (single exceptional, high-weight situation)
+- Very little evidence of a "bathtub" curve  
+<small>End of cycle is not more likely to have maintenance issues, beginning may be (single exceptional, high-weight situation)</small>
 
 - Only first-order autocorrelation (no need for block bootstrap)  
-Block bootstrap doesn't significantly change results
 
-```{r monthDataACF, fig.width=6, fig.height=4, out.width='100%'}
-load("Simulate.Rdata")
-tmp <- acf(month.summary$capacity.factor, plot=F)
+```{r monthDataACF, fig.width=6, fig.height=3, fig.keep='first', out.width='60%'}
+tmp <- acf(month.summary$capacity.factor, plot=T, main="Autocorrelation of Capacity Factor")
 qplot(x=as.numeric(tmp$lag), xend=as.numeric(tmp$lag), 
       yend=0, y=as.numeric(tmp$acf), 
       geom="segment") + 
@@ -186,25 +181,27 @@ qplot(x=as.numeric(tmp$lag), xend=as.numeric(tmp$lag),
 
 ## Options
 
-### Wear Cycle
-
-More wear at some points: Stratified sampling (Month 1-12, 13-outage), extra months chosen from all months  
 <br></br>
-vs.  
-<br></br>  
-Uniform wear throughout the cycle: Completely random sample
+
+### Wear Cycle
+<div style="text-align:left;font-size:.75em">
+Assumption:  More wear at some points
+
+* Stratified sampling (Month 1-12, 13-outage), months 18-22 not stratified
+* Uniform wear throughout the cycle: Completely random sample
+</div> <br></br>
 
 ### Wear From Increased Cycle Length
-Normal Wear: 22 months operation (+ 2 months outage)  
-<br></br>
-vs. 
-<br></br>
-Extra Wear: 23 months operation (+ 2 months outage)  
-Assume an extra month's worth of lost power generation to account for increased wear and tear
+<div style="text-align:left;font-size:.75em">
+Assumption: Extra wear for last 6 months of the cycle
+
+* 23 months operation (+ 2 months outage)
+* Normal Wear: 22 months operation (+ 2 months outage)  
+</div>
 
 ## Results
 
-```{r EFPDL, fig.width=6, fig.height=4, out.width='100%'}
+```{r EFPDL, fig.width=8, fig.height=4, out.width='100%'}
 qplot(x=EFboot, y=..density.., main="Total EFPDL, Stratified Cycle, Extra Wear", geom="density", xlab="EFPDL", ylab="Density") + 
   geom_segment(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.95))],
                    xend=EFmeandens$x[which.min(abs(EFmeanCDF-.95))], 
@@ -229,9 +226,9 @@ qplot(x=EFboot, y=..density.., main="Total EFPDL, Stratified Cycle, Extra Wear",
                 label=paste(" P(X<=", round(EFmeandens$x[which.min(abs(EFmeanCDF-.5))], 2), ") = .50 ", sep="")), hjust=0) 
 ```
 
----
+## Results
 
-```{r EFPDL2, fig.width=6, fig.height=4, out.width='100%'}
+```{r EFPDL2, fig.width=8, fig.height=4, out.width='100%'}
 qplot(x=EFboot2, y=..density.., main="Total EFPDL, Random Cycle, Extra Wear", geom="density", xlab="EFPDL", ylab="Density") + 
   geom_segment(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))],
                    xend=EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))], 
@@ -256,9 +253,9 @@ qplot(x=EFboot2, y=..density.., main="Total EFPDL, Random Cycle, Extra Wear", ge
                 label=paste(" P(X<=", round(EFmeandens2$x[which.min(abs(EFmeanCDF2-.5))], 2), ") = .50 ", sep="")), hjust=0) 
 ```
 
----
+## Results
 
-```{r EFPDL3, fig.width=6, fig.height=4, out.width='100%'}
+```{r EFPDL3, fig.width=8, fig.height=4, out.width='100%'}
 qplot(x=EFboot3, y=..density.., main="Total EFPDL, Stratified Cycle, Normal Wear", geom="density", xlab="EFPDL", ylab="Density") + 
   geom_segment(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))],
                    xend=EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))], 
@@ -283,9 +280,9 @@ qplot(x=EFboot3, y=..density.., main="Total EFPDL, Stratified Cycle, Normal Wear
                 label=paste(" P(X<=", round(EFmeandens3$x[which.min(abs(EFmeanCDF3-.5))], 2), ") = .50 ", sep="")), hjust=0) 
 ```
 
----
+## Results
 
-```{r EFPDL4, fig.width=6, fig.height=4, out.width='100%'}
+```{r EFPDL4, fig.width=8, fig.height=4, out.width='100%'}
 qplot(x=EFboot4, y=..density.., main="Total EFPDL, Random Cycle, Normal Wear", geom="density", xlab="EFPDL", ylab="Density") + 
   geom_segment(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))],
                    xend=EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))], 
@@ -307,39 +304,49 @@ qplot(x=EFboot4, y=..density.., main="Total EFPDL, Random Cycle, Normal Wear", g
                    yend=0.05), 
                colour="red", linetype=2) +
   geom_text(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))]-2, y=0.051, 
-                label=paste(" P(X<=", round(EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))], 2), ") = .50 ", sep="")), hjust=0) ```
+                label=paste(" P(X<=", round(EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))], 2), ") = .50 ", sep="")), hjust=0) 
+```
+
+## Conclusions
+
+
+<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+4 models don't differ *much* in predictions
+</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Model accurately predicted 2012-2014 cycle within 1 day EFPDL</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Predictive distribution shows results in an intuitive fashion</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Model is highly customizable to different estimation needs
+
+- Exclude long unplanned outages (for use in fuel planning)
+- Modify sampling distribution (for a more conservative estimate)
+
+</li>
+</ul>
 
 # Other Projects {.title}
 
----
-- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots  
-- Dissertation Research
-    - Examine illusions which affect perception of variability in statistical plots  
-    <br>(2014 ASA Student paper award, statistical grahics section)
+
+## Research
+
+- Dissertation
+    - Examine illusions which affect perception of variability in statistical plots<br>
+    <small>2014 ASA Student paper award, statistical grahics section</small>
     - Assess visual skills required for reading statistical graphics
     - Understand the interaction between (and hierarchy of graphical features)
 - Visualization of soybean population genetic data
-- Consulting
-    - Shiny applets
-    - Statistics for power plant reliability
+
+## Computation
+
+- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots
+- Shiny applets - Interactive web applets for data display
 - Data Aggregation
     - Craigslist ads
     - OkCupid
     - Location-based energy prices
 
 
-## Acknowledgements 
-
-### Computation
-- dplyr/plyr
-- reshape2/tidyr
-- CN.MOPS: CNV identification in populations of genetic data
-
-## Acknowledgements 
-
-### Visualization Software
-- ggplot2
-- Animint  
-<small>d3 interactive web graphics using ggplot2 syntax in R</small>
-- Shiny (RStudio) interactive web applets
-- Reveal.js (slides) with Rmarkdown and knitr
+## Questions? {.title}
