@@ -1,0 +1,345 @@
+---
+title: 'Statistical Modeling and Data Visualization'
+author: 'Susan VanderPlas'
+css: Presentation.css
+output: 
+  revealjs::revealjs_presentation:
+    pandoc_args: [ "--slide-level", "2" ]
+    center: false
+    transition: fade
+    fig_caption: true
+    width: 1388
+    height: 768
+---
+
+```{r setup, fig.keep='all',echo=FALSE, eval=TRUE, error=FALSE, warning=FALSE, message=FALSE}
+options(replace.assign=TRUE,width=70)
+library(knitr)
+library(ggplot2)
+library(reshape2)
+library(plyr)
+library(gridExtra)
+
+opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', fig.width=5, fig.height=5, fig.show='hold', par=TRUE, cache=TRUE, concordance=TRUE, autodep=TRUE, warning=FALSE, message=FALSE, echo=FALSE)
+
+
+```
+
+## Outline
+<br><div align="left">
+<ul>
+<li style="margin:1em;"> Introduction</li>
+<li style="margin:1em;"> Consulting Project:  
+Predicting power plant performance with increased maintenance cycle length</li>
+<li style="margin:1em;"> Other Projects </li>
+</ul>
+</div>
+
+# Introduction {.title}
+
+## About Me
+<table style="border:0px">
+<tr style="padding:10px;border:0px;">
+<td style="border:0px;vertical-align:middle;align:left;font-size:1.25em;" width='75%' >
+PhD in Statistics (2015*)  
+<br></br>  
+MS in Statistics (2011)
+</td>
+<td style="border:0px;vertical-align:middle;align:center;" width='25%'>
+<img src="figure/iowa-state-cyclones.png" width=200 height='auto' style="border:0px">
+</td>
+</tr>
+<tr style="padding:10px;border:0px;">
+<td style="border:0px;vertical-align:middle;align:left;font-size:1.25em;" width='75%'>
+BS in Applied Mathematical Sciences and Cognitive Psychology (2009)
+</td>
+<td style="border:0px;vertical-align:middle;align:center;" width='25%'>
+<img src="figure/TAMU.png" width=200 height='auto' style="border:0px">
+</td>
+</tr>
+</table>
+## Statistical Interests
+
+<ul style="margin-bottom:20px;margin-top:10px;width:50%;">
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Modeling</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Bayesian statistics</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Data mining</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Visualization</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Simulation</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Nonparametric statisics</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=10px;">Engineering statistics</li>
+</ul>
+
+## Research
+
+<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+<li style="text-align:left;margin-bottom:30px;margin-top=10px;">
+Modeling material structure and composition  
+Nonparametric statistics for Atom Probe Tomography data  
+(MS research, with ISU Material Science & Engineering)</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=20px;">Evaluating road safety (with Iowa Dept. of Transportation)</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=20px;">Exploring perception of statistical graphics (PhD research)</li>
+<li style="text-align:left;margin-bottom:20px;margin-top=20px;">Analysis of soybean genomics (with USDA)</li>
+</ul>
+
+## Teaching
+
+<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+R workshops for the Iowa State community</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Statistics for Research Workers (engineering and social science sections) - use of SAS and JMP for statistical analysis</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Business Statistics II - use of JMP for statistical analysis</li>
+</ul>
+
+## Statistical Philosophy
+<ul>
+<li class="fragment" style="margin:.5em"> Understand the dataset through exploratory analysis
+  <ul>
+    <li>graphical summaries</li>
+    <li>summary statistics</li>
+    <li>identify record errors, data artifacts, other issues that may affect modeling</li>
+  </ul>
+</li>
+<li class="fragment" style="margin:.5em">Appropriately model the data</li>
+<li class="fragment" style="margin:.5em">Communicate model results and implications clearly
+  <ul>
+    <li>graphics</li>
+    <li>simulated model predictions</li>
+  </ul>
+</li>
+</ul>
+
+# Modeling Plant Reliability Under New Maintenance Conditions {.title}
+
+## Data Description
+
+<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Monthly capacity factor  
+<p style="text-align:center;">$CF = \frac{Power\ Produced}{Max\ Capacity}$ </p>  
+Equivalently, Effective Full Power Days Lost (EFPDL)
+<p style="text-align:center;">$EFPDL = Days * (1-CF/100)$</p>
+</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Maintenance approx. every 18 months (21-60 days)</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+Reduced power for 2-4 days (every 3 months) to adjust fuel distribution</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">Occasional shutdowns (2-30+ days) to maintain critical systems </li>
+</ul>
+
+<p style="font-size:.75em">This presentation shows data simulated using knowledge of plant constraints. <br></br>
+Simulated data is extremely similar to observed data in average capacity factor, 
+autocorrelation, and other properties. </p>
+
+---
+
+```{r monthData, fig.width=8, fig.height=6, out.width='100%'}
+source("Simulate.R") 
+outage <- subset(month.summary, outage)
+outage$monthend <- outage$monthyear+days(15)
+outage$monthyear <- outage$monthyear-days(15)
+
+maintenance <- subset(month.summary, capacity.factor<90 & !outage)
+maintenance$monthend <- maintenance$monthyear+days(16)
+maintenance$monthyear <- maintenance$monthyear-days(15)
+
+ggplot() + 
+  geom_rect(data=outage, 
+               aes(xmin=monthyear, xmax=monthend, ymin=0, ymax=100, fill=factor("Refueling Outage")), 
+               alpha=.25, inherit.aes=F) + 
+  geom_rect(data=maintenance, 
+               aes(xmin=monthyear, xmax=monthend, ymin=0, ymax=100, fill=factor("Critical Maintenance")), 
+               alpha=.25, inherit.aes=F) + 
+  scale_fill_manual("", values=c("Refueling Outage" = "blue", "Critical Maintenance" = "red")) + 
+  geom_line(data=month.summary, aes(x=monthyear, y=capacity.factor)) + 
+  geom_point(data=month.summary, aes(x=monthyear, y=capacity.factor)) + 
+  xlab("Time") + ylab("Capacity") + 
+  ggtitle("Capacity Factor, 2002-2012") + 
+  theme_bw() + 
+  theme(legend.position="bottom")
+```
+
+
+## Diagnostics
+
+- Very little evidence of a "bathtub" curve - end of cycle is not more likely to have maintenance issues, beginning may be (single exceptional, high-weight situation)
+
+- Only first-order autocorrelation (no need for block bootstrap)  
+Block bootstrap doesn't significantly change results
+
+```{r monthDataACF, fig.width=6, fig.height=4, out.width='100%'}
+load("Simulate.Rdata")
+tmp <- acf(month.summary$capacity.factor, plot=F)
+qplot(x=as.numeric(tmp$lag), xend=as.numeric(tmp$lag), 
+      yend=0, y=as.numeric(tmp$acf), 
+      geom="segment") + 
+  geom_segment(aes(x=0, y=0, xend=21, yend=0), inherit.aes=F) +
+  xlab("Lag (Months)") + 
+  ylab("ACF") + 
+  ggtitle("Autocorrelation of Capacity Factor") +
+  theme_bw() 
+```
+
+## Options
+
+### Wear Cycle
+
+More wear at some points: Stratified sampling (Month 1-12, 13-outage), extra months chosen from all months  
+<br></br>
+vs.  
+<br></br>  
+Uniform wear throughout the cycle: Completely random sample
+
+### Wear From Increased Cycle Length
+Normal Wear: 22 months operation (+ 2 months outage)  
+<br></br>
+vs. 
+<br></br>
+Extra Wear: 23 months operation (+ 2 months outage)  
+Assume an extra month's worth of lost power generation to account for increased wear and tear
+
+## Results
+
+```{r EFPDL, fig.width=6, fig.height=4, out.width='100%'}
+qplot(x=EFboot, y=..density.., main="Total EFPDL, Stratified Cycle, Extra Wear", geom="density", xlab="EFPDL", ylab="Density") + 
+  geom_segment(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.95))],
+                   xend=EFmeandens$x[which.min(abs(EFmeanCDF-.95))], 
+                   y=-Inf,
+                   yend=.007), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.95))]-2, y=0.008, 
+                label=paste(" P(X<=", round(EFmeandens$x[which.min(abs(EFmeanCDF-.95))], 2), ") = .95 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.9))],
+                   xend=EFmeandens$x[which.min(abs(EFmeanCDF-.9))],
+                   y=-Inf,
+                   yend=.015), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.9))]-2, y=0.016, 
+                label=paste(" P(X<=", round(EFmeandens$x[which.min(abs(EFmeanCDF-.9))], 2),")  = .90 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.5))],
+                   xend=EFmeandens$x[which.min(abs(EFmeanCDF-.5))],
+                   y=-Inf,
+                   yend=0.048), 
+               colour="red", linetype=2) +
+  geom_text(aes(x=EFmeandens$x[which.min(abs(EFmeanCDF-.5))]-2, y=0.049, 
+                label=paste(" P(X<=", round(EFmeandens$x[which.min(abs(EFmeanCDF-.5))], 2), ") = .50 ", sep="")), hjust=0) 
+```
+
+---
+
+```{r EFPDL2, fig.width=6, fig.height=4, out.width='100%'}
+qplot(x=EFboot2, y=..density.., main="Total EFPDL, Random Cycle, Extra Wear", geom="density", xlab="EFPDL", ylab="Density") + 
+  geom_segment(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))],
+                   xend=EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))], 
+                   y=-Inf,
+                   yend=.007), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))]-2, y=0.008, 
+                label=paste(" P(X<=", round(EFmeandens2$x[which.min(abs(EFmeanCDF2-.95))], 2), ") = .95 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.9))],
+                 xend=EFmeandens2$x[which.min(abs(EFmeanCDF2-.9))],
+                 y=-Inf,
+                 yend=.02), 
+             colour="red") + 
+  geom_text(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.9))]-2, y=0.021, 
+                label=paste(" P(X<=", round(EFmeandens2$x[which.min(abs(EFmeanCDF2-.9))], 2),")  = .90 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.5))],
+                   xend=EFmeandens2$x[which.min(abs(EFmeanCDF2-.5))],
+                   y=-Inf,
+                   yend=0.045), 
+               colour="red", linetype=2) +
+  geom_text(aes(x=EFmeandens2$x[which.min(abs(EFmeanCDF2-.5))]-2, y=0.046, 
+                label=paste(" P(X<=", round(EFmeandens2$x[which.min(abs(EFmeanCDF2-.5))], 2), ") = .50 ", sep="")), hjust=0) 
+```
+
+---
+
+```{r EFPDL3, fig.width=6, fig.height=4, out.width='100%'}
+qplot(x=EFboot3, y=..density.., main="Total EFPDL, Stratified Cycle, Normal Wear", geom="density", xlab="EFPDL", ylab="Density") + 
+  geom_segment(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))],
+                   xend=EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))], 
+                   y=-Inf,
+                   yend=.0075), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))]-2, y=0.0085, 
+                label=paste(" P(X<=", round(EFmeandens3$x[which.min(abs(EFmeanCDF3-.95))], 2), ") = .95 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.9))],
+                   xend=EFmeandens3$x[which.min(abs(EFmeanCDF3-.9))],
+                   y=-Inf,
+                   yend=.0195), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.9))]-2, y=0.0205, 
+                label=paste(" P(X<=", round(EFmeandens3$x[which.min(abs(EFmeanCDF3-.9))], 2),")  = .90 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.5))],
+                   xend=EFmeandens3$x[which.min(abs(EFmeanCDF3-.5))],
+                   y=-Inf,
+                   yend=0.05), 
+               colour="red", linetype=2) +
+  geom_text(aes(x=EFmeandens3$x[which.min(abs(EFmeanCDF3-.5))]-2, y=0.051, 
+                label=paste(" P(X<=", round(EFmeandens3$x[which.min(abs(EFmeanCDF3-.5))], 2), ") = .50 ", sep="")), hjust=0) 
+```
+
+---
+
+```{r EFPDL4, fig.width=6, fig.height=4, out.width='100%'}
+qplot(x=EFboot4, y=..density.., main="Total EFPDL, Random Cycle, Normal Wear", geom="density", xlab="EFPDL", ylab="Density") + 
+  geom_segment(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))],
+                   xend=EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))], 
+                   y=-Inf,
+                   yend=.0075), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))]-2, y=0.0085, 
+                label=paste(" P(X<=", round(EFmeandens4$x[which.min(abs(EFmeanCDF4-.95))], 2), ") = .95 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.9))],
+                   xend=EFmeandens4$x[which.min(abs(EFmeanCDF4-.9))],
+                   y=-Inf,
+                   yend=.0195), 
+               colour="red") + 
+  geom_text(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.9))]-2, y=0.0205, 
+                label=paste(" P(X<=", round(EFmeandens4$x[which.min(abs(EFmeanCDF4-.9))], 2),")  = .90 ", sep="")), hjust=0) + 
+  geom_segment(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))],
+                   xend=EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))],
+                   y=-Inf,
+                   yend=0.05), 
+               colour="red", linetype=2) +
+  geom_text(aes(x=EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))]-2, y=0.051, 
+                label=paste(" P(X<=", round(EFmeandens4$x[which.min(abs(EFmeanCDF4-.5))], 2), ") = .50 ", sep="")), hjust=0) ```
+
+# Other Projects {.title}
+
+---
+- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots  
+- Dissertation Research
+    - Examine illusions which affect perception of variability in statistical plots  
+    <br>(2014 ASA Student paper award, statistical grahics section)
+    - Assess visual skills required for reading statistical graphics
+    - Understand the interaction between (and hierarchy of graphical features)
+- Visualization of soybean population genetic data
+- Consulting
+    - Shiny applets
+    - Statistics for power plant reliability
+- Data Aggregation
+    - Craigslist ads
+    - OkCupid
+    - Location-based energy prices
+
+
+## Acknowledgements 
+
+### Computation
+- dplyr/plyr
+- reshape2/tidyr
+- CN.MOPS: CNV identification in populations of genetic data
+
+## Acknowledgements 
+
+### Visualization Software
+- ggplot2
+- Animint  
+<small>d3 interactive web graphics using ggplot2 syntax in R</small>
+- Shiny (RStudio) interactive web applets
+- Reveal.js (slides) with Rmarkdown and knitr
