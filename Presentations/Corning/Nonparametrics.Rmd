@@ -19,8 +19,9 @@ library(ggplot2)
 library(reshape2)
 library(plyr)
 library(gridExtra)
+library(lubridate)
 
-opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', fig.width=5, fig.height=5, fig.show='hold', par=TRUE, cache=TRUE, concordance=TRUE, autodep=TRUE, warning=FALSE, message=FALSE, echo=FALSE)
+opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', fig.width=5, fig.height=5, fig.show='hold', par=TRUE, cache=TRUE, concordance=TRUE, autodep=TRUE, warning=FALSE, message=FALSE, echo=FALSE, dev.args = list(bg = 'transparent'))
 ```
 
 ## Outline
@@ -68,68 +69,59 @@ BS in Applied Mathematical Sciences and Cognitive Psychology (2009)
 <li style="text-align:left;margin-bottom:20px;margin-top=10px;">Engineering statistics</li>
 </ul>
 
-## Research
+## Research and Collaborations
 
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
 <li style="text-align:left;margin-bottom:30px;margin-top=10px;">
 Modeling material structure and composition  
-Nonparametric statistics for Atom Probe Tomography data  
+<p style="font-size:.9em;"><i>Robust nonparametric statistics for Atom Probe Tomography Spectra</i></p>  
 (MS research, with ISU Material Science & Engineering)</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=20px;">Evaluating road safety (with Iowa Dept. of Transportation)</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=20px;">Exploring perception of statistical graphics (PhD research)</li>
 <li style="text-align:left;margin-bottom:20px;margin-top=20px;">Analysis of soybean genomics (with USDA)</li>
 </ul>
 
-## Teaching
-
-<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-R workshops for the Iowa State community</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Statistics for Research Workers (engineering and social science sections) - use of SAS and JMP for statistical analysis</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Business Statistics II - use of JMP for statistical analysis</li>
-</ul>
-
 ## Statistical Philosophy
 <ul>
-<li class="fragment" style="margin:.5em"> Understand the dataset through exploratory analysis
+<li class="fragment" style="margin:1em"> Understand the dataset through exploratory analysis
   <ul>
-    <li>graphical summaries</li>
-    <li>summary statistics</li>
-    <li>identify record errors, data artifacts, other issues that may affect modeling</li>
+    <li>Graphical summaries</li>
+    <li>Summary statistics</li>
+    <li>Identify record errors, data artifacts, other issues that may affect modeling</li>
   </ul>
 </li>
-<li class="fragment" style="margin:.5em">Appropriately model the data</li>
-<li class="fragment" style="margin:.5em">Communicate model results and implications clearly
+<li class="fragment" style="margin:1em">Model the data appropriately</li>
+<li class="fragment" style="margin:1em">Communicate model results and implications clearly
   <ul>
-    <li>graphics</li>
+    <li>Well-designed graphics</li>
     <li>simulated model predictions</li>
   </ul>
 </li>
 </ul>
 
-# Modeling Plant Reliability Under New Maintenance Conditions {.title}
+# Modeling Power Plant Reliability {.title}
 
 ## Data Description
 
+<emph><div style="width:100%;">Time series of monthly capacity factor (10 years)</div></emph><br></br>
+<div style="text-align:left;">Monthly capacity factor  </div>
+<p style="text-align:center;font-size:.8em;margin:1em;">$CF = \frac{Power\ Produced}{Max\ Capacity}$ </p>  
+  
+<div style="text-align:left;">Effective Full Power Days Lost (EFPDL)  </div>
+<p style="text-align:center;font-size:.8em;margin:1em;border:0px;">$EFPDL = (\# Days) * (1-CF)$</p>
+
+## Data Description
+
+<div style="text-align:left;">Capacity/EFPDL affected by: </div>
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Monthly capacity factor  
-<p style="text-align:center;">$CF = \frac{Power\ Produced}{Max\ Capacity}$ </p>  
-Equivalently, Effective Full Power Days Lost (EFPDL)
-<p style="text-align:center;">$EFPDL = Days * (1-CF/100)$</p>
+Maintenance outage approx. every 18 months (21-60 days)</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
+"Downpowers", 2-4 days of reduced power (every 3 months) to adjust fuel distribution</li>
+<li style="text-align:left;margin-bottom:30px;margin-top=30px;">Critical maintenance shutdowns (2-30+ days) to repair essential systems
 </li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Maintenance approx. every 18 months (21-60 days)</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Reduced power for 2-4 days (every 3 months) to adjust fuel distribution</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">Occasional shutdowns (2-30+ days) to maintain critical systems </li>
 </ul>
 
-<p style="font-size:.75em">This presentation shows data simulated using knowledge of plant constraints. <br></br>
-Simulated data is extremely similar to observed data in average capacity factor, 
-autocorrelation, and other properties. </p>
 
 ## Data
 
@@ -159,45 +151,88 @@ ggplot() +
   theme(legend.position="bottom")
 ```
 
+<p style="font-size:.75em">This presentation shows data simulated using knowledge of plant constraints. <br></br>  
+Simulated data is extremely similar to observed data in average capacity factor, 
+autocorrelation, and other properties. </p>
 
 ## Diagnostics
 
 - Very little evidence of a "bathtub" curve  
 <small>End of cycle is not more likely to have maintenance issues, beginning may be (single exceptional, high-weight situation)</small>
 
-- Only first-order autocorrelation (no need for block bootstrap)  
+- Only first-order autocorrelation for non-outage data
 
-```{r monthDataACF, fig.width=6, fig.height=3, fig.keep='first', out.width='60%'}
-tmp <- acf(month.summary$capacity.factor, plot=T, main="Autocorrelation of Capacity Factor")
-qplot(x=as.numeric(tmp$lag), xend=as.numeric(tmp$lag), 
-      yend=0, y=as.numeric(tmp$acf), 
-      geom="segment") + 
+```{r monthDataACF, fig.width=6, fig.height=3, fig.keep='first', out.width='70%'}
+myACF <- function (x, ci = 0.95, ci.type = c("white", "ma")) {
+    ci.type <- match.arg(ci.type)
+    with.ci <- ci > 0 && x$type != "covariance"
+    with.ci.ma <- with.ci && ci.type == "ma" && x$type == "correlation"
+    if (with.ci.ma && x$lag[1L, 1L, 1L] != 0L) {
+        warning("can use ci.type=\"ma\" only if first lag is 0")
+        with.ci.ma <- FALSE
+    }
+    clim0 <- if (with.ci){
+      qnorm((1 + ci)/2)/sqrt(x$n.used)
+    } else { c(0, 0) }
+
+    clim <- if (with.ci.ma && i == j) {
+      clim0 * sqrt(cumsum(c(1, 2 * x$acf[-1, i, j]^2)))
+    } else clim0
+  
+    return(c(-clim, clim))
+}
+tmp <- acf(month.summary$capacity.factor[!month.summary$outage], plot=F)
+tmp2 <- acf(month.summary$capacity.factor, plot=F)
+
+data <- data.frame(x=c(as.numeric(tmp$lag), as.numeric(tmp2$lag)), 
+                   y=c(as.numeric(tmp$acf), as.numeric(tmp2$acf)), 
+                   type=c(rep("Non-outage months", length(as.numeric(tmp$lag))), 
+                          rep("All months", length(as.numeric(tmp2$lag)))))
+ci <- data.frame(type=rep(c("Non-outage months", "All months"), each=2), 
+                 yint=c(myACF(tmp), myACF(tmp2)))
+
+qplot(x=x, xend=x, yend=0, y=y, 
+      data=data, geom="segment") + 
   geom_segment(aes(x=0, y=0, xend=21, yend=0), inherit.aes=F) +
+  geom_hline(data=ci, aes(yintercept=yint), color="blue", linetype=2) + 
+  facet_wrap(~type) + 
   xlab("Lag (Months)") + 
   ylab("ACF") + 
   ggtitle("Autocorrelation of Capacity Factor") +
-  theme_bw() 
+  theme_bw() #+ theme(plot.background=element_rect(fill="transparent"))
+
 ```
 
-## Options
+## Modeling Parameters
 
 <br></br>
+<table style="border:0px;">
+<tr>
+<th width='50%'>Distribution of EFPDL in a cycle</td>
+<th width='50%'>Additional EFPDL due to longer cycles</td>
+</tr>
+<tr>
+<td>
+More EFPDL at some periods in a cycle?
 
-### Wear Cycle
-<div style="text-align:left;font-size:.75em">
-Assumption:  More wear at some points
+1. Stratified sampling 
+    * Months 1-12 from Months 1-12
+    * Months 13-18 from Months 13-outage
+    * Months 18-22 from all available months
+2. Completely random sample:  
+Uniform EFPDL throughout the cycle
 
-* Stratified sampling (Month 1-12, 13-outage), months 18-22 not stratified
-* Uniform wear throughout the cycle: Completely random sample
-</div> <br></br>
+</td>
+<td>
+Disproportionate increase in EFPDL with longer cycle?
 
-### Wear From Increased Cycle Length
-<div style="text-align:left;font-size:.75em">
-Assumption: Extra wear for last 6 months of the cycle
+1. "Extra Wear": 23 months of operation 
+    * Extra month of EFPDL to account for extra 6 months without maintenance
+2. "Normal Wear": 22 months (actual length) of operation 
 
-* 23 months operation (+ 2 months outage)
-* Normal Wear: 22 months operation (+ 2 months outage)  
-</div>
+</td>
+</tr>
+</table>
 
 ## Results
 
@@ -312,17 +347,17 @@ qplot(x=EFboot4, y=..density.., main="Total EFPDL, Random Cycle, Normal Wear", g
 
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-4 models don't differ *much* in predictions
+Predictions from all 4 models are similar - most likely EFPDL is 15 days, median is about 21 days. 
 </li>
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Model accurately predicted 2012-2014 cycle within 1 day EFPDL</li>
+Model accurately predicted 2012-2014 EFPDL within 1 day</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
 Predictive distribution shows results in an intuitive fashion</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=30px;">
 Model is highly customizable to different estimation needs
 
-- Exclude long unplanned outages (for use in fuel planning)
-- Modify sampling distribution (for a more conservative estimate)
+- Exclude long unplanned outages (for fuel planning)
+- Change probability of long maintenance outages to account for estimated risk
 
 </li>
 </ul>
@@ -333,16 +368,19 @@ Model is highly customizable to different estimation needs
 ## Research
 
 - Dissertation
-    - Examine illusions which affect perception of variability in statistical plots<br>
-    <small>2014 ASA Student paper award, statistical grahics section</small>
-    - Assess visual skills required for reading statistical graphics
-    - Understand the interaction between (and hierarchy of graphical features)
+    - Optical illusions which affect perception of variability in statistical plots<br>
+    <p style="font-size:.9em;">2014 ASA Student paper award, Statistical Grahics section</p>
+    - Visual skills required for reading statistical graphics
+    - The interaction between (and hierarchy of graphical features)  
+    <br>
 - Visualization of soybean population genetic data
 
 ## Computation
 
-- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots
-- Shiny applets - Interactive web applets for data display
+- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots  
+<br>
+- Shiny applets - Interactive web applets for data display  
+<br>
 - Data Aggregation
     - Craigslist ads
     - OkCupid
