@@ -34,7 +34,6 @@ opts_chunk$set(fig.path='figure/fig-', cache.path='cache/', fig.align='center', 
 </ul>
 </div>
 
-
 # Introduction {.title}
 
 ## About Me
@@ -58,6 +57,8 @@ BS in Applied Mathematical Sciences and Cognitive Psychology (2009)
 </td>
 </tr>
 </table>
+
+
 ## Statistical Interests
 
 <ul style="margin-bottom:20px;margin-top:10px;width:50%;">
@@ -70,47 +71,35 @@ BS in Applied Mathematical Sciences and Cognitive Psychology (2009)
 <li style="text-align:left;margin-bottom:20px;margin-top=10px;">Engineering statistics</li>
 </ul>
 
-## Research
+## Research and Collaborations
 
 <ul style="margin-bottom:20px;margin-top:10px;width:95%;">
 <li style="text-align:left;margin-bottom:30px;margin-top=10px;">
 Modeling material structure and composition  
-Nonparametric statistics for Atom Probe Tomography data  
+<p style="font-size:.9em;"><i>Robust nonparametric statistics for Atom Probe Tomography Spectra</i></p>  
 (MS research, with ISU Material Science & Engineering)</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=20px;">Evaluating road safety (with Iowa Dept. of Transportation)</li>
 <li style="text-align:left;margin-bottom:30px;margin-top=20px;">Exploring perception of statistical graphics (PhD research)</li>
 <li style="text-align:left;margin-bottom:20px;margin-top=20px;">Analysis of soybean genomics (with USDA)</li>
 </ul>
 
-## Teaching
-
-<ul style="margin-bottom:20px;margin-top:10px;width:95%;">
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-R workshops for the Iowa State community</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Statistics for Research Workers (engineering and social science sections) - use of SAS and JMP for statistical analysis</li>
-<li style="text-align:left;margin-bottom:30px;margin-top=30px;">
-Business Statistics II - use of JMP for statistical analysis</li>
-</ul>
-
 ## Statistical Philosophy
 <ul>
-<li class="fragment" style="margin:.5em"> Understand the dataset through exploratory analysis
+<li class="fragment" style="margin:1em"> Understand the dataset through exploratory analysis
   <ul>
-    <li>graphical summaries</li>
-    <li>summary statistics</li>
-    <li>identify record errors, data artifacts, other issues that may affect modeling</li>
+    <li>Graphical summaries</li>
+    <li>Summary statistics</li>
+    <li>Identify record errors, data artifacts, other issues that may affect modeling</li>
   </ul>
 </li>
-<li class="fragment" style="margin:.5em">Appropriately model the data</li>
-<li class="fragment" style="margin:.5em">Communicate model results and implications clearly
+<li class="fragment" style="margin:1em">Model the data appropriately</li>
+<li class="fragment" style="margin:1em">Communicate model results and implications clearly
   <ul>
-    <li>graphics</li>
-    <li>simulated model predictions</li>
+    <li>Well-designed graphics</li>
+    <li>Simulated model predictions to make model less abstract</li>
   </ul>
 </li>
 </ul>
-
 # Statistical Graphics and Big Data {.title}
 
 ## Good Statistical Graphics
