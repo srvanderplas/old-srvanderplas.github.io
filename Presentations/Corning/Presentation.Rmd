@@ -281,22 +281,32 @@ How do I best communicate the data?
 - Well designed graphics facilitate further exploration of the data
 - Graphics for high dimensional data may require interactive graphics to 
 
-# Other Projects
+
+# Other Projects {.title}
 
 ---
-- [Animint](https://github.com/tdhock/animint) - Extends the ggplot2 implementation of the grammar of graphics to interactive plots  
+
+- [Animint](https://github.com/tdhock/animint) - Create web-ready interactive graphics and dashboards within R, using ggplot2 and d3.js    
+<br></br> 
 - Dissertation Research
-    - Examine illusions which affect perception of variability in statistical plots  
-    <br>(2014 ASA Student paper award, statistical grahics section)
-    - Assess visual skills required for reading statistical graphics
-    - Understand the interaction between (and hierarchy of graphical features)
+    - Illusions affecting perception of variability in statistical plots    
+        <div style="font-size:.75em;">(2014 ASA Student paper award)</div>
+    - Reading statistical graphics: what visual skills are required?
+    - Effect of graphical features (color, shape) on ability to identify "significant" graphs
+    <br></br>
+    
+---
+
 - Consulting
-    - Shiny applets
-    - Statistics for power plant reliability
-- Data Aggregation
+    - Shiny applets and dashboards for interactive data display
+    - Statistics for power plant reliability    
+<br></br> 
+- Web scraping and data aggregation
     - Craigslist ads
     - OkCupid
-    - Location-based energy prices
+    - Location-based energy prices    
+    - Welder economics: features, utility, and prices
+<br></br>
 
 ## Summary
 
