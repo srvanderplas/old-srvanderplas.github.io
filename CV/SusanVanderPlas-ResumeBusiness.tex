@@ -27,6 +27,7 @@
 \usepackage{paralist}										% compact lists
 \usepackage{tikz}
 \usepackage{amsmath,amssymb}
+\usepackage{needspace} % Requires X lines for breaking a column/page
 
 \hypersetup{colorlinks, breaklinks, 
             linkcolor=RoyalBlue, 
@@ -50,6 +51,8 @@
 
 \newcommand{\CVItem}[1]
 	{\textbf{\color{RoyalBlue} #1}}
+
+\newcommand{\Experience}[3]{\parbox{\linewidth}{\CVItem{#1\hfill#2}\\*{\small #3\MedSep}}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,13 +103,16 @@ I offer well-rounded statistical skills, programming expertise, and experience c
 
 % Education
 \CVSection{Education}
+%% Use minipage to get unequal width columns
+\begin{minipage}[t]{.35\linewidth}
 \CVItem{Iowa State University}\\
-2015* - Ph.D. in Statistics; GPA 3.71\\
+2015 - Ph.D. in Statistics; GPA 3.71\\
 2011 - M.S. Statistics; GPA 3.69
-\SmallSep
-
+\end{minipage}\hfill
+\begin{minipage}[t]{.5\linewidth}
 \CVItem{Texas A\&M University}\\
-2009 - B.S. Psychology and Applied Mathematics; GPA 3.88
+2009 - B.S. Psychology and Applied Math; GPA 3.88
+\end{minipage}\hfill
 \MedSep
 
 % Skills
@@ -114,7 +120,7 @@ I offer well-rounded statistical skills, programming expertise, and experience c
 \CVItem{Statistical Techniques}
 \begin{multicols}{3}
 \begin{compactitem}[\color{RoyalBlue}$\bullet$]
-	\item Estimation 
+	\item Estimation with error bands
   \item Prediction
 	\item Risk assessment
   \item Reliability analysis
@@ -143,26 +149,43 @@ I offer well-rounded statistical skills, programming expertise, and experience c
 
 \CVSection{Experience}
 \begin{multicols}{2}
-\CVItem{Statistical Visualization Research \hfill 2012-2015}\\
-{\small Modeled effectiveness of graphical designs for accurate communication of statistical results. \SmallSep\\}
-\CVItem{USDA Soybean Genome Project\hfill 2013 - 2015}\\
-{\small Identified important features of soybean genetic data, including genes which contribute to disease resistance and increased yield. Created dynamic reports, interactive data dashboards, and other tools to communicate results effectively. \SmallSep\\}
-\CVItem{Google Summer of Code \hfill Summer 2013-14}\\
-{\small Worked to develop the \texttt{animint} package for R, translating R graphics into d3 interactive JavaScript graphics. Participated in the project in 2013, and returned to serve as a mentor for the project in 2014. \SmallSep\\}
-\CVItem{R Course Instructor\hfill 2013 - 2015}\\
-{\small Designed and conducted workshops to teach statistical computing to members of the university and local business community. \SmallSep\\}
-\CVItem{Statistics Education Applets \hfill 2013 - 2014}\\
-{\small Created web-based applets to teach statistical techniques interactively. Link: \href{http://vanderplas.dyndns-remote.com:3838/}{Applets} \SmallSep\\}
-\CVItem{Industrial Statistics\hfill 2012 - present}\\
-{\small Served as an informal consultant to a public utility. Accurately predicted the number of plant outages that occurred during the first 24-month cycle using 18-month cycle data. 
-%Assembled a database of power prices from several regions to examine the financial impact of maintenance scheduling and explore the conditions leading to negative prices.
-\SmallSep\\}
-\CVItem{Iowa Department of Transportation \hfill 2012}\\
-{\small Examined the effect of road layout and construction on driver safety (collisions, fatalities).\SmallSep\\}
-\CVItem{Materials Science Collaboration\hfill 2010-2011}\\
-{\small Increased accuracy and efficiency of peak detection (vs. manual identification) using robust quantile analysis. 
-% Helped to fit systems of differential equations to spectroscopy data in order to extract additional information about a material's atomic structure. 
-\SmallSep\\}
+
+\Experience{Engineering Statistician}
+{Aug. 2015-present}
+{Consulted on engineering and business decisions for Nebraska Public Power District and Cooper Nuclear Station.}
+
+\Experience{Statistical Visualization Research}
+{2012-2015}
+{Modeled effectiveness of graphical designs for accurate communication of statistical results.}
+
+\Experience{USDA Soybean Genome Project}
+{2013 - 2015}
+{Identified important features of soybean genetic data, including genes which contribute to disease resistance and increased yield. Created dynamic reports, interactive data dashboards, and other tools to communicate results effectively.}
+
+\Experience{Google Summer of Code}
+{Summers 2013-15}
+{Worked to develop the \texttt{animint} package for R, translating R graphics into d3 interactive JavaScript graphics. Participated in the project in 2013, and returned to serve as a mentor for the project in 2014 and 2015.}
+
+\Experience{R Course Instructor}
+{2013 - 2015}
+{Designed and conducted workshops to teach statistical computing to members of the university and local business community.}
+
+% \Experience{Statistics Education Applets}
+% {2013 - 2014}
+% {Created web-based applets to teach statistical techniques interactively. 
+% Link: \href{http://vanderplas.dyndns-remote.com:3838/}{Applets}}
+
+\Experience{Industrial Statistics}
+{2012 - 2015}
+{Served as an informal consultant to a public utility. Accurately predicted the number of plant outages that occurred during the first 24-month plant cycle using 18-month cycle data. }
+
+\Experience{Iowa Department of Transportation}
+{2012}
+{Examined the effect of road layout and construction on driver safety (collisions, fatalities).}
+
+\Experience{Materials Science Collaboration}
+{2010-2011}
+{Increased accuracy and efficiency of peak detection (vs. manual identification) using robust quantile analysis. }
 \end{multicols}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End document

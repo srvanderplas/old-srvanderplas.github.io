@@ -1,8 +1,0 @@
-mullerlyer	data	x.a	y.a
-neckercube	data
-sineillusion	createSine	f	f2prime	fprime
-sineillusion3d	data	data.persp	linedata	p1	p2	par.settings	x	xline	y	yline	z	zline
-gasprices-setup	f	f2prime	fprime	gas	gas.full	gas.pred	gasprices	model	monthly	seasonal
-gasprices-picture	
-gasprices-sdev	
-orthogonalwidth	data	data.bottom	data.top	f	f2prime	fprime	ix.l	ix.u	segment1	segment2	segments

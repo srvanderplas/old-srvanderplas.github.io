@@ -39,7 +39,7 @@
 
 % Timeline
 \usepackage{moderntimeline}
-\tlmaxdates{2005}{2015} % Set the scale
+\tlmaxdates{2005}{2018} % Set the scale
 \tlwidth{0.8ex} % Set the line width - space under the top label is 1pt more
 \tltext{\tiny} % set label text size
 
@@ -88,7 +88,7 @@
 \section{Education}
 \tllabelcventry{2005}{2009}{2005--2009}{Bachelor of Science}{Texas A\&M University}{}{}{Major: Psychology and Applied Mathematical Sciences (Statistics), Minor: Neuroscience}  % arguments 3 to 6 can be left empty
 \tllabelcventry{2009}{2011}{2009--2011}{Master of Science in Statistics}{Iowa State University}{}{}{Creative Component: Nonparametric statistical analysis of Atom Probe Tomography spectra\\ Chair: Dr.~Alyson Wilson, Committee Members: Dr.~Alicia Carriquiry, Dr.~Krishna Rajan}
-\tllabelcventry{2011}{0}{2011--15*}{Doctor of Philosophy in Statistics}{Iowa State University}{}{}{Anticipated Graduation: March 2015}
+\tllabelcventry{2011}{2015}{2011--15}{Doctor of Philosophy in Statistics}{Iowa State University}{}{}{}
 
 \subsection{Dissertation}
 \cvitem{Title}{\emph{The Perception of Statistical Graphics}}
@@ -110,18 +110,20 @@ the cognitive load necessary to understand the information presented in the grap
 \tltextstart[base]{\tiny}
 % \tltextend[base]{\tiny}
 % \tlcventry{year1}{year2}{Job Title}{Employer}{City}{}{Description}
-\tlcventry{2012}{0}{PhD Research}{Iowa State University}{}{Ames, IA}{Designed and analyzed experiments to understand human perception of statistical graphics and optimized graphics to clearly communicate statistical results. \cite{jsm2014userpanel}%
+
+\tllabelcventry{2015.4}{2015.10}{Summer 2015}{Postdoc}{Office of the Vice President for Research}{Iowa State University}{Ames, IA}{Examined trends in startup packages provided to new faculty at Iowa State over time and the association between startup funding and future performance (publications, grant applications, and grant awards).}
+\tlcventry{2012}{2015}{PhD Research}{Iowa State University}{}{Ames, IA}{Designed and analyzed experiments to understand human perception of statistical graphics and optimized graphics to clearly communicate statistical results. \cite{jsm2014userpanel}%
 \begin{itemize}%
 \item The \href{https://github.com/heike/sine-illusion}{Sine Illusion} in Statistical Graphics: How does this common illusion effect the information we take in from graphs? \cite{sineillusionjcgs,jsm2014,jsm2013}
   \begin{itemize}%
     \item Won the ASA Student Paper Award (2014) for the Graphics Section (\href{https://github.com/srvanderplas/LieFactorSine}{Paper})
     \item Created Shiny applets to \href{http://glimmer.rstudio.com/srvanderplas/SineIllusion/}{demonstrate the illusion} and \href{http://glimmer.rstudio.com/srvanderplas/SineIllusionShiny/}{test it's effect}. 
   \end{itemize}
-\item Statistical Graphics and Visual Aptitude: How are spatial reasoning abilities related to the ability to read statistical graphics? (\href{https://github.com/srvanderplas/VisualAptitude}{Paper Draft}). 
-\item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do outliers matter more than trend lines? 
+\item Statistical Graphics and Visual Aptitude: How are spatial reasoning abilities related to the ability to read statistical graphics? (\href{https://github.com/srvanderplas/VisualAptitude/blob/master/Paper/InfoVis2015Revision/TestingVisualAptitude.pdf}{Paper}) \cite{visualaptitude}. 
+\item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do colored points matter more than trend lines? (\href{https://raw.githubusercontent.com/srvanderplas/FeatureHierarchy/master/FullPaper/Draft1/features.pdf}{Paper})
 \end{itemize}}
 
-\tlcventry{2013}{0}{Research Assistant, USDA Soybean Genome Project}{Iowa State University}{Ames, IA}{}{
+\tlcventry{2013}{2015.5}{Research Assistant, USDA Soybean Genome Project}{Iowa State University}{Ames, IA}{}{
 \begin{itemize}
 \item Analyzed large quantities of soybean genetics data to identify inheritance, important genes, single nucleotide polymorphisms, and copy number variation.
 \item Created interactive applets presenting the data and appropriate graphics designed to encourage exploration of the results by biologists.
@@ -152,14 +154,17 @@ the cognitive load necessary to understand the information presented in the grap
 
 \section{Software Development}
 
-\tlcventry{2013}{0}{Statistics Teaching Applets}{Iowa State University}{Ames, IA}{}{Created and redesigned web-based applets to teach statistical techniques interactively. Applets covered topics such as the method of least squares, ANOVA, k-means, regression diagnostics, and t-tests. (\href{http://vanderplas.dyndns-remote.com:3838/}{Applets})}
+\tlcventry{2013}{2014}{Statistics Teaching Applets}{Iowa State University}{Ames, IA}{}{Created and redesigned web-based applets to teach statistical techniques interactively. Applets covered topics such as the method of least squares, ANOVA, k-means, regression diagnostics, and t-tests. (\href{http://vanderplas.dyndns-remote.com:3838/}{Applets})}
 
-\tlcventry{2013}{2014}{Animint Developer}{R Project}{Google Summer of Code}{}{Worked to develop the \texttt{animint} package for R to translate \texttt{ggplot2} into d3 interactive JavaScript graphics. Participated in the project in 2013, adding support for all ggplot2 geoms as well as most scales and axes. Returned to serve as a mentor for the project in 2014. \cite{animintmanual,animintpaper,gprug2014}}
+\tlcventry{2013}{2015}{Animint Developer}{R Project}{Google Summer of Code}{}{Worked to develop the \texttt{animint} package for R to translate \texttt{ggplot2} into d3 interactive JavaScript graphics. Participated in the project in 2013, adding support for all ggplot2 geoms as well as most scales and axes. Returned to serve as a mentor for the project in 2014 and 2015. \cite{animintmanual,animintpaper,gprug2014,jsm2015}}
 
-\section{Consulting}
-\tllabelcventry{2012.8}{0}{2012}{Informal Consultant}{Cooper Nuclear Station}{Brownville, NE}{}{Provided informal statistical recommendations to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answered questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
+\section{Professional Experience}
+\tlcventry{2015}{0}{Engineering Statistician}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Analyzed power plant business and engineering decisions to increase safety and profitability.}
+
+\tlcventry{2012}{2015}{Informal Consultant}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Provided informal statistical recommendations to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answered questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
 
 \tllabelcventry{2013.5}{2014}{Fall 2013}{Consultant - Aerospace Engineering}{Iowa State University}{Ames, IA}{}{Provided modeling advice and statistical expertise to aerospace engineering professsors conducting research on active learning.}
+
 
 
 

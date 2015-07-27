@@ -1,7 +1,4 @@
 ---
-title: "Random (and not-so-random) Data"
-author: "Susan VanderPlas"
-date: "09/08/2014"
 output:
   knitrBootstrap::bootstrap_document:
     title: "Cool Packages"
@@ -10,36 +7,40 @@ output:
     theme.chooser: FALSE
     highlight.chooser: FALSE
 ---
+
 <div class="jumbotron">
 <h1> Susan VanderPlas </h1>
-
+<small>
 This site contains links to my CV, projects I find interesting, and slides from some of my presentations. If you want to see my projects in a less finished state, look at my github page: [http://github.com/srvanderplas](http://github.com/srvanderplas)
+</small>
 </div>
 
 # CV
-[Here](CV/SusanVanderPlas-CV.pdf) is a link to my current CV. I expect to graduate in Spring 2015 with my PhD in Statistics.
+[My Current CV](CV/SusanVanderPlas-CV.pdf). I graduated in May 2015 with my PhD in Statistics from Iowa State University. As of August 2015, I am working for Nebraska Public Power District as an Engineering Statistician.
 
 A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here.
 
 # Papers, Presentations, and Projects
 
-* [Signs of the Sine Illusion - Why We Need to Care](https://raw.githubusercontent.com/heike/sine-illusion/master/Revision2/SineIllusion-Rearrange.pdf) (accepted to JCGS in October 2014)
+* [Signs of the Sine Illusion - Why We Need to Care](https://raw.githubusercontent.com/heike/sine-illusion/master/Final%20Draft/SineIllusion.pdf) (accepted to JCGS in October 2014)
 
 * The Curse of Three Dimensions: Why Your Brain is Lying to You
     * [2014 ASA Student Paper Competition](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/GraphicsPaperCompetition/Full%20Paper%20Unblinded.pdf) Version - won the Graphics Section Student Paper Award at JSM 2014. 
     
-    * [Presentation](Presentations/WhyYourBrainIsLyingToYou/JSM2014.html) - The presentation (with some additional text) given at JSM 2014
+    * [Presentation](https://srvanderplas.github.io/Presentations/JSM2014/WhyYourBrainIsLyingToYou/JSM2014.html) - The presentation (with some additional text) given at JSM 2014
     
-    * [Expanded Paper](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/AcmTransactions/PsychLieFactor.pdf) - This version is expanded and contains an additional case study with corresponding implications. It is in preparation for submission to ACM Transactions on Applied Perception, and should be complete by December 2014. 
+    * [Expanded Paper](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/AcmTransactions/PsychLieFactor.pdf) - This version is expanded and contains an additional case study with corresponding implications. It was submitted to ACM Transactions on Applied Perception in May 2015. 
 
 
-* [Visual Aptitude and Statistical Graphics](https://github.com/srvanderplas/VisualAptitude) - This paper explores the visual reasoning abilities necessary for good performance on statistical lineup tasks. It is a work in progress, but should be ready for publication in December 2014. 
+* [Visual Aptitude and Statistical Graphics](https://github.com/srvanderplas/VisualAptitude/Paper/InfoVis2015Revision/TestingVisualAptitude.pdf) - This paper explores the visual reasoning abilities necessary for good performance on statistical lineup tasks. It was submitted to InfoVis 2015 in February 2015, and will be presented at InfoVis 2015 in Chicago, IL. 
 
 * [Animint](https://github.com/tdhock/animint) - My Google Summer of Code project in 2013. I served as a mentor for the project in 2014. 
     * [Animint Paper](https://github.com/tdhock/animint-paper)
-    * [Animint presentation](Presentations/Animint/animint.html) - given at the Great Plains R User group in May 2014.
+    * [Presentation](https://srvanderplas.github.io/Presentations/JSM2015/Animint.html)
+    * [Presentation](https://srvanderplas.github.io/Presentations/RUserGroups - Animint/animint.html) at the Great Plains R User group in May 2014.
+    
 
-* Presentation: [User Testing Panel, JSM 2014](Presentations/UserTestingJSM2014/UserTesting.html) - Slides from a panel on usability testing of statistical graphics.
+* Presentation: [User Testing Panel, JSM 2014](https://srvanderplas.github.io/Presentations/UserTestingJSM2014/UserTesting.html) - Slides from a panel on usability testing of statistical graphics.
 
 
 # Personal Projects

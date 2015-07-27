@@ -11,10 +11,9 @@ output:
     highlight.chooser: FALSE
 ---
 <div class="jumbotron">
-<h1> Susan VanderPlas </h1>
 <h2> Interesting R Packages </h2>
-This page contains a list of R packages that are interesting or have the potential to be useful to me at a later date.
-[Main page](index.html).
+<small>This page contains a list of R packages that are interesting or have the potential to be useful to me at a later date.
+[Main page](index.html).</small>
 </div>
 
 
@@ -22,6 +21,7 @@ This page contains a list of R packages that are interesting or have the potenti
 
 - [rvest](https://github.com/hadley/rvest): A BeautifulSoup-like package for R. 
 
+- [USAboundaries](https://github.com/ropensci/USAboundaries): A package with US state/territory boundaries, counties, congressional districts, and zip codes from 1629 to 2000.
 
 ## Shiny packages: 
 - [shinyTable](https://github.com/trestletech/shinyTable): implements [Handsontable](http://handsontable.com/) for shiny, providing a spreadsheet-like editor in a web browser (data can then be read into R)
