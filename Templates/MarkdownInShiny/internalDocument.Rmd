@@ -1,0 +1,39 @@
+---
+title: `r fixedData$Title`
+author: `r fixedData$Author`
+date: `r paste0(fixedData$Date, fixedData$DateError)`
+output:
+  html_document: 
+    md_extensions: +autolink_bare_uris+ascii_identifier+tex_math_single_backslash
+  word_document:
+    pandoc_args: [
+      "--csl", "/var/csl/acs-nano.csl"
+    ]
+---
+
+```{r setup, echo=FALSE}
+require(knitr)
+opts_chunk$set(cache=FALSE,message=FALSE,warning=FALSE, dpi=300, fig.width=5, fig.height=4)
+```
+
+This is a dynamic document created on `r round_date(now(), "day")`.
+
+### Value1
+Some text to describe this value's meaning
+
+The average value of Value1 is `r sprintf("%.2f (SD: %.2f)", mean(fixedData$Value1), sd(fixedData$Value1))` 
+
+```{r plotValue1, message=F, warning=F, echo=FALSE, fig.cap="Histogram of Value1 values"}
+library(ggplot2)
+qplot(fixedData$Value1, geom="histogram", binwidth=10)
+```
+
+### Other Values
+
+Some text to describe the meaning of these numbers or measurement techniques, etc...
+```{r tableValue23, echo=FALSE, results='asis'}
+kable(data.frame(Value2 = fixedData$Value2, Value3 = fixedData$Value3), format="pandoc")
+```
+
+
+Additional Comments: `r fixedData$Comment`

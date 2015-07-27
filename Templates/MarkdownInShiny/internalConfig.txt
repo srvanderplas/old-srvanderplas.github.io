@@ -1,0 +1,8 @@
+
+t: html5
+o: internalDocument.html
+default-image-extension: png
+
+t: docx
+output: internalDocument.docx
+default-image-extension: gif

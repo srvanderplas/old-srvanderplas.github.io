@@ -1,0 +1,27 @@
+Title : Internal Document
+Author : Susan VanderPlas
+Date : "05-20-2015"
+Value1Input : 76,85,86,78,43,46,73,72,9,55,56,59,3,49,89,53,18,100,77,58
+Value1Fun : mean
+Value1Target : 25
+Value2 : 4
+Value3 : 9
+Value4 : 22
+Value5 : 26
+Value6 : 3092
+Value7 : -10.3
+CNS1 : 2
+CNS2 : 6
+CNS3 : 23
+CNS4 : 90
+CNS5 : 99.95
+CNS6 : .0002
+Status1 : "Dynamic"
+Status2 : "Documents"
+Status3 : "Make"
+Status4 : "Life"
+Status5 : "Easy"
+TerrorLevel : "Yellow"
+CooperRisk : "Orange"
+ExtraValue1 :
+Comments : This is just a demonstration
