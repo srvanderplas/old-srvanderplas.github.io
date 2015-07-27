@@ -1,0 +1,89 @@
+Name,Type,Location,Author,Description
+Rcpp,computation,CRAN,eddelbuettel,C++ integration
+plyr,munging,CRAN,hadley,Split-Apply-Combine
+ggplot2,graphics,CRAN,hadley,Grammar of Graphics for R
+ggplot2,graphics,github,tdhock,ggplot2 fork for animint
+stringr,munging,CRAN,hadley,string manipulation
+magrittr,language,github,smbache,Pipe operator
+reshape2,munging,CRAN,hadley,reshape data
+scales,graphics,CRAN,hadley,scale functions for visualization
+digest,computation,CRAN,eddelbuettel,Cryptographic hashing
+RCurl,internet,CRAN,,Network interface for R
+RColorBrewer,graphics,CRAN,,Color schemes
+curl,internet,CRAN,jeroenooms,web client
+httr,internet,CRAN,hadley,HTTP client
+MASS,computation,CRAN,,Standard package
+foreach,computation,CRAN,revolutionR,multicore loops
+jsonlite,data,CRAN,jeroenooms,JSON parser
+devtools,language,CRAN,hadley,Tools for developing R packages
+DBI,data,CRAN,hadley,Database interface
+gridExtra,graphics,CRAN,baptiste,Grid graphics expansion functions
+zoo,computation,CRAN,,time series
+iterators,computation,CRAN,revolutionR,iteration functions for R
+knitr,reproducible,CRAN,yihui,dynamic report generation
+evaluate,language,CRAN,yihui,parsing and evaluation tools
+quantreg,computation,CRAN,,Quantile regression
+XML,internet,CRAN,,parse XML
+dplyr,munging,github,hadley,Grammar for data manipulation
+lme4,computation,CRAN,,Linear mixed-effects models
+markdown,reproducible,github,yihui,markdown rendering
+htmltools,reproducible,CRAN,jcheng5,html tools in R
+car,computation,CRAN,,companion to applied regression
+codetools,language,CRAN,luke.tierney,Tools for code analysis
+xtable,reproducible,CRAN,,tables in HTML or latex
+Hmisc,computation,CRAN,,Miscellaneous functions
+survival,computation,CRAN,,Survival analysis
+foreign,computation,CRAN,,"Read data files from SAS, SPSS, minitab, etc."
+rpart,computation,CRAN,,recursive partitioning
+formatR,language,CRAN,yihui,R formatting automatically
+highr,language,CRAN,yihui,code highlighting
+boot,computation,CRAN,brian.ripley,bootstrap functions
+nlme,computation,CRAN,,linear and nonlinear mixed-effects models
+xml2,internet,github,hadley,XML parsing
+KernSmooth,computation,CRAN,brian.ripley,kernel smoothing
+git2r,language,CRAN,stefan.widgren,provides access to git repos – use to update datasets?
+nnet,computation,CRAN,brian.ripley,neural networks
+crayon,language,github,gaborcsardi,colored terminal output
+spatial,computation,CRAN,brian.ripley,spatial data
+e1071,computation,CRAN,,kernel functions
+rmarkdown,reproducible,github,rstudio,rmarkdown dynamic documents
+spatial,computation,CRAN,,spatial data
+roxygen2,language,github,hadley,documentation inline and package building
+brew,reproducible,CRAN,,create repetitive reports using latex
+shiny,internet,github,rstudio,interactive applets in R
+igraph,graphics,CRAN,gaborcsardi,network analysis
+doParallel,computation,CRAN,revolutionR,parallel adaptor for foreach
+RJSONIO,data,CRAN,,JSON data
+ggthemes,graphics,github,jrnold,extra themes for ggplot2
+ProjectTemplate,reproducible,github,cran,automation of new statistical analysis projects (http://projecttemplate.net/getting_started.html)
+DiagrammeR,graphics,github,cran,Diagrams and flowcharts in R
+broom,munging,github,dgrtwo,tidy model output
+htmlwidgets,internet,github,rstudio,HTML widgets in R
+testthat,language,github,hadley,unit testing
+tidyr,munging,github,hadley,tidy data
+lubridate,munging,github,hadley,dates and times
+knitrBootstrap,internet,github,jimhester,bootstrap library for rmarkdown
+packrat,reproducible,github,rstudio,R dependencies in isolated libraries
+radiant,internet,github,vnijs,Business analytics in Shiny
+knitcitations,reproducible,github,cboettig,Citations in knitr/markdown
+ReporteRs,reproducible,github,davidgohel,Create MS documents in R
+RMySQL,data,github,jeroenooms,R MySQL interface
+shinyBS,internet,github,ebailey78,Bootstrap components for Shiny
+RSelenium,internet,CRAN,,Selenium webdriver
+installr,language,CRAN,,Windows install automation within R
+rvest,internet,github,hadley,Functions for reading HTML
+animint,internet,github,tdhock,Create d3-style ggplot2 graphics
+Cairo,graphics,CRAN,,Cairo graphics
+cairoDevice,graphics,CRAN,,cairo device driver
+coda,computation,CRAN,,analysis and diagnostics for MCMC
+compiler,computation,CRAN,luke.tierney,Compile R code
+httpuv,internet,CRAN,,web socket server library
+misc3d,graphics,CRAN,,3d plots
+mnormt,computation,CRAN,,multivariate normal and t distributions
+msm,computation,CRAN,,multistate markov and hidden markov models
+np,computation,CRAN,,nonparametric kernel smoothing
+plot3D,graphics,CRAN,,3d plots
+revealjs,reproducible,github,jjallaire,Create reveal.js presentations in R
+robust,computation,CRAN,,Robust statistics
+shinyBootstrap2,internet,github,rstudio,bootstrap2 components
+shinydashboard,internet,github,rstudio,dashboard components for shiny
