@@ -2,7 +2,7 @@ Name,Type,Location,Author,Description
 Rcpp,computation,CRAN,eddelbuettel,C++ integration
 plyr,munging,CRAN,hadley,Split-Apply-Combine
 ggplot2,graphics,CRAN,hadley,Grammar of Graphics for R
-ggplot2,graphics,github,tdhock,ggplot2 fork for animint
+# ggplot2,graphics,github,tdhock,ggplot2 fork for animint
 stringr,munging,CRAN,hadley,string manipulation
 magrittr,language,github,smbache,Pipe operator
 reshape2,munging,CRAN,hadley,reshape data
@@ -87,3 +87,5 @@ revealjs,reproducible,github,jjallaire,Create reveal.js presentations in R
 robust,computation,CRAN,,Robust statistics
 shinyBootstrap2,internet,github,rstudio,bootstrap2 components
 shinydashboard,internet,github,rstudio,dashboard components for shiny
+readr,data,CRAN,hadley,Functions for reading in data
+readxl,data,CRAN,hadley,Functions for reading Excel files
