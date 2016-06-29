@@ -19,6 +19,8 @@ output:
 
 ## R packages
 
+- [vembedr](https://cran.rstudio.com/web/packages/vembedr/vignettes/embed.html): Embed videos from YouTube and Vimeo in Rmarkdown documents. Use ALL the puppy videos!
+
 - [rvest](https://github.com/hadley/rvest): A BeautifulSoup-like package for R. 
 
 - [USAboundaries](https://github.com/ropensci/USAboundaries): A package with US state/territory boundaries, counties, congressional districts, and zip codes from 1629 to 2000.
