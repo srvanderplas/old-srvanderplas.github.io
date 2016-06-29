@@ -39,18 +39,18 @@
 
 % Timeline
 \usepackage{moderntimeline}
-\tlmaxdates{2005}{2018} % Set the scale
+\tlmaxdates{2005}{2019} % Set the scale
 \tlwidth{0.8ex} % Set the line width - space under the top label is 1pt more
 \tltext{\tiny} % set label text size
 
 \usepackage[unicode]{hyperref}
 \usepackage{xcolor}
 \definecolor{link}{HTML}{3873B3}
-\hypersetup{colorlinks, breaklinks, 
-            linkcolor=link, 
-            urlcolor=link, 
+\hypersetup{colorlinks, breaklinks,
+            linkcolor=link,
+            urlcolor=link,
             citecolor=link}
-            
+
 % personal data
 \name{Susan}{VanderPlas}
 % \title{Resumé title}                               % optional, remove / comment the line if not wanted
@@ -110,10 +110,15 @@ the cognitive load necessary to understand the information presented in the grap
 \tltextstart[base]{\tiny}
 % \tltextend[base]{\tiny}
 % \tlcventry{year1}{year2}{Job Title}{Employer}{City}{}{Description}
+\tllabelcventry{2015.4}{0}{2015}{Independent Research}{}{Auburn, NE}{}{Designed and analyzed experiments to understand human perception of statistical graphics and optimized graphics to clearly communicate statistical results.
+\begin{itemize}
+\item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do colored points matter more than trend lines? (\href{https://github.com/srvanderplas/FeatureHierarchy/raw/master/FullPaper/Revision/features-jcgs.pdf}{Paper}) \cite{featurehierarchyjcgs}
+\item Bayesian Analysis of Two-Target Statistical Lineups (\href{https://github.com/srvanderplas/FeatureHierarchyColors}{Working Project})
+\end{itemize}}
 
-\tllabelcventry{2015.4}{2015.10}{Summer 2015}{Postdoc}{Office of the Vice President for Research}{Iowa State University}{Ames, IA}{\begin{itemize}
+\tllabelcventry{2015.4}{2016}{Apr - Nov 2015}{Postdoc}{Iowa State University}{}{Ames, IA}{Office of the Vice President for Research\begin{itemize}
 \item Evaluated faculty funding start-up packages to explore links between start-up funding and future productivity.
-\item Explored natural variation and underlying trends in grant receipts across Iowa State over a 20 year period. 
+\item Explored natural variation and underlying trends in grant receipts across Iowa State over a 20 year period.
 \end{itemize}}
 
 \tllabelcventry{2012}{2015.6}{2012 - Jun 2015}{PhD Research}{Iowa State University}{}{Ames, IA}{Designed and analyzed experiments to understand human perception of statistical graphics and optimized graphics to clearly communicate statistical results. \cite{jsm2014userpanel}%
@@ -121,10 +126,10 @@ the cognitive load necessary to understand the information presented in the grap
 \item The \href{https://github.com/heike/sine-illusion}{Sine Illusion} in Statistical Graphics: How does this common illusion effect the information we take in from graphs? \cite{sineillusionjcgs,jsm2014,jsm2013}
   \begin{itemize}%
     \item Won the ASA Student Paper Award (2014) for the Graphics Section (\href{https://github.com/srvanderplas/LieFactorSine}{Paper})
-    \item Created Shiny applets to \href{http://glimmer.rstudio.com/srvanderplas/SineIllusion/}{demonstrate the illusion} and \href{http://glimmer.rstudio.com/srvanderplas/SineIllusionShiny/}{test it's effect}. 
+    \item Created Shiny applets to \href{http://glimmer.rstudio.com/srvanderplas/SineIllusion/}{demonstrate the illusion} and \href{http://glimmer.rstudio.com/srvanderplas/SineIllusionShiny/}{test it's effect}.
   \end{itemize}
-\item Statistical Graphics and Visual Aptitude: How are spatial reasoning abilities related to the ability to read statistical graphics? (\href{https://github.com/srvanderplas/VisualAptitude/blob/master/Paper/InfoVis2015Revision/TestingVisualAptitude.pdf}{Paper}) \cite{visualaptitude}. 
-\item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do colored points matter more than trend lines? (\href{https://raw.githubusercontent.com/srvanderplas/FeatureHierarchy/master/FullPaper/Draft1/features.pdf}{Paper})
+\item Statistical Graphics and Visual Aptitude: How are spatial reasoning abilities related to the ability to read statistical graphics? (\href{https://github.com/srvanderplas/VisualAptitude/raw/master/Paper/InfoVis2015Revision/TestingVisualAptitude.pdf}{Paper}) \cite{visualaptitude}.
+\item Hierarchy of Graphical Features: Which features of statistical graphics dominate the perceptual experience? Do colored points matter more than trend lines? (\href{https://github.com/srvanderplas/FeatureHierarchy/raw/master/FullPaper/Revision/features-jcgs.pdf}{Paper}) \cite{featurehierarchyjcgs}
 \end{itemize}}
 
 \tlcventry{2013}{2015}{Research Assistant, USDA Soybean Genome Project}{Iowa State University}{Ames, IA}{}{
@@ -163,12 +168,21 @@ the cognitive load necessary to understand the information presented in the grap
 \tlcventry{2013}{2015}{Animint Developer}{R Project}{Google Summer of Code}{}{Worked to develop the \texttt{animint} package for R to translate \texttt{ggplot2} into d3 interactive JavaScript graphics. Participated in the project in 2013, adding support for all ggplot2 geoms as well as most scales and axes. Returned to serve as a mentor for the project in 2014 and 2015. \cite{animintmanual,animintpaper,gprug2014,jsm2015}}
 
 \section{Professional Experience}
-\tlcventry{2015}{0}{Engineering Statistician}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Analyzed power plant business and engineering decisions to increase safety and profitability.}
+\tlcventry{2015.7}{0}{Engineering Statistical Analyst}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Analyzed power plant business and engineering decisions to increase safety and profitability.\begin{itemize}
+\item Optimized maintenance schedules for backup diesel generators to conform to regulatory requirements
+\item Established automated statistical monitoring of site conditions, department turnover, and human performance errors.
+\item Identified site conditions statistically associated with water accumulation in radiation detectors.
+\item Predicted likely direction of tornadoes based on location and topological factors to establish the risk of tornado guided missle debris damaging critical equipment.
+\item Evaluated the risk of climate fluctuations on operational readiness.
+\item Improved engineering margin in thermal limits management in the reactor core.
+\end{itemize}}
+
+\tlcventry{2015}{0}{Consultant}{}{}{}{Developed web applications, interactive data displays, and statistical analyses for clients including the Iowa Soybean Association and Iowa State USDA Extension office. \href{http://srvanderplas.com/Shiny/CornNitrogenDeficiency/}{Example 1: Nitrogen Deficiency in Corn}, \href{http://srvanderplas.com/Shiny/CropYieldForecast/}{Example 2: Crop Yield Forecast}}
 
 \tlcventry{2012}{2015}{Informal Consultant}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Provided informal statistical recommendations to nuclear engineers on proper methods for bootstrap, k95/95 intervals, probability analysis, and other modeling questions. Helped to estimate capacity factor using block bootstrap, answered questions about probability theory and model assessment, and assessed violations of modeling assumptions. Assembled data sets containing years of hourly power prices to explore downpower timing and market relationships.}
 
 
-\tllabelcventry{2014.8}{0}{2014}{Statistical Web Development}{Iowa State Extension Service}{Ames, IA}{}{Designed interactive web tools to assist soybean farmers with making informed decisions on planting and cultivar choices for their geographic location. Created clear, easy-to-read statistical graphics with multiple layers of detail, presented using responsive Shiny web applets. (\href{http://www.extension.iastate.edu/CropNews/2015/0416Licht.htm}{Announcement}, \href{http://agron.iastate.edu/CroppingSystemsTools/soybean-decisions.html}{Tool})}
+\tllabelcventry{2014.8}{2015.7}{2014-2015}{Statistical Web Development}{Iowa State Extension Service}{Ames, IA}{}{Designed interactive web tools to assist soybean farmers with making informed decisions on planting and cultivar choices for their geographic location. Created clear, easy-to-read statistical graphics with multiple layers of detail, presented using responsive Shiny web applets. (\href{http://www.extension.iastate.edu/CropNews/2015/0416Licht.htm}{Announcement}, \href{http://agron.iastate.edu/CroppingSystemsTools/soybean-decisions.html}{Tool})}
 
 
 \tllabelcventry{2013.5}{2014}{Fall 2013}{Consultant - Aerospace Engineering}{Iowa State University}{Ames, IA}{}{Provided modeling advice and statistical expertise to aerospace engineering professsors conducting research on active learning.}
@@ -180,7 +194,7 @@ the cognitive load necessary to understand the information presented in the grap
 % \cvitemwithcomment{Language 1}{Skill level}{Comment}
 % \cvitemwithcomment{Language 2}{Skill level}{Comment}
 % \cvitemwithcomment{Language 3}{Skill level}{Comment}
-% 
+%
 \section{Technical Skills}
 \cvitem{Statistical Software}{R (programming, graphics, package development, web scraping)\newline SAS (linear and mixed models)\newline JMP (basic analysis and data mining)}
 \cvitem{Languages}{C and C++, JavaScript, SQL, python (for web scraping)}
@@ -210,7 +224,7 @@ the cognitive load necessary to understand the information presented in the grap
 % \cvlistitem{Item 1}
 % \cvlistitem{Item 2}
 % \cvlistitem{Item 3. This item is particularly long and therefore normally spans over several lines. Did you notice the indentation when the line wraps?}
-% 
+%
 % \section{Extra 2}
 % \cvlistdoubleitem{Item 1}{Item 4}
 % \cvlistdoubleitem{Item 2}{Item 5}
@@ -225,9 +239,9 @@ the cognitive load necessary to understand the information presented in the grap
 
 \clearpage
 % Publications from a BibTeX file without multibib
-%  for numerical labels: 
+%  for numerical labels:
 \renewcommand{\bibliographyitemlabel}{\@{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
-%  to redefine the heading string ("Publications"): 
+%  to redefine the heading string ("Publications"):
 \renewcommand{\refname}{Publications and Presentations}
 \nocite{*}
 \bibliographystyle{myunsrt}
