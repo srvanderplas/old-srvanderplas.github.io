@@ -64,7 +64,7 @@ tidyr,munging,github,hadley,tidy data
 lubridate,munging,github,hadley,dates and times
 knitrBootstrap,internet,github,jimhester,bootstrap library for rmarkdown
 packrat,reproducible,github,rstudio,R dependencies in isolated libraries
-radiant,internet,github,vnijs,Business analytics in Shiny
+#radiant,internet,github,vnijs,Business analytics in Shiny
 knitcitations,reproducible,github,cboettig,Citations in knitr/markdown
 ReporteRs,reproducible,github,davidgohel,Create MS documents in R
 RMySQL,data,github,jeroenooms,R MySQL interface
