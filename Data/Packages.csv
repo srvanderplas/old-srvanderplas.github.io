@@ -26,7 +26,7 @@ quantreg,computation,CRAN,,Quantile regression
 XML,internet,CRAN,,parse XML
 dplyr,munging,github,hadley,Grammar for data manipulation
 lme4,computation,CRAN,,Linear mixed-effects models
-markdown,reproducible,github,yihui,markdown rendering
+markdown,reproducible,github,rstudio,markdown rendering
 htmltools,reproducible,CRAN,jcheng5,html tools in R
 car,computation,CRAN,,companion to applied regression
 codetools,language,CRAN,luke.tierney,Tools for code analysis
@@ -48,7 +48,7 @@ spatial,computation,CRAN,brian.ripley,spatial data
 e1071,computation,CRAN,,kernel functions
 rmarkdown,reproducible,github,rstudio,rmarkdown dynamic documents
 spatial,computation,CRAN,,spatial data
-roxygen2,language,github,hadley,documentation inline and package building
+roxygen2,language,cran,hadley,documentation inline and package building
 brew,reproducible,CRAN,,create repetitive reports using latex
 shiny,internet,github,rstudio,interactive applets in R
 igraph,graphics,CRAN,gaborcsardi,network analysis
@@ -90,3 +90,4 @@ shinydashboard,internet,github,rstudio,dashboard components for shiny
 readr,data,CRAN,hadley,Functions for reading in data
 readxl,data,CRAN,hadley,Functions for reading Excel files
 purrr,munging,github,hadley,functional programming & map
+WriteXLS,data,CRAN,Marc Schwartz,Write Excel files
