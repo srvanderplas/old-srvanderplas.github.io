@@ -61,7 +61,7 @@ broom,munging,github,dgrtwo,tidy model output
 htmlwidgets,internet,github,ramnathv,HTML widgets in R
 testthat,language,github,hadley,unit testing
 tidyr,munging,github,hadley,tidy data
-lubridate,munging,github,hadley,dates and times
+lubridate,munging,cran,hadley,dates and times
 knitrBootstrap,internet,github,jimhester,bootstrap library for rmarkdown
 packrat,reproducible,github,rstudio,R dependencies in isolated libraries
 radiant,internet,github,vnijs,Business analytics in Shiny
