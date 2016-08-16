@@ -89,3 +89,4 @@ shinyBootstrap2,internet,github,rstudio,bootstrap2 components
 shinydashboard,internet,github,rstudio,dashboard components for shiny
 readr,data,CRAN,hadley,Functions for reading in data
 readxl,data,CRAN,hadley,Functions for reading Excel files
+purrr,munging,github,hadley,functional programming & map
