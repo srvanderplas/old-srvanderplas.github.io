@@ -1,7 +1,7 @@
 # Essential R packages
 
 # Read in package list
-pkgs <- read.csv("https://raw.githubusercontent.com/srvanderplas/srvanderplas.github.io/master/Data/Packages.csv", stringsAsFactors = F)
+pkgs <- read.csv("https://raw.githubusercontent.com/srvanderplas/srvanderplas.github.io/master/Data/Packages.csv", stringsAsFactors = F, comment.char = "#")
 # pkgs <- read.csv("Data/Packages.csv", stringsAsFactors = F)
 
 # Separate out github packages
