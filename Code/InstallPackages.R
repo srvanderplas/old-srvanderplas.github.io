@@ -16,3 +16,10 @@ install.packages(cran$Name, Ncpus = 4, dependencies = c('Suggests', 'Depends', '
 library(devtools)
 install_github(sprintf("%s/%s", gh$Author, gh$Name),
                dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances'))
+
+# Install other packages
+# Requires perl installation
+install.packages("WriteXLS", dependencies = T)
+
+# RSheets packages -- still very much in alpha/beta
+install_github(c("rsheets/linen", "rsheets/rexcel", "rsheets/jailbreakr"))
