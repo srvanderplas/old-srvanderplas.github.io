@@ -26,7 +26,7 @@ quantreg,computation,CRAN,,Quantile regression
 XML,internet,CRAN,,parse XML
 dplyr,munging,github,hadley,Grammar for data manipulation
 lme4,computation,CRAN,,Linear mixed-effects models
-markdown,reproducible,github,yihui,markdown rendering
+markdown,reproducible,github,rstudio,markdown rendering
 htmltools,reproducible,CRAN,jcheng5,html tools in R
 car,computation,CRAN,,companion to applied regression
 codetools,language,CRAN,luke.tierney,Tools for code analysis
@@ -48,7 +48,7 @@ spatial,computation,CRAN,brian.ripley,spatial data
 e1071,computation,CRAN,,kernel functions
 rmarkdown,reproducible,github,rstudio,rmarkdown dynamic documents
 spatial,computation,CRAN,,spatial data
-roxygen2,language,github,hadley,documentation inline and package building
+roxygen2,language,cran,hadley,documentation inline and package building
 brew,reproducible,CRAN,,create repetitive reports using latex
 shiny,internet,github,rstudio,interactive applets in R
 igraph,graphics,CRAN,gaborcsardi,network analysis
@@ -58,13 +58,13 @@ ggthemes,graphics,github,jrnold,extra themes for ggplot2
 ProjectTemplate,reproducible,github,cran,automation of new statistical analysis projects (http://projecttemplate.net/getting_started.html)
 DiagrammeR,graphics,github,cran,Diagrams and flowcharts in R
 broom,munging,github,dgrtwo,tidy model output
-htmlwidgets,internet,github,rstudio,HTML widgets in R
+htmlwidgets,internet,github,ramnathv,HTML widgets in R
 testthat,language,github,hadley,unit testing
 tidyr,munging,github,hadley,tidy data
 lubridate,munging,github,hadley,dates and times
 knitrBootstrap,internet,github,jimhester,bootstrap library for rmarkdown
 packrat,reproducible,github,rstudio,R dependencies in isolated libraries
-radiant,internet,github,vnijs,Business analytics in Shiny
+#radiant,internet,github,vnijs,Business analytics in Shiny
 knitcitations,reproducible,github,cboettig,Citations in knitr/markdown
 ReporteRs,reproducible,github,davidgohel,Create MS documents in R
 RMySQL,data,github,jeroenooms,R MySQL interface
@@ -89,3 +89,6 @@ shinyBootstrap2,internet,github,rstudio,bootstrap2 components
 shinydashboard,internet,github,rstudio,dashboard components for shiny
 readr,data,CRAN,hadley,Functions for reading in data
 readxl,data,CRAN,hadley,Functions for reading Excel files
+purrr,munging,github,hadley,functional programming & map
+WriteXLS,data,CRAN,Marc Schwartz,Write Excel files
+miniUI,internet,github,rstudio,Addins
