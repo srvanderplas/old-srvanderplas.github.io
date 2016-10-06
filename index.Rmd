@@ -54,3 +54,5 @@ A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found 
 # Other Links
 
 * [Interesting Packages](Rpackages.html) - I use this page to keep track of packages that look useful or interesting. 
+
+* [Dating Profiles](DatingProfiles.html)
