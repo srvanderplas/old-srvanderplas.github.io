@@ -23,11 +23,15 @@ if (nrow(cran) > 0) {
 
 # Install github packages
 library(devtools)
-library(httr)
-set_config(config( ssl_verifypeer = 0L))
+# library(httr)
+# set_config(config( ssl_verifypeer = 0L))
 # set_config(use_proxy("161.201.0.0", port = 8080))
-install_github(sprintf("%s/%s", gh$Author, gh$Name),
-               dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances'))
+
+lapply(sprintf("%s/%s", gh$Author, gh$Name),
+       function(.) {
+         try(install_github(.,
+                        dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances')))
+       })
 
 # Install other packages
 # Requires perl installation
