@@ -72,7 +72,7 @@
 
 
 
-\usepackage[sorting=none,style=authoryear]{biblatex}
+\usepackage[sorting=none,style=verbose]{biblatex}
 \nocite{*}
 \addbibresource{AllRefs.bib}
 \begin{document}
@@ -139,11 +139,11 @@ Designed and conducted experiments to understand human perception of statistical
 
 \tllabelcventry{2008.45}{2008.7}{Summer 2008}{NSF Research Experience for Undergraduates}{University of Nebraska}{Lincoln, NE}{}{Created a mathematical model describing electrical impulse transmission and decay along neurons with varying states of myelination.}
 
-\printbibheading[title=Bibliography]
-\printbibliography[heading=subbibliography,type=article,title={Publications}]
+% \printbibheading[title=Publications]
+\printbibliography[title={Publications},type=article]
 \printbibliography[heading=subbibliography,type=unpublished,title={Presentations}]
 \printbibliography[heading=subbibliography,type=misc,title={Other Projects}]
-
+\clearpage
 \section{Teaching}
 \tlcventry{2017}{0}{Data Science Competency Center}{Nebraska Public Power District}{Columbus, NE}{}{Designed and conducted workshops to teach R skills to other employees. Led monthly meetings to expand the practice of data science within the company. Helped to identify promising projects and demonstrate the utility of data science in a slow-to-change worplace environment.}
 \tlcventry{2013}{2015}{R Course Instructor}{Iowa State University Stat Dept.}{Ames, IA}{}{Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with dplyr, tidyr, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny.}
@@ -156,7 +156,6 @@ Designed and conducted experiments to understand human perception of statistical
 
 \tllabelcventry{2011.5}{2012}{Fall 2011}{Empirical Methods for Comp. Sci.}{Iowa State University Stat Dept.}{Ames, IA}{}{Held office hours and graded homework for Stat 430, a class composed of graduate bioinformatics and computer science students.}
 
-\clearpage
 \section{Professional Experience}
 \tllabelcventry{2015.7}{0}{Fall 2015}{Engineering Statistical Analyst}{Cooper Nuclear Station}{Nebraska Public Power District}{}{Analysed power plant business and engineering decisions to increase safety and profitability. Helped to create a data-science competency center and mentored other employees in statistical methods and programming.\begin{itemize}
 \item Modeled employee turnover to identify individuals likely to retire or resign.
