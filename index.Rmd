@@ -16,7 +16,7 @@ This site contains links to my CV, projects I find interesting, and slides from 
 </div>
 
 # CV
-[My Current CV](CV/SusanVanderPlas-CV.pdf). I graduated in May 2015 with my PhD in Statistics from Iowa State University. As of August 2015, I am working for Nebraska Public Power District as an Engineering Statistician.
+[My Current CV](CV/SusanVanderPlas-CV-2017.pdf). I graduated in May 2015 with my PhD in Statistics from Iowa State University. As of August 2015, I am working for Nebraska Public Power District as a Statistical Analyst.
 
 A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here.
 
