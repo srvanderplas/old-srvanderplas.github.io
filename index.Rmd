@@ -1,7 +1,7 @@
 ---
 output:
   knitrBootstrap::bootstrap_document:
-    title: "Cool Packages"
+    title: "Susan VanderPlas's Projects"
     theme: cerulean
     highlight: sunburst
     theme.chooser: FALSE
