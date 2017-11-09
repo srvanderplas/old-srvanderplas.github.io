@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Susan VanderPlas
+%
+% This is an example of a complete CV using the 'moderncv' package
+% and the 'timeline' package. For more information on those, please
+% access:
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderntimeline
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderncv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt, letterpaper, sans]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}    % Width of the entire CV
+\setlength{\hintscolumnwidth}{1.5in} % Width of the timeline on your left
+\usepackage{pdfpages}
+\usepackage{moderntimeline}
+\usepackage{xpatch}
+\usepackage{color, graphicx}
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks,
+            linkcolor=link,
+            urlcolor=link,
+            citecolor=link}
+
+\tlmaxdates{2005}{2018}              % Beginning and start of your timeline
+
+\newcommand{\cvreferencecolumn}[2]{%
+  \cvitem[0.8em]{}{%
+    \begin{minipage}[t]{\listdoubleitemmaincolumnwidth}#1\end{minipage}%
+    \hfill%
+    \begin{minipage}[t]{\listdoubleitemmaincolumnwidth}#2\end{minipage}%
+    }%
+}
+
+\newcommand{\cvreference}[8]{%
+    \textbf{#1}\newline% Name
+    \ifthenelse{\equal{#2}{}}{}{\addresssymbol~#2\newline}%
+    \ifthenelse{\equal{#3}{}}{}{#3\newline}%
+    \ifthenelse{\equal{#4}{}}{}{#4\newline}%
+    \ifthenelse{\equal{#5}{}}{}{#5\newline}%
+    \ifthenelse{\equal{#6}{}}{}{\emailsymbol~\texttt{\href{mailto:#6}{\nolinkurl{#6}}}\newline}%
+    \ifthenelse{\equal{#7}{}}{}{\phonesymbol~#7\newline}
+    \ifthenelse{\equal{#8}{}}{}{\mobilephonesymbol~#8}}
+
+
+\usepackage{xstring} % bold individual name in bib entries
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+
+% Personal Information
+\name{Susan}{VanderPlas}
+\title{\emph{Teaching Interests and Philosophy}}
+\address{802 17th St.}{Auburn, NE 68305}{}
+\phone[mobile]{515-509-6613}
+%\phone[fixed]{+55~(11)~3091~2722}
+\email{srvanderplas@gmail.com}                % optional, remove / comment the line if not wanted
+\homepage{srvanderplas.com}                   % optional, remove / comment the line if not wanted
+%\social[linkedin]{}                          % optional, remove / comment the line if not wanted
+%\social[twitter]{srvanderplas}               % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                 % optional, remove / comment the line if not wanted
+%\extrainfo{\emailsymbol \emaillink{}}
+
+%\quote{Dubitando ad veritatem parvenimus - \emph{Cicerone}}
+
+\makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
+
+%----------------------------------------------------------------
+% Bold name(s) of author in bibliography
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+%\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+%----------------------------------------------------------------
+
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+
+Statistics courses often make a bad first impression: students walk away from introductory classes with the idea that statistics is hard, extremely theoretical, or not particularly relevant to everyday life (outside of election season polls and choosing colored balls from a box). The rise of ``big data" and ``data science" have created a climate where statistics is vital to many different areas of business, engineering, government, and science, but it is critical to make statistics and data science accessible, fun, and relevant to students, so that they will engage with the material and retain skills for use outside of the educational setting.
+
+\vspace{.5cm}\noindent {\large\textbf{Teaching Interests}}\hspace{8pt}
+I am interested in teaching courses on topics such as computing with data, data visualization, data mining, simulation-based methods, and classical statistical techniques such as inference and regression. I have spent several years working as a Data Scientist, and have found that my computational skills and focus on data visualization have been the most useful for conducting analyses and communicating the results successfully. I hope to teach courses which allow me to integrate some of my real-world experiences into the material, because I believe that students should be prepared to use their skills in business settings after graduation.
+
+
+\vspace{.5cm}\noindent {\large\textbf{Course Structure}}\hspace{8pt}
+In my experience, the best courses set students up for success with clear objectives, well-organized reference materials, and numerous sample problems. Ideally, the textbook should complement the lectures; in particular, the lectures and the textbook should provide different approaches to the material, so that students who do not understand one explanation have alternatives which may be more suited to their learning style. Lecture notes or outlines (and code files for computational courses) allow students to prepare for class ahead of time, so that lectures can focus on assessing and reinforcing students' understanding the material. For each topic, the lectures and examples should mimic the student's iterative encoding of the material, by beginning with a basic overview, providing more detail to facilitate a nuanced understanding, and encouraging exploration of open-ended problems.
+
+\vspace{.5cm}\noindent {\large\textbf{Feedback}}\hspace{8pt}
+At every stage of the learning process, mutual feedback is important. Feedback from students should shape the course structure and presentation, so that lectures and written materials help as many students as possible; feedback to students should clarify misconceptions, identify problems, and direct students to additional resources (other reference material, peer tutoring, office hours).
+
+Instructors should also be prepared to assist students with situations that may not be directly related to the course material: disabilities, medical problems, or personal issues may affect student performance in class and their ability to engage with the material; accommodating these students can have a positive impact on the student, and in some situations, on others in the class. As an undergraduate, I received accommodations for a medical condition which allowed me to complete a full load of difficult courses with limited class attendance; my success in graduate school is partially due to those accommodations. I also frequently requested that course materials accommodate red-green colorblindness; many times, other affected students did not realize that they are missing important information. In addition, those discussions reinforce best practices for data visualization and raise awareness of the issue for everyone in the class.
+
+\vspace{.5cm}\noindent {\large\textbf{Course Design}}\hspace{8pt}
+Statistics and data science courses are typically designed for a specific audience; introductory classes may be targeted toward students in engineering, business, or scientific disciplines, while more advanced courses may be designed for students with a background in statistics. Introductory classes tend to focus on literacy (understanding statistical analyses) while encouraging students to develop competency (the ability to design, perform, and interpret their own analyses); students in these classes do not have time to develop fluency (the ability to solve a novel problem and explain and justify the solution), while advanced classes typically encourage students to develop competency and fluency.
+
+\textbf{Literacy} is a prerequisite for statistical competency and fluency; literate students can read and assess analyses and conclusions. For students in introductory courses, statistical literacy is often the most important goal: students need to be able to think critically about data-based claims, but they do not necessarily need to perform analyses independently or understand the theoretical underpinnings of statistics years after the course is complete. In computational courses, literate students can understand well-structured code and make simple modifications; they do not typically generate their own novel code. Breaking lectures up with demonstrations, worked examples, and group work reinforces a literate approach to the material, and short assessments (true/false, multiple choice, or short answer questions) provide mutual feedback.
+
+\textbf{Competency}, the ability to correctly execute and interpret an analysis, requires a more thorough understanding of the material. Students must engage the topic in a more abstract way and may need to understand some theoretical details; this is often where students with sparse mathematical backgrounds ``tune out" or become hopelessly confused. In my experience teaching introductory statistics and programming classes, group discussions, hands-on problems, and individual exploration (working through open-ended problems start-to-finish) are valuable tools to encourage the transition to competency. I have also found that outrageous and fun examples (zombie apocalypse, velociraptor attacks, online dating profiles) motivate students to attempt problems that would otherwise seem too dry or difficult. In computational courses, competent students can write their own code (utilizing documentation) and solve new problems using an established set of tools. Homework problems and open-ended test questions can be used to assess a student's competency and provide appropriate feedback.
+
+\textbf{Fluency}, the ability to apply course material to novel problems independently, requires time and exposure to a wide variety of problems. Open ended questions, discussions, and projects encourage students to develop an understanding of the material and to think critically about the subject, thus moving from competency to fluency. In computational courses, students must be able to use the software fluently before they can apply their knowledge of the material to new problems. The ultimate goal for most teachers at the end of a course is that students can be trusted to use their knowledge in the outside world: they can discuss a problem coherently, apply ``textbook" knowledge appropriately, communicate the logic behind their approach, and interpret the results correctly.
+
+\vspace{.5cm}\noindent {\large\textbf{Data Science Courses}}\hspace{8pt}
+As a relatively new discipline, ``data science'' encompasses both statistical analysis techniques and practical skills for working with data. It is important to expose students to the techniques for analyzing data, such as regression, simulation, and heuristic-based ``data mining'' methods, but this is only part of the tool set for a data scientist. Courses which present analysis methods should also cover other skills, such as programming, data cleaning, visualization, and presentation of results in a reproducible manner. I have experience teaching students to conduct analyses in a business statistics lab setting, but I also have extensive experience teaching both students and adult learners how to program in R, visualize and clean data, and present analysis results in interactive or reproducible contexts. Through these experiences, I have gained an appreciation for the importance of teaching both the ``theory'' of how to analyze data and the ``practice" of how to work with real-world, messy data. Courses should incorporate both of these vital skills so that students finish the semester with the ability to see a project through all of its stages: conception, design, data collection, analysis, and presentation of results. Students who enter the workforce as ``data scientists'' are expected to know how to work with data from any stage in a project cycle, and it is important for them to practice those skills in a supportive setting while integrating newly learned statistical and computational techniques.
+
+\vspace{.5cm}\noindent Courses and learning environments which are well-designed, engaging, and responsive encourage students to develop a more nuanced understanding of the subject matter, whether the goal is literacy, competency, or fluency. In addition, courses should be structured so that students gain practical experience at implementing their knowledge at the expected level. As a student, I have experienced courses which exhibited all of these traits (and those which did not); as an instructor, I work to design courses which engage the material on multiple levels, provide frequent, mutual feedback, and illustrate the subject matter with fun, engaging, memorable, and relevant examples.
+
+\end{document}
