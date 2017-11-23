@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Susan VanderPlas
+%
+% This is an example of a complete CV using the 'moderncv' package
+% and the 'timeline' package. For more information on those, please
+% access:
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderntimeline
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderncv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt, letterpaper, sans]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}    % Width of the entire CV
+\setlength{\hintscolumnwidth}{1.5in} % Width of the timeline on your left
+\usepackage{pdfpages}
+\usepackage{moderntimeline}
+\usepackage{xpatch}
+\usepackage{color, graphicx}
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks,
+            linkcolor=link,
+            urlcolor=link,
+            citecolor=link}
+
+\tlmaxdates{2005}{2018}              % Beginning and start of your timeline
+
+\newcommand{\cvreferencecolumn}[2]{%
+  \cvitem[0.8em]{}{%
+    \begin{minipage}[t]{\listdoubleitemmaincolumnwidth}#1\end{minipage}%
+    \hfill%
+    \begin{minipage}[t]{\listdoubleitemmaincolumnwidth}#2\end{minipage}%
+    }%
+}
+
+\newcommand{\cvreference}[8]{%
+    \textbf{#1}\newline% Name
+    \ifthenelse{\equal{#2}{}}{}{\addresssymbol~#2\newline}%
+    \ifthenelse{\equal{#3}{}}{}{#3\newline}%
+    \ifthenelse{\equal{#4}{}}{}{#4\newline}%
+    \ifthenelse{\equal{#5}{}}{}{#5\newline}%
+    \ifthenelse{\equal{#6}{}}{}{\emailsymbol~\texttt{\href{mailto:#6}{\nolinkurl{#6}}}\newline}%
+    \ifthenelse{\equal{#7}{}}{}{\phonesymbol~#7\newline}
+    \ifthenelse{\equal{#8}{}}{}{\mobilephonesymbol~#8}}
+
+
+\usepackage{xstring} % bold individual name in bib entries
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+
+% Personal Information
+\name{Susan}{VanderPlas}
+\title{\emph{Statement of Teaching Effectiveness}}
+\address{802 17th St.}{Auburn, NE 68305}{}
+\phone[mobile]{515-509-6613}
+%\phone[fixed]{+55~(11)~3091~2722}
+\email{srvanderplas@gmail.com}                % optional, remove / comment the line if not wanted
+\homepage{srvanderplas.com}                   % optional, remove / comment the line if not wanted
+%\social[linkedin]{}                          % optional, remove / comment the line if not wanted
+%\social[twitter]{srvanderplas}               % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                 % optional, remove / comment the line if not wanted
+%\extrainfo{\emailsymbol \emaillink{}}
+
+%\quote{Dubitando ad veritatem parvenimus - \emph{Cicerone}}
+
+\makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
+
+%----------------------------------------------------------------
+% Bold name(s) of author in bibliography
+\usepackage{xstring} % bold individual name in bib entries
+% \usepackage{biblatex} % separate bibliographies
+%\nocite{*}
+\def\FormatMaidenName#1{%
+  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+}
+\def\FormatName#1{%
+  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+}
+%----------------------------------------------------------------
+\begin{document}
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\setlength{\parindent}{15pt} % Default is 15pt.
+
+I have experience teaching in formal laboratory settings, short-term workshops, and one-on-one; in each setting I have adapted my approach in order to better respond to students' needs and the course objectives. While I have not served as an instructor of record for any academic course, I have experience designing workshops and professional training programs which have been well-reviewed and successful, and I believe this experience has prepared me to effectively teach academic courses as well. 
+
+\vspace{.5cm}\noindent {\large\textbf{NPPD Business Intelligence Embedded Agents Program}}\hspace{8pt} 
+Most recently, I have designed a training program in Data Science for Nebraska Public Power District employees which may provide some insight into my approach to teaching. This program is known as the ``Business Intelligence Embedded Agents'' program (BIEA program), and has been designed to allow a diverse group of learners from across NPPD to develop skills in working with data, up to and including basic modeling and data mining skills. In the first year, participants complete coursework, learning R and statistical techniques; in the second year, they apply these skills to projects in their area of expertise. The goal of the program is both to develop skills in data analysis and to encourage a culture of analytics across the company.  
+
+There are several challenges in teaching professionals who have a variety of educational backgrounds and job responsibilities. The first cohort of participants includes an administrative assistant, an IT specialist, a cyber security analyst with a Ph.D. in Computer Science, a former Gateway engineer who now schedules emergency maintenance crews, several individuals in various accounting, procurement, and business-heavy areas of the company, an engineer, and an electrical control center operator. Many of these individuals haven't had a math class in 20 years, and some have not ever taken a math class at the college level. In addition, none of these individuals have been relieved of the responsibilities of their ``real job'', though they can complete training activites at work as well as off the clock. In addition to the diversity in academic background, these individuals also work a variety of schedules: one individual works overnight shifts; another works rotating shifts that alternate between nights and days, and most of the others work a normal 8-5 schedule. 
+
+As a result of these constraints, I designed the program to be asynchronous and self-directed. The lecture material is provided by Coursera (Johns Hopkins Data Science Specialization), because the platform is designed for adult learners. In addition, the series of 10 courses in the specialization covers R, version control, dynamic reporting (`knitr`), statistical techniques, data mining, and almost all of the other topics I would want to incorporate into such a course. I also set up monthly meetings to be attended by all cohort members; these meetings augment material in the course and are designed to provide NPPD-specific context for the material they learned in class. In order to promote cooperative learning and a sense of community, I also set up a Slack board to function as a community chat-room and communication platform. Slack allows participants to message individuals or the whole group; it has been extremely useful in facilitating peer learning as well as maintaining open lines of communication between me and the students. 
+
+I did not completely outsource the teaching component of this training program, but I designed the program to maximize my ability to provide assistance one-on-one, which is much more appropriate for a group with wildly different backgrounds and familiarity with the material. The feedback I have received thus far has been extremely positive - individuals have been able to easily adapt the course to their own schedules and aptitude, and those who have had more difficulty with the material have been able to obtain help from myself and other members of the group. I have also become a better teacher during this process: it is more challenging to teach individuals who primarily use Microsoft Office how to use the command line and version control than it is to teach students who are familiar with programming concepts. I use a combination of humor and emphasizing that everyone encounters these problems when initially learning to diffuse the stress and self-doubt that can paralyze mid-career individudals. 
+
+I designed the BIEA program to provide useful skills to anyone who participates in it; at the outset, I recognized that many individuals may not complete the more difficult statistical analysis portions of the course. The goal of the program is to seed useful skills for dealing with and utilizing data in many areas of the company; in that respect, an individual who learns how to write enough R code to process, clean, and visualize data has improved the company's ability to make decisions based on data. My decision to not enforce minimum mathematical or programming experience was made based on this cost/benefit analysis. 
+
+While the BIEA program is not a traditional teaching experience, I have learned quite a bit about designing, managing, and mentoring a group of students as they learn about statistics, programming, and data science. I have also received incredibly positive feedback from my students, leading me to conclude that this program has (thus far) been successful. 
+
+\vspace{.5cm}\noindent {\large\textbf{Teaching Data Science}}\hspace{8pt} In both teaching and statistical graphics, the goal is to effectively communicate information. As a result of this overlap, teaching produces new research avenues, and research into graphical statistics makes teaching more effective. In addition, students benefit from learning how to effectively communicate data, as presumably they will apply those skills in a job in the future. Graphics are also very important for statistical literacy, as misleading graphics are a common feature in print and on the evening news; even students who will never present their own statistical analyses will need to interpret polling data and other statistical information in order to engage with society. 
+
+\end{document}
