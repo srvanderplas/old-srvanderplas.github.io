@@ -40,3 +40,11 @@ install.packages("WriteXLS", dependencies = T)
 # RSheets packages -- still very much in alpha/beta
 install_github(c("rsheets/linen", "rsheets/rexcel", "rsheets/jailbreakr"))
 
+# Install handy RStudio extensions
+install_github(c("daattali/colourpicker",  # Color picker
+                 "MilesMcBain/mufflr",  # Pipe shortcuts
+                 "s-fleck/testthis",  # Testing shortcuts
+                 "dokato/todor",  # Package todo management
+                 "daattali/addinslist",  # List of add-ins
+                 "mdlincoln/docthis"  # Roxygen skeleton for functions
+                ))
