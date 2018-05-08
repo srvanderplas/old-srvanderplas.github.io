@@ -16,7 +16,7 @@ This site contains links to my CV, projects I find interesting, and slides from 
 </div>
 
 # CV
-[My Current CV](CV/SusanVanderPlas-CV-2017.pdf). I graduated in May 2015 with my PhD in Statistics from Iowa State University. As of August 2015, I am working for Nebraska Public Power District as a Statistical Analyst.
+[My Current CV](CV/SusanVanderPlas-CV-2018.pdf). As of March 2018, I am working as research faculty at CSAFE, the [Center for Statistics and Applications in Forensic Evidence](forensicstats.org), at Iowa State University.
 
 A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here.
 
