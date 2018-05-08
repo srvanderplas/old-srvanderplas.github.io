@@ -85,7 +85,7 @@ np,computation,CRAN,,nonparametric kernel smoothing
 plot3D,graphics,CRAN,,3d plots
 revealjs,reproducible,github,jjallaire,Create reveal.js presentations in R
 robust,computation,CRAN,,Robust statistics
-shinyBootstrap2,internet,github,rstudio,bootstrap2 components
+shinybootstrap2,internet,github,rstudio,bootstrap2 components
 shinydashboard,internet,github,rstudio,dashboard components for shiny
 readr,data,CRAN,hadley,Functions for reading in data
 readxl,data,CRAN,hadley,Functions for reading Excel files

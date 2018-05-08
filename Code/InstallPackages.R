@@ -16,7 +16,7 @@ cran <- subset(pkgs, Location == "CRAN")
 
 # Install cran packages (if any are not already installed)
 if (nrow(cran) > 0) {
-  install.packages(cran$Name, Ncpus = 4,
+  install.packages(cran$Name, Ncpus = 24,
                    dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances'))
 }
 
