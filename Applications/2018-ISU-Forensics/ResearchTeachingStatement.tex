@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Susan Vanderplas
+%
+% This is an example of a complete CV using the 'moderncv' package
+% and the 'timeline' package. For more information on those, please
+% access:
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderntimeline
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderncv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PassOptionsToPackage{pdfpagelabels=false}{hyperref}
+\documentclass[12pt, letterpaper, sans]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}    % Width of the entire CV
+\setlength{\hintscolumnwidth}{1.5in} % Width of the timeline on your left
+\usepackage{pdfpages}
+\usepackage{moderntimeline}
+\usepackage{xpatch}
+\usepackage{color, graphicx}
+\usepackage[unicode,]{hyperref}
+\usepackage{xcolor}
+\usepackage{varwidth}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks,
+            linkcolor=link,
+            urlcolor=link,
+            citecolor=link}
+
+\makeatletter
+\newcommand{\makesimpletitle}{%
+ % recompute lengths (in case we are switching from letter to resume, or vice versa)
+  \recomputeletterlengths%
+
+  \begin{varwidth}[c]{.75\textwidth}
+  \if@left\raggedright\fi%
+      \if@right\raggedleft\fi%
+      % \namestyle{\@firstname\ \@lastname}%
+      \ifthenelse{\equal{\@title}{}}{}{\titlestyle{\@title}}%
+  \end{varwidth}\hfill
+  \begin{varwidth}[c]{.25\textwidth}%
+    % optional detailed information
+      \raggedleft%
+      \addressfont\textcolor{color2}{%
+        {\bfseries\upshape\@firstname~\@lastname}\\
+        % optional detailed information
+        \ifthenelse{\isundefined{\@addressstreet}}{}{\makenewline\addresssymbol\@addressstreet%
+          \ifthenelse{\equal{\@addresscity}{}}{}{\makenewline\@addresscity}% if \addresstreet is defined, \addresscity and addresscountry will always be defined but could be empty
+          \ifthenelse{\equal{\@addresscountry}{}}{}{\makenewline\@addresscountry}}%
+        \collectionloop{phones}{% the key holds the phone type (=symbol command prefix), the item holds the number
+          \makenewline\csname\collectionloopkey phonesymbol\endcsname\collectionloopitem}%
+        \ifthenelse{\isundefined{\@email}}{}{\makenewline\emailsymbol\emaillink{\@email}}%
+        \ifthenelse{\isundefined{\@homepage}}{}{\makenewline\homepagesymbol\httplink{\@homepage}}%
+        \ifthenelse{\isundefined{\@extrainfo}}{}{\makenewline\@extrainfo}}
+    \end{varwidth}
+}
+\makeatother
+
+
+
+% Personal Information
+\name{Susan}{Vanderplas}
+\title{\emph{Research and Teaching Statement}}
+\address{801 Onyx Cir}{Ames, IA 50010}{}
+\phone[mobile]{515-509-6613}
+%\phone[fixed]{+55~(11)~3091~2722}
+% \email{srvanderplas@gmail.com}                % optional, remove / comment the line if not wanted
+\email{srvander@iastate.edu}                % optional, remove / comment the line if not wanted
+% \homepage{srvanderplas.com}                   % optional, remove / comment the line if not wanted
+%\social[linkedin]{}                          % optional, remove / comment the line if not wanted
+%\social[twitter]{srvanderplas}               % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                 % optional, remove / comment the line if not wanted
+%\extrainfo{\emailsymbol \emaillink{}}
+
+
+\begin{document}
+\makesimpletitle
+
+\section{Research}
+
+As I consider my research interests since I started grad school, the one constant seems to be that old projects and research focus areas reappear in unexpected places. I started grad school in bioinformatics and quickly switched to statistics, but not before working in a materials engineering lab developing methods for identification of peaks in mass spectra. After my masters, I left materials engineering and peak identification behind and started research in data visualization, leveraging my undergraduate work in cognitive psychology to explore communication of statistics using charts and graphs. About a year later, I started in on a research assistantship in soybean genetics, using both my data visualization skills and my residual bioinformatics skills. After graduation, I started working with engineers again, doing data analysis at Nebraska Public Power District and relying heavily on data visualization to communicate statistics to people reluctant to trust data-driven decisions. When I left that position to work at CSAFE, I started spending a lot of my time on peak (and valley) identification, this time, using bullet lands instead of mass spectra. 
+
+I have come to terms with the fact that while I do not have any single label more specific than `applied statistics' that describes the majority of my research, domain knowledge from previous projects has almost always been repurposed in unexpected ways. The thread that ties my research together is that through all of the projects described above, I have consistently focused on the interplay between human cognition and statistical algorithms. In some circumstances, I have worked to effectively communicate statistical information within the constraints of human perception, while in others I have tried to mimic human cognition within a statistical algorithm in order to combine the strengths of human perception and statistics. 
+
+The phrase ``A picture is worth a thousand words" is commonly accepted, in part because the human brain has been optimized over millenia to process visual stimuli quickly and efficiently. We can communicate information much more quickly and effectively using images, which provides a substantial advantage to graphical communication relative to verbal communication methods. This advantage comes with certain drawbacks: statisticians must consider the visual system in order to communicate effectively with charts and graphs. John Tukey and Edward Tufte both described guidelines for data visualization, but there is fairly sparse literature examining the perception of statistical graphics in an experimental setting. My doctoral research considered different situations in which features of a chart or graph might change the conclusion drawn from that chart, even when the underlying data remain the same.
+
+Since working at CSAFE, I have expanded this 
+
+
+
+
+
+
+\section{Teaching}
+
+\section{Diversity and Inclusion}
+
+
+\end{document}
