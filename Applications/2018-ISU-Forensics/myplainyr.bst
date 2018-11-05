@@ -141,8 +141,7 @@ FUNCTION {output.bibitem}
 }
 
 FUNCTION {fin.entry}
-{ add.period$
-  write$
+{ write$
   newline$
   "}" write$
 }
@@ -283,6 +282,13 @@ FUNCTION {format.title}
 { title empty$
     { "" }
     { title "t" change.case$ }
+  if$
+}
+
+FUNCTION {format.note}
+{ note empty$
+    { "" }
+    {  "\newline{\footnotesize " * note * "}"}
   if$
 }
 
@@ -600,7 +606,7 @@ FUNCTION {article}
     }
   if$
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -632,7 +638,7 @@ FUNCTION {book}
   format.edition output
   format.date "year" output.check
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -646,7 +652,7 @@ FUNCTION {booklet}
   address output
   format.date output
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -680,7 +686,7 @@ FUNCTION {inbook}
   format.edition output
   format.date "year" output.check
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -706,7 +712,7 @@ FUNCTION {incollection}
     }
   if$
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -740,7 +746,7 @@ FUNCTION {inproceedings}
     }
   if$
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -776,7 +782,7 @@ FUNCTION {manual}
   format.edition output
   format.date output
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -791,7 +797,7 @@ FUNCTION {mastersthesis}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -804,7 +810,7 @@ FUNCTION {misc}
   howpublished output
   format.date output
   new.block
-  note output
+  format.note output
   fin.entry
   empty.misc.check
 }
@@ -820,7 +826,7 @@ FUNCTION {phdthesis}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -855,7 +861,7 @@ FUNCTION {proceedings}
     }
   if$
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -870,7 +876,7 @@ FUNCTION {techreport}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output
   fin.entry
 }
 
@@ -880,7 +886,7 @@ FUNCTION {unpublished}
   new.block
   format.title "title" output.check
   new.block
-  note "note" output.check
+  format.note "note" output.check
   format.date output
   fin.entry
 }

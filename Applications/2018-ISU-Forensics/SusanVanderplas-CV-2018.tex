@@ -64,6 +64,19 @@
 \usepackage{filecontents}
 \begin{filecontents}{publications.bib}
 
+@Article{framed,
+  Title                    = {Framed! {R}eproducing 150 year old plots},
+  Author                   = {Susan Vanderplas and Ryan Goluch and Heike Hofmann},
+  Journal                  = {Journal of Computational and Graphical Statistics},
+  Note = {Programming and analysis (60\%), writing (50\%)},
+  Year                     = {2018}
+}
+@Article{animintjcgs,
+  Title                    = {Extending ggplot2 for linked and dynamic web graphics},
+  Author                   = {C Sievert and J Cai and S Vanderplas and F Khan and K Ferris and T Hocking},
+  Journal                  = {Journal of Computational and Graphical Statistics},
+  Year                     = {2018}
+}
 @Article{featurehierarchyjcgs,
   Title                    = {{C}lusters Beat {T}rend!? {T}esting Feature Hierarchy in Statistical Graphics},
   Author                   = {Susan Vanderplas and Heike Hofmann},
@@ -72,8 +85,8 @@
   Number                   = {2},
   Pages                    = {231-242},
   Volume                   = {26},
+  Note = {Programming and analysis (90\%), writing (50\%)},
   Doi                      = {10.1080/10618600.2016.1209116},
-  Eprint                   = { http://dx.doi.org/10.1080/10618600.2016.1209116},
   Url                      = { http://dx.doi.org/10.1080/10618600.2016.1209116}
 }
 @Article{rutter2017ggenealogy,
@@ -84,33 +97,12 @@
   Url                      = {https://github.com/lrutter/ggenealogyPaper},
   Keywords                 = {genlit}
 }
-@Article{animintjcgs,
-  Title                    = {Extending ggplot2 for linked and dynamic web graphics},
-  Author                   = {C Sievert and J Cai and S Vanderplas and F Khan and K Ferris and Toby Hocking},
-  Journal                  = {Journal of Computational and Graphical Statistics},
-  Year                     = {2018}
-}
 @Article{visualaptitude,
   Title                    = {Spatial Reasoning and Data Displays},
   Author                   = {Susan Vanderplas and Heike Hofmann},
   Journal                  = {IEEE Transactions on Visualization and Computer Graphics},
+  Note = {Programming and analysis (90\%), writing (75\%)},
   Year                     = {2016}
-}
-@Article{hull2009near,
-  Title                    = {Near-infrared spectroscopy and cortical responses to speech production},
-  Author                   = {Rachel Hull and Heather Bortfeld and Susan Koons},
-  Journal                  = {The open neuroimaging journal},
-  Year                     = {2009},
-  Pages                    = {26},
-  Volume                   = {3},
-
-  Publisher                = {Bentham Science Publishers}
-}
-@Article{framed,
-  Title                    = {Framed! {R}eproducing 150 year old plots},
-  Author                   = {Susan Vanderplas and Ryan Goluch and Heike Hofmann},
-  Journal                  = {Journal of Computational and Graphical Statistics},
-  Year                     = {2018}
 }
 @article{donohoresponse,
   title={All of This Has Happened Before. {A}ll of This Will Happen Again: {D}ata {S}cience},
@@ -122,17 +114,6 @@
   year={2017},
   publisher={Taylor \& Francis}
 }
-@Article{towfic2010detection,
-  Title                    = {Detection of gene orthology from gene co-expression and protein interaction networks},
-  Author                   = {Fadi Towfic and Susan Vanderplas and Casey A Oliver and Oliver Couture and Christopher K Tuggle and M Heather West Greenlee and Vasant Honavar},
-  Journal                  = {BMC bioinformatics},
-  Year                     = {2010},
-  Number                   = {Suppl 3},
-  Pages                    = {S7},
-  Volume                   = {11},
-
-  Publisher                = {BioMed Central Ltd}
-}
 @Article{sineillusionjcgs,
   Title                    = {Signs of the Sine Illusion - why we need to care},
   author                   = {Susan Vanderplas and Heike Hofmann},
@@ -141,6 +122,7 @@
   number = {4},
   pages = {1170-1190},
   year = {2015},
+  Note = {Programming and analysis (50\%), writing (60\%)},
   doi = {10.1080/10618600.2014.951547},
   URL = {http://dx.doi.org/10.1080/10618600.2014.951547},
   eprint = {http://dx.doi.org/10.1080/10618600.2014.951547}
@@ -180,6 +162,7 @@
 \def\FormatName#1{%
   \IfSubStr{#1}{Vanderplas}{\textbf{#1}}{\FormatMaidenName{#1}}%
 }
+
 %----------------------------------------------------------------
 
 \begin{document}
@@ -229,8 +212,8 @@
 % \end{itemize}
 % }
 
-% \tlcventry{2014}{0}{Consultant}{}{}{}{Develop web applications, interactive data displays, and statistical analyses for clients including the Iowa Soybean Association, ISU Agronomy Labs, and the USDA.%\newline\href{https://www.iasoybeans.com/news/articles/online-risk-calculator-helps-farmers-estimate-late-season-nitrogen-deficiency/}{Nitrogen Deficiency in Corn}, \href{https://crops.extension.iastate.edu/facts/}{Crop Yield Forecast}
-% }
+\tlcventry{2014}{0}{Consultant}{}{}{}{Develop web applications, interactive data displays, and statistical analyses for clients including the Iowa Soybean Association, ISU Agronomy Labs, and the USDA.%\newline\href{https://www.iasoybeans.com/news/articles/online-risk-calculator-helps-farmers-estimate-late-season-nitrogen-deficiency/}{Nitrogen Deficiency in Corn}, \href{https://crops.extension.iastate.edu/facts/}{Crop Yield Forecast}
+}
 
 % \bigskip
 % \section{Research Interests}
@@ -260,6 +243,7 @@
 
 \section{Scholarship}
 \subsection{Publications}
+\cvitem{}{\footnotesize Percentages estimated from git contributions using git fame}
 \nocite{*}
 \bibliographystyle{myplainyr}
 \bibliography{publications}
