@@ -49,81 +49,125 @@
     \ifthenelse{\equal{#7}{}}{}{\phonesymbol~#7\newline}
     \ifthenelse{\equal{#8}{}}{}{\mobilephonesymbol~#8}}
 
+%-------------------------------------------------------------------------------
+% Numeric CV bibliography
+\newif\ifnumericCVbibliography
+\numericCVbibliographytrue % replace true with false to disable
+\newlength{\hintscolumnwidthV}
+\setlength\hintscolumnwidthV{\hintscolumnwidth}
+\newlength{\labelkern}
+\ifnumericCVbibliography
+  \setlength\labelkern{-2ex}
+  \usepackage[backend = biber,
+              style   = nature, 
+              sorting = none,
+              maxbibnames=99
+             ]{biblatex}  
+  \newcommand{\printbibnumber}{%\hspace* here has no effect so I removed it
+      \llap{\printtext[labelnumberwidth]{%
+              \printfield{labelprefix}%
+              \printfield{labelnumber}
+              }\kern\labelkern% to reduce space between label and timeline image
+            }%
+  }                                  
+\else
+  \usepackage[backend = biber,
+              style   = authoryear, 
+              sorting = none,
+              maxbibnames=99
+             ]{biblatex}  
+  \newcommand{\printbibnumber}{\relax} % do nothing   
+  \setlength\labelkern{0ex} 
+  \setlength\hintscolumnwidthV{\hintscolumnwidth} % this length needs 
+  % to be re-set or it keeps the numeric  version value if that has been run before   
+\fi
+\addbibresource{\jobname.bib} 
 
-\usepackage{xstring} % bold individual name in bib entries
-\def\FormatMaidenName#1{%
-  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
-}
-\def\FormatName#1{%
-  \IfSubStr{#1}{Vanderplas}{\textbf{#1}}{\FormatMaidenName{#1}}%
-}
-\def\FormatName#1{%
-  \IfSubStr{#1}{VanderPlas}{\textbf{#1}}{\FormatMaidenName{#1}}%
-}
+%-------------------------------------------------------------------------------
+% bold author names
+
+\renewcommand*{\mkbibnamegiven}[1]{%
+  \ifitemannotation{highlight}
+    {\textbf{#1}}
+    {#1}}
+
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \ifitemannotation{highlight}
+    {\textbf{#1}}
+    {#1}}
+%-------------------------------------------------------------------------------
+
 
 \usepackage{filecontents}
-\begin{filecontents}{publications.bib}
-
+\begin{filecontents}{\jobname.bib}
 @Article{framed,
   Title                    = {Framed! {R}eproducing 150 year old plots},
   Author                   = {Susan Vanderplas and Ryan Goluch and Heike Hofmann},
+    AUTHOR+an = {1=highlight},
   Journal                  = {Journal of Computational and Graphical Statistics},
-  Note = {Programming and analysis (60\%), writing (50\%)},
+  addendum = {Programming and analysis (60\%), writing (50\%)},
   Year                     = {2018}
 }
-@Article{animintjcgs,
-  Title                    = {Extending ggplot2 for linked and dynamic web graphics},
-  Author                   = {C Sievert and J Cai and S Vanderplas and F Khan and K Ferris and T Hocking},
-  Journal                  = {Journal of Computational and Graphical Statistics},
-  Year                     = {2018}
+@article{sievert2018extending,
+  title={Extending ggplot2 for linked and animated web graphics},
+  author={Sievert, Carson and VanderPlas, Susan and Cai, Jun and Ferris, Kevin and Khan, Faizan Uddin Fahad and Hocking, Toby Dylan},
+    AUTHOR+an = {2=highlight},
+  journal={Journal of Computational and Graphical Statistics},
+  number={just-accepted},
+  year={2018},
+  publisher={Taylor \& Francis}
 }
 @Article{featurehierarchyjcgs,
   Title                    = {{C}lusters Beat {T}rend!? {T}esting Feature Hierarchy in Statistical Graphics},
   Author                   = {Susan Vanderplas and Heike Hofmann},
+    AUTHOR+an = {1=highlight},
   Journal                  = {Journal of Computational and Graphical Statistics},
   Year                     = {2017},
   Number                   = {2},
   Pages                    = {231-242},
   Volume                   = {26},
-  Note = {Programming and analysis (90\%), writing (50\%)},
+  addendum = {Programming and analysis (90\%), writing (50\%)},
   Doi                      = {10.1080/10618600.2016.1209116},
   Url                      = { http://dx.doi.org/10.1080/10618600.2016.1209116}
 }
 @Article{rutter2017ggenealogy,
   Title                    = {{ggeanealogy: An R Package for Visualizing Genealogical Data}},
   Author                   = {Lindsay Rutter and Susan Vanderplas and Dianne Cook and Michelle Graham},
+  AUTHOR+an = {2=highlight},
   Journal                  = {Journal of Statistical Software},
   Year                     = {2017},
-  Url                      = {https://github.com/lrutter/ggenealogyPaper},
-  Keywords                 = {genlit}
-}
-@Article{visualaptitude,
-  Title                    = {Spatial Reasoning and Data Displays},
-  Author                   = {Susan Vanderplas and Heike Hofmann},
-  Journal                  = {IEEE Transactions on Visualization and Computer Graphics},
-  Note = {Programming and analysis (90\%), writing (75\%)},
-  Year                     = {2016}
+  Url                      = {https://github.com/lrutter/ggenealogyPaper}
 }
 @article{donohoresponse,
   title={All of This Has Happened Before. {A}ll of This Will Happen Again: {D}ata {S}cience},
-  author={Heike Hofmann and Susan Vanderplas},
+  author={Heike Hofmann and Susan Vanderplas},  
+  AUTHOR+an = {2=highlight},
   journal={Journal of Computational and Graphical Statistics},
   volume={26},
   number={4},
   pages={775--778},
   year={2017},
-  Note = {Writing (75\%)},
+  addendum = {Writing (75\%)},
   publisher={Taylor \& Francis}
+}
+@Article{visualaptitude,
+  Title                    = {Spatial Reasoning and Data Displays},
+  Author                   = {Susan Vanderplas and Heike Hofmann},
+  AUTHOR+an = {1=highlight},
+  Journal                  = {IEEE Transactions on Visualization and Computer Graphics},
+  addendum = {Programming and analysis (90\%), writing (75\%)},
+  Year                     = {2016}
 }
 @Article{sineillusionjcgs,
   Title                    = {Signs of the Sine Illusion - why we need to care},
   author                   = {Susan Vanderplas and Heike Hofmann},
+  AUTHOR+an = {1=highlight},
   journal                  = {Journal of Computational and Graphical Statistics},
   volume = {24},
   number = {4},
   pages = {1170-1190},
   year = {2015},
-  Note = {Programming and analysis (50\%), writing (60\%)},
+  addendum = {Programming and analysis (50\%), writing (60\%)},
   doi = {10.1080/10618600.2014.951547},
   URL = {http://dx.doi.org/10.1080/10618600.2014.951547},
   eprint = {http://dx.doi.org/10.1080/10618600.2014.951547}
@@ -131,6 +175,96 @@
 
 \end{filecontents}
 
+% ------------------------------------------------------------------------------
+% Introductory notes for papers
+
+\makeatletter
+
+\newcommand*{\intronote}[2]{%
+  \csdef{cbx@#1@intronote}{#2}%
+}
+
+\renewbibmacro*{begentry}{%
+  \ifcsdef{cbx@\thefield{entrykey}@intronote}{%
+    \textit{\csuse{cbx@\thefield{entrykey}@intronote}}\addperiod\space\newline
+  }{%
+  }%
+}
+
+\intronote{rutter2017ggenealogy}{Accepted March 2017. Awaiting publication}
+\intronote{donohoresponse}{Submitted as an invited response to Donoho's ``50 years of Data Science"}
+\intronote{framed}{Accepted; awaiting final review}
+
+% ------------------------------------------------------------------------------
+% Notes at the end and hopefully on a new line and in footnotesize
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=note, final]
+      \step[fieldset=addendum, origfieldval, final]
+      \step[fieldset=note, null]
+    }
+  }
+}
+% \DeclareFieldFormat{url}{\footnotesize\addspace#1}
+\DeclareFieldFormat{addendum}{\newline{\footnotesize\textbf{Contribution:}\addspace#1}}
+% \input{|"biber CV-fancypubs"}
+%-----------------------------------------------------------
+% timeline for bibliography
+
+\makeatletter 
+\newcommand*{\cventryV}[1][.25em]{}
+\newcommand{\tldatecventryV}[2][color1]{%
+\issincefalse
+\tl@formatstartyear{#2}
+\cventryV{\tikz[baseline=0pt]{
+    \useasboundingbox (0ex,0ex) rectangle (\hintscolumnwidthV,1ex); 
+    %changed origin of boundingbox. previous was (2ex,0ex) but this 
+    % creates alignment problems when switching between numeric and non numeric.
+    \fill [\tl@runningcolor] (0,0)
+       rectangle (\hintscolumnwidthV,\tl@runningwidth);
+    \fill [#1] (0,0)
+       ++(\tl@startfraction*\hintscolumnwidthV,0pt)
+       node [tl@singleyear] {#2}
+       node {$\bullet$};
+  }}}
+\makeatother
+
+\defbibenvironment{bibliography}
+  {\list
+   {\printbibnumber% here you see the macro in action
+    \tldatecventryV{%
+      \thefield{year} % actual year from bibitem
+       }}
+       {%     
+        \setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty      
+        \addtolength\hintscolumnwidthV{-\labelnumberwidth}% num - changes timeline image length
+        \addtolength\hintscolumnwidthV{\labelkern}% num  - changes timeline image length
+        \setlength{\bibhang}{\hintscolumnwidthV} % custom bibhang
+        \setlength{\labelsep}{\separatorcolumnwidth} %  horizontal distance between label and entry
+        \setlength{\leftmargin}{\hintscolumnwidth} % sets where the left margin is 
+        \addtolength{\leftmargin}{\separatorcolumnwidth} %
+        \setlength{\itemindent}{-\bibhang} % this sets indentation of the second line of the entry. 
+        % changing it moves also the first line left or right
+        \addtolength{\itemindent}{-\separatorcolumnwidth} % to align the second line exactly
+        \setlength{\itemsep}{\bibitemsep} % vertical distance between bib items
+        \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}    
+
+\AtEveryBibitem{\clearfield{year}} 
+%  reverse numbering of publications
+% Count total number of entries in each refsection
+\AtDataInput{%
+  \csnumgdef{entrycount:\therefsection}{%
+    \csuse{entrycount:\therefsection}+1}}
+% Print the labelnumber as the total number of entries in the
+% current refsection, minus the actual labelnumber, plus one
+\DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}    
+\newrobustcmd*{\mkbibdesc}[1]{%
+  \number\numexpr\csuse{entrycount:\therefsection}+1-#1\relax}   
+%-------------------------------------------------------------------------------
 
 
 % Personal Information
@@ -151,20 +285,20 @@
 
 \makeatletter\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}\makeatother
 
-%----------------------------------------------------------------
-% Bold name(s) of author in bibliography
-\usepackage{xstring} % bold individual name in bib entries
-% \usepackage{biblatex} % separate bibliographies
-%\usepackage[backend=biber]{biblatex}
-%\nocite{*}
-\def\FormatMaidenName#1{%
-  \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
-}
-\def\FormatName#1{%
-  \IfSubStr{#1}{Vanderplas}{\textbf{#1}}{\FormatMaidenName{#1}}%
-}
-
-%----------------------------------------------------------------
+% %----------------------------------------------------------------
+% % Bold name(s) of author in bibliography
+% \usepackage{xstring} % bold individual name in bib entries
+% % \usepackage{biblatex} % separate bibliographies
+% %\usepackage[backend=biber]{biblatex}
+% %\nocite{*}
+% \def\FormatMaidenName#1{%
+%   \IfSubStr{#1}{Koons}{\textbf{#1}}{#1}%
+% }
+% \def\FormatName#1{%
+%   \IfSubStr{#1}{Vanderplas}{\textbf{#1}}{\FormatMaidenName{#1}}%
+% }
+% 
+% %----------------------------------------------------------------
 
 \begin{document}
 
@@ -174,7 +308,7 @@
 \tldatecventry{2015}{PhD}{Statistics}{Iowa State University}{}{Dissertation: The Perception of Statistical Graphics}
 \tldatecventry{2011}{MS}{Statistics}{Iowa State University}{}{}
 % \vspace{-12pt}
-\tldatecventry{2009}{BS}{Psychology, Applied Mathematical Sciences}{Texas A\&M University}{}{}  % arguments 3 to 6 can be left empty
+\tldatecventry{2009}{BS}{Psychology \& Applied Mathematical Sciences}{Texas A\&M University}{}{}  % arguments 3 to 6 can be left empty
 \medskip
 
 \section{Professional Experience}
@@ -221,7 +355,7 @@
 % \hspace*{\hintscolumnwidth}%
 % \hspace*{.8em}
 % \begin{varwidth}[t]{.45\maincolumnwidth}
-% \textcolor{color1}{\textbf{\footnotesize{COMPUTING \& GRAPHICS}}}
+% \textcolor{color1}{\textbf{\footaddendumsize{COMPUTING \& GRAPHICS}}}
 %     \begin{itemize}
 %     \item Visual inference
 %     \item Perception of charts
@@ -232,7 +366,7 @@
 %     \end{itemize}
 % \end{varwidth}
 % \hfill\begin{varwidth}[t]{.55\maincolumnwidth}
-% \textcolor{color1}{\textbf{\footnotesize{FORENSICS}}}
+% \textcolor{color1}{\textbf{\footaddendumsize{FORENSICS}}}
 %     \begin{itemize}
 %     \item Statistical graphics in legal settings
 %     \item Algorithmic mimicry of human perception
@@ -243,42 +377,50 @@
 % \clearpage
 
 \section{Scholarship}
-\subsection{Publications}
-\cvitem{}{\footnotesize Percentages estimated from git contributions using git fame where possible. Not all projects have github repositories for which this is meaningful.}
+% \subsection{Publications}
+\cvitem{}{\footnotesize Contribution percentages estimated from git contributions using \texttt{git fame} where possible. Not all projects have github repositories for which this is meaningful.}
 \nocite{*}
-\bibliographystyle{myplainyr}
-\bibliography{publications}
+\printbibliography[heading=subbibliography,title={Journal Publications}]
+\medskip
+% \bibliographystyle{myplainyr}
+% \bibliography{publications}
 \cvitem{In Progress}{
     \begin{description}
-    \item [Visual Inference for Bayesians] Examine two-target statistical lineups and the connection to Bayes Factors.
+    % \item [Visual Inference for Bayesians] Examine two-target statistical lineups and the connection to Bayes Factors.
     \item [Truthiness and Statistical Charts] Evaluate whether the truthiness effect (increased belief in a statement based on the presence of an accompanying picture) holds for statistical charts and maps. 
-    \item [Longitudinal Shoe Database] Design a database for sharing longitudinal shoe wear data, including powder prints, 2D scans, 3D scans, pictures, and crime-scene style casts and prints. 
+    % \item [Longitudinal Shoe Database] Design a database for sharing longitudinal shoe wear data, including powder prints, 2D scans, 3D scans, pictures, and crime-scene style casts and prints. 
     \item [Bullet Signature Resampling] Method for resampling bullet signatures used to calculate match and non-match score distributions.% \href{https://github.com/srvanderplas/bulletsamplr}{Link to project}
     \item [Bullet Test Set Validation] Validate an algorithm for bullet matching on several test sets used to test forensic examiner proficiency. 
-    \item [Continuous Integration and Unit Testing in Forensics Software] Discussion of best practices for development of forensics software (continuous integration, unit testing, version control systems, and open-source licensing).
+    % \item [Continuous Integration and Unit Testing in Forensics Software] Discussion of best practices for development of forensics software (continuous integration, unit testing, version control systems, and open-source licensing).
     \item [Footwear Class Characteristic Recognition using Neural Networks] Use convolutional neural networks to automate identification of class characteristics in images of footwear outsoles. 
     \end{description}
     }
 
+\subsection{Grants}
+\tldatecventry{2018}{NIJ R\&D in Forensic Science}{Statistical Infrastructure for the Use of Error Rate Studies in the Interpretation of Forensic Evidence}{Collaborator}{Funded for FY 2019}{}
+\tldatecventry{2018}{NIJ R\&D in Forensic Science}{Passive Acquisition of Footwear Class Characteristics in
+Local Populations}{PI}{Not funded}{}
+\medskip
 \subsection{Invited Talks}
-\tldatecventry{2019}{Statistical Lineups for Bayesians}{JSM}{}{}{}
-\tldatecventry{2018}{Clusters Beat Trend!? Testing Feature Hierarchy in Statistical Graphics}{SDSS}{}{}{}
-\tldatecventry{2015}{Animint: Interactive Web-Based Animations Using Ggplot2's Grammar of Graphics}{JSM}{}{}{}
-\tldatecventry{2014}{The curse of three dimensions: Why your brain is lying to you}{JSM}{}{}{}
+\tldatecventry{2019}{Statistical Lineups for Bayesians}{JSM}{Section on Statistical Graphics}{Denver, CO}{}
+\tldatecventry{2018}{Clusters Beat Trend!? Testing Feature Hierarchy in Statistical Graphics}{SDSS}{}{Reston, VA}{}
+\tldatecventry{2015}{Animint: Interactive Web-Based Animations Using Ggplot2's Grammar of Graphics}{JSM}{}{Seattle, WA}{}
+\tldatecventry{2014}{The curse of three dimensions: Why your brain is lying to you}{JSM}{Section on Statistical Graphics Student Paper Session}{Boston, MA}{}
+\medskip
 \subsection{Contributed Talks}
-\tldatecventry{2018}{Framed! Reproducing 150 year old charts}{JSM}{}{}{}
+\tldatecventry{2018}{Framed! Reproducing 150 year old charts}{JSM}{}{Vancouver, BC}{}
 
-\tldatecventry{2017}{A Bayesian Approach to Visual Inference}{JSM}{}{}{}
+\tldatecventry{2017}{A Bayesian Approach to Visual Inference}{JSM}{}{Baltimore, MD}{}
 
-\tldatecventry{2016}{Clusters Beat Trend!? Testing Feature Hierarchy in Statistical Graphics}{JSM }{}{}{}
+\tldatecventry{2016}{Clusters Beat Trend!? Testing Feature Hierarchy in Statistical Graphics}{JSM}{}{Chicago, IL}{}
 
-\tldatecventry{2015}{Visual Aptitude and Statistical Graphics}{InfoVis}{}{}{}
-\tldatecventry{2015}{Animint: Interactive, Web-Ready Graphics with R}{Great Plains R User Group}{}{}{}
+\tldatecventry{2015}{Visual Aptitude and Statistical Graphics}{InfoVis}{}{Chicago, IL}{}
+\tldatecventry{2015}{Animint: Interactive, Web-Ready Graphics with R}{Great Plains R User Group}{}{Sioux Center, IA}{}
 
-\tldatecventry{2014}{Do You See What I See? Using Shiny for User Testing}{JSM}{}{}{}
+\tldatecventry{2014}{Do You See What I See? Using Shiny for User Testing}{JSM}{}{Boston, MA}{}
 
-\tldatecventry{2013}{Signs of the Sine Illusion -- why we need to care}{JSM}{}{}{}
-
+\tldatecventry{2013}{Signs of the Sine Illusion -- why we need to care}{JSM}{}{Montreal, ON}{}
+\medskip
 \subsection{Software}
 \tldatecventry{2018}{\texttt{bulletsamplr}}{Resampling of bullet signatures}{}{}{}
 \tldatecventry{2018}{\texttt{ImageAlignR}}{Image registration algorithms for forensics}{}{}{}
@@ -288,43 +430,42 @@
 
 % \bigskip
 
-\section{Awards and Honors}
-\tldatecventry{2019}{NIJ R\&D in Forensic Science}{Statistical Infrastructure for the Use of Error Rate Studies in the Interpretation of Forensic Evidence}{Collaborator}{}{}
-\tldatecventry{2014}{ASA Section on Statistical Graphics}{Student Paper Award}{}{}{}
+% \section{Awards and Honors}
+% \tldatecventry{2014}{ASA Section on Statistical Graphics}{Student Paper Award}{}{}{}
 % \clearpage
 \section{Teaching}
 \tlcventry{2017}{2018}{Business Intelligence Embedded Agent Program}{Nebraska Public Power District}{}{}{
-%Design and implement a program to mentor employees, providing instruction in data science and opportunities to apply new skills within the company. Lead one-on-one and group mentoring sessions to create a sense of community and reinforce skills learned through online courses.
+Design and implement a program to mentor employees, providing instruction in data science and opportunities to apply new skills within the company. Lead one-on-one and group mentoring sessions to create a sense of community and reinforce skills learned through online courses. Class size: 16
 }
 \tldatecventry{2017}{R Workshop}{Nebraska Public Power District}{}{}{
 %3-day internal course on using R for data analysis.
 }
 
-\tldatecventry{2014}{R Workshops}{Iowa State}{}{}{}
+\tldatecventry{2014}{R Workshops}{Iowa State}{}{}{Introduction to R, ggplot2, data management and cleaning, package development, literate programming, and Shiny.}
 %Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with plyr, reshape2, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny.}
 
-\tldatecventry{2013}{R Workshops}{Iowa State}{}{}{}
+\tldatecventry{2013}{R Workshops}{Iowa State}{}{}{Introduction to R, ggplot2, data management and cleaning, package development, literate programming, and Shiny.}
 %Designed and conducted workshops to teach R skills to the members of the university and local business community. Workshop topics included an introduction to R, ggplot2, data management with plyr, reshape2, and stringr, package development, document creation with knitr, linear models, and creating web applets with Shiny.}
 
 % \vspace{-12pt}
-\tldatecventry{2013}{Statistical Methods for Research}{Iowa State}{}{Teaching Assistant}{}
-%Teaching Assistant - Held office hours and graded labs and tests for Stat 401, a class composed primarily of graduate engineering students.}
+\tldatecventry{2013}{Statistical Methods for Research}{Iowa State}{}{TA}{Stat 401}
+%TA - Held office hours and graded labs and tests for Stat 401, a class composed primarily of graduate engineering students.}
 % \vspace{-12pt}
-\tldatecventry{2013}{Introduction to Business Statistics II}{Iowa State}{}{Teaching Assistant}{}
-%Teaching Assistant - Taught undergraduate business students statistical methods and use of JMP statistical software. Responsibilities included holding office hours and evening help sessions, developing lab materials, managing the course website on Blackboard, and grading labs, homework, and tests.}
+\tldatecventry{2013}{Introduction to Business Statistics II}{Iowa State}{}{TA}{Stat 326}
+%TA - Taught undergraduate business students statistical methods and use of JMP statistical software. Responsibilities included holding office hours and evening help sessions, developing lab materials, managing the course website on Blackboard, and grading labs, homework, and tests.}
 % \vspace{-12pt}
-\tldatecventry{2012}{Introduction to Business Statistics II}{Iowa State}{}{Teaching Assistant}{}
-%Teaching Assistant - Taught undergraduate business students statistical methods and use of JMP statistical software. Responsibilities included holding office hours and evening help sessions, developing lab materials, managing the course website on Blackboard, and grading labs, homework, and tests.}
+\tldatecventry{2012}{Introduction to Business Statistics II}{Iowa State}{}{TA}{Stat 326}
+%TA - Taught undergraduate business students statistical methods and use of JMP statistical software. Responsibilities included holding office hours and evening help sessions, developing lab materials, managing the course website on Blackboard, and grading labs, homework, and tests.}
 % \vspace{-12pt}
-\tldatecventry{2011}{Statistical Methods for Research}{Iowa State}{}{Teaching Assistant}{}
-%Teaching Assistant - Taught graduate social science students statistical methods and use of SAS statistical software. Responsibilities included teaching lab sessions, creating lab materials, holding office hours and grading homework and lab materials.}
+\tldatecventry{2011}{Statistical Methods for Research}{Iowa State}{}{TA}{Stat 401}
+%TA - Taught graduate social science students statistical methods and use of SAS statistical software. Responsibilities included teaching lab sessions, creating lab materials, holding office hours and grading homework and lab materials.}
 % \vspace{-6pt}
-\tldatecventry{2011}{Empirical Methods for Comp. Sci.}{Iowa State}{}{Teaching Assistant}{}
-% Teaching Assistant - Held office hours and graded homework for Stat 430, a class composed of graduate bioinformatics and computer science students.}
+\tldatecventry{2011}{Empirical Methods for Computer Science}{Iowa State}{}{TA}{Stat 430}
+% TA - Held office hours and graded homework for Stat 430, a class composed of graduate bioinformatics and computer science students.}
 % \clearpage
     
 \section{Mentoring and Advising}
-\tlcventry{2018}{0}{Miranda Tilton}{Statistics}{MS Project}{}{Footwear Class Characteristics and Computer Vision}
+\tlcventry{2018}{0}{Miranda Tilton}{Statistics}{MS Creative Component}{}{Footwear Class Characteristics and Computer Vision}
 \tlcventry{2018}{0}{Talen Fisher}{Computer Engineering}{Undergraduate Research}{}{Tools for working with x3p files, database design for storing bullet scans and intermediate analysis products.}
 \tldatecventry{2018}{Ben Wonderlin and Jenny Kim}{Young Engineers and Scientists}{Summer 2018}{}{Footwear Class Characteristics and Computer Vision}
 
@@ -437,59 +578,3 @@
 
 
 \end{document}
-% \section{References}
-% 
-% \begin{cvcolumns}
-%     \cvcolumn{Heike Hofmann}{
-%     Professor \\
-%     Department of Statistics \\
-%     Iowa State University \\
-%     2413 Snedecor Hall \\
-%     Ames, IA 50011  \\
-%     \emailsymbol hofmann@iastate.edu \\
-%     \phonesymbol 515-294-8948}
-%     \cvcolumn{Dianne Cook}{
-%     Professor\\
-%     Department of Econometrics and \\
-%     Business Statistics \\
-%     Monash University \\
-%     E762A Menzies Building \\
-%     20 Chancellors Walk \\
-%     Clayton, VIC 3800 \\
-%     \emailsymbol dicook@monash.edu \\
-%     \phonesymbol +61 (0)3990 52608 }
-% \end{cvcolumns}
-% \begin{cvcolumns}
-%     \cvcolumn{Michelle Graham}{
-%     Scientist\\
-%     United States Dept of Agriculture\\
-%     Iowa State University\\
-%     1575 Agronomy Bldg\\
-%     Ames, IA 50011 \\
-%     \emailsymbol michelle.graham@ars.usda.gov \\
-%     \phonesymbol 515-294-3626}
-%     \cvcolumn{Alyson Wilson}{
-%     Professor\\
-%     Department of Statistics\\
-%     North Carolina State University\\
-%     2311 Stinson Drive\\
-%     Campus Box 8203\\
-%     Raleigh, NC 27695-8203\\
-%     \emailsymbol alyson\_wilson@ncsu.edu\\
-%     \phonesymbol 919-515-1901}
-% \end{cvcolumns}
-% \begin{cvcolumns}
-%     \cvcolumn{Jason Rosenkranz}{
-%     Strategic Management Process Manager\\
-%     Nebraska Public Power District\\
-%     1414 15th Street\\
-%     PO Box 499\\
-%     Columbus, NE 68602-0499\\
-%     \emailsymbol jdrosen@nppd.com \\
-%     \phonesymbol 402-563-5537}
-% \end{cvcolumns}
-
-
-
-\clearpage
-
