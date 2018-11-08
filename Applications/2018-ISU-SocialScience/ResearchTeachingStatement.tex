@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author: Susan Vanderplas
+%
+% This is an example of a complete CV using the 'moderncv' package
+% and the 'timeline' package. For more information on those, please
+% access:
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderntimeline
+% https://www.ctan.org/tex-archive/macros/latex/contrib/moderncv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PassOptionsToPackage{pdfpagelabels=false}{hyperref}
+\documentclass[12pt, letterpaper, sans]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}    % Width of the entire CV
+\setlength{\hintscolumnwidth}{1.5in} % Width of the timeline on your left
+\usepackage{pdfpages}
+\usepackage{moderntimeline}
+\usepackage{xpatch}
+\usepackage{color, graphicx}
+\usepackage[unicode,]{hyperref}
+\usepackage{xcolor}
+\usepackage{varwidth}
+\definecolor{link}{HTML}{3873B3}
+\hypersetup{colorlinks, breaklinks,
+            linkcolor=link,
+            urlcolor=link,
+            citecolor=link}
+\usepackage[bottom]{footmisc}
+\makeatletter
+\newcommand{\makesimpletitle}{%
+ % recompute lengths (in case we are switching from letter to resume, or vice versa)
+  \recomputeletterlengths%
+
+  \begin{varwidth}[c]{.75\textwidth}
+  \if@left\raggedright\fi%
+      \if@right\raggedleft\fi%
+      % \namestyle{\@firstname\ \@lastname}%
+      \ifthenelse{\equal{\@title}{}}{}{\titlestyle{\@title}}%
+  \end{varwidth}\hfill
+  \begin{varwidth}[c]{.25\textwidth}%
+    % optional detailed information
+      \raggedleft%
+      \addressfont\textcolor{color2}{%
+        {\bfseries\upshape\@firstname~\@lastname}\\
+        % optional detailed information
+        \ifthenelse{\isundefined{\@addressstreet}}{}{\makenewline\addresssymbol\@addressstreet%
+          \ifthenelse{\equal{\@addresscity}{}}{}{\makenewline\@addresscity}% if \addresstreet is defined, \addresscity and addresscountry will always be defined but could be empty
+          \ifthenelse{\equal{\@addresscountry}{}}{}{\makenewline\@addresscountry}}%
+        \collectionloop{phones}{% the key holds the phone type (=symbol command prefix), the item holds the number
+          \makenewline\csname\collectionloopkey phonesymbol\endcsname\collectionloopitem}%
+        \ifthenelse{\isundefined{\@email}}{}{\makenewline\emailsymbol\emaillink{\@email}}%
+        \ifthenelse{\isundefined{\@homepage}}{}{\makenewline\homepagesymbol\httplink{\@homepage}}%
+        \ifthenelse{\isundefined{\@extrainfo}}{}{\makenewline\@extrainfo}}
+    \end{varwidth}
+}
+\makeatother
+
+
+
+% Personal Information
+\name{Susan}{Vanderplas}
+\title{\emph{Research, Teaching, and Diversity Statement}}
+\address{801 Onyx Cir}{Ames, IA 50010}{}
+\phone[mobile]{515-509-6613}
+%\phone[fixed]{+55~(11)~3091~2722}
+% \email{srvanderplas@gmail.com}                % optional, remove / comment the line if not wanted
+\email{srvander@iastate.edu}                % optional, remove / comment the line if not wanted
+% \homepage{srvanderplas.com}                   % optional, remove / comment the line if not wanted
+%\social[linkedin]{}                          % optional, remove / comment the line if not wanted
+%\social[twitter]{srvanderplas}               % optional, remove / comment the line if not wanted
+\social[github]{srvanderplas}                 % optional, remove / comment the line if not wanted
+%\extrainfo{\emailsymbol \emaillink{}}
+
+
+\begin{document}
+\makesimpletitle
+
+\section{Research}
+
+My primary research interests are at the interface of statistics, machine learning, psychology, and cognitive science. Specifically, I explore ways to increase our ability to understand data, using data visualization and visual statistics; at the same time, I design and use algorithms intended to mimic areas where humans perform better than computers, such as object recognition. This research is inherently interdisciplinary - in order to design algorithms that mimic the human visual system, it is necessary to understand the architecture of the human visual system in addition to parameter estimation techniques, modeling, and ways to transform data into relevant feature sets. Data visualization research also has broad applications: exploratory data analysis and communication of statistical results, but also domain-specific graphics in bioinformatics and engineering, machine learning algorithm development, and human factors. My current research is forensics focused, but much of it has broader applications in data science or human factors. I am currently working in two areas related to human-statistics interaction, with additional projects in areas related to simulation and reproducible research. 
+
+% Human-like algorithms, assessment of man vs. machine performance
+The first human-statistics interaction area is in the development and use of human-like machine learning algorithms for forensic pattern evidence and other image data. Pattern matching is one area where humans excel and computers are still catching up, but computer algorithms have important advantages over humans. Computational methods produce results that are repeatable, auditable, and whose failure rates are generally easy to determine. In addition, algorithms which are perceived to mimic human judgment can be explained by analogy to laypeople and practitioners; they may allow for an understanding of the process without an in-depth knowledge of statistical theory and notation. I am currently using computer-vision techniques to create feature sets for images of shoe soles; these feature sets can then be used for modeling, to speed up database searches, or to assess the frequency of certain class characteristics in a local population. In the near future, I plan to use a similar approach to to identify regions of bullets suitable for striae matching, which will increase the effectiveness of the matching algorithm by excluding degraded areas from match scores. Additionally, I am planning a related study to compare the firearms examiner's process for bullet matching (measured using eye-tracking and talk-aloud protocols) to automated matching algorithms, assessing the convergent validity of the matching algorithms; this may make examiners more comfortable with the automated process and provide additional justification for its use in legal proceedings. 
+
+% Human factors, truthiness, presentation of 
+The second human-statistics interaction area I am interested in includes is what is termed `human factors' in forensics and numerical cognition in psychology. Specifically, there is concern about the ability of juries and legal professionals to understand and appropriately utilize statistical concepts such as p-values, likelihood ratios, and error rates to evaluate the weight of forensic evidence. Similar issues have surfaced in medicine, where graphics showing many stick figures are used to provide more relatable explanations of the error rates of medical tests. I am laying groundwork to assess the effect of charts in legal proceedings with an experiment evaluating how individuals use pictures, charts, and maps to evaluate factual claims. Once we understand how visual aids affect evaluation of generic factual claims, future experiments can add more legal context and examine jurors specifically. I am also collaborating with Danica Ommen on a grant exploring the relationship between ROC curves, likelihood ratios, and Bayes Factors. I am responsible for developing appropriate and effective graphics for use by statisticians, examiners, and laypeople. More broadly, I am interested in how humans perceive charts and graphs; I have investigated optical illusions in statistical charts as well as how plot aesthetics influence the identification of clustering and linear trends in ambiguous plots. In the future I hope to investigate how we perceive some of the charts used to report election results, such as the infamous `needle' used by the New York Times in 2016, or dot density maps that show population density and voting outcomes. 
+
+% Simulation and data processing
+Data used in machine learning tends to be large in size and may have complicated structure. In forensics, medicine, neuroscience, and astrophysics, this data often takes the form of two or three dimensional images and videos, which must be broken down into meaningful features before statistical analysis can begin. In many situations, it is more economical to generate simulated data rather than collecting it, and while it may be infeasible to generate simulated data at the level it is collected, it may be possible to generate simulated data after some or all of the initial processing is completed. For bullets, for example, it is impractical to generate multiple lands worth of 3D scan data that adequately mimics characteristics found in actual scanned data, but it is possible to generate land signatures (cross-sections with the curve removed) that mimic signatures found after several data processing and cleaning steps. I am currently working on a bootstrap technique for simulating known match and known non-match signatures; I should be able to use that to determine the probability of a random match as well as the distribution of features and match scores under known match and known non-match distributions. More generally, I am broadly interested in efficiently generating synthetic data for estimating score distributions, assessing algorithm performance, or augmenting heavily unbalanced training data. 
+
+% Data science and software
+Software used in consequential fields (forensics, medicine, engineering) should meet certain criteria - it should be auditable (source code available), it should be modular (with each module tested separately as well as overall testing), any changes should be logged (version control), and any deviations from behavior of prior versions should be explicitly noted and justified. Unfortunately, a large percentage of software products currently used in these consequential fields are closed-source, and versioning information, testing information, and changes in software behavior are not available to experts or to the general public. Even open-source software is often not tested thoroughly or continuously with each small change. This is an important issue for data science: the tools we create must be reliable, well documented, and well tested. As probability theory is essential to the validity of applied statistics, it is also important that data scientists and statisticians develop a good foundation for the tools and pipelines we build. In particular, it is important that statisticians improve upon the version control philosophy, incorporating not just changes to code, but also changes to data (initial data and downstream intermediate results). I have done some work to build a system for local tracking and conditional updating of intermediate results, and I am working to expand this infrastructure to integrate tracking of code, data, and intermediate results, but I would like to make this framework more general and build tools to make it easier for other researchers to implement similar infrastructure. This may require collaboration with individuals in computer science or software engineering, but should add to the available framework for reproducible research and increase confidence in the results of statistical algorithms in consequential areas where data provenance is critical. 
+\clearpage
+\section{Teaching}
+
+Statistics courses often make a bad first impression: students walk away from introductory classes with the idea that statistics is hard, extremely theoretical, or not particularly relevant to everyday life (outside of election season polls and choosing colored balls from a box). The rise of ``big data" and ``data science" have created a climate where statistics is vital to many different areas of business, government, and science, but only if it masquerades as something ``cool". It is important to counter this trend by making our courses accessible, fun, and relevant to students learning statistics to support another area of study, as well as students whose primary focus is statistics. 
+
+Well-designed courses set students up for success with clear objectives, well-organized reference materials, and numerous sample problems. Ideally the textbook complements the lectures; in particular, the lectures and the textbook should provide different approaches to the material for students with different learning styles. Lecture notes or outlines (and code files for computational courses) allow students to prepare for class ahead of time, so that lectures can focus on assessing and reinforcing students' understanding the material. For each topic, the lectures and examples should mimic the student's iterative encoding of the material, by beginning with a basic overview, providing more detail to facilitate a nuanced understanding, and encouraging exploration of open-ended problems.  
+
+At every stage of the learning process, mutual feedback is important. Feedback from students should shape the course structure and presentation, so that lectures and written materials help as many students as possible; feedback to students should clarify misconceptions, identify problems, and provide additional resources. Instructors should also be prepared to assist with situations that may not be directly related to the course material: disabilities, medical problems, or personal issues may affect student performance in class and their ability to engage with the material. Accommodating these students can have a positive impact on the student and sometimes on others in the class. As a student, I often had to ask for clarification when charts were not colorblind friendly; many times, others affected did not realize that they were missing important information. In addition, those discussions reinforced best practices for data visualization and raised  awareness of an issue that affects 5\% of the population. 
+
+Statistics courses are typically designed for a specific audience; introductory classes may be targeted toward students in engineering, business, or scientific disciplines, while more advanced courses may be designed for students with a background in statistics. Introductory classes tend to focus on literacy (understanding statistical analyses) while encouraging students to develop competency (the ability to design, perform, and interpret their own analyses); students in these classes do not have time to develop fluency (the ability to solve a novel problem and explain and justify the solution), while advanced classes typically encourage students to develop competency and fluency.
+
+Literate students can read and assess statistical analyses and conclusions, and in introductory courses, this is often the goal. Students need to be able to think critically about statistical claims, but they do not necessarily need to perform analyses independently. Breaking lectures up with demonstrations, worked examples, and group work reinforces a literate approach to the material, and frequent, short assessments (true/false, multiple choice, or short answer questions) provide mutual feedback. 
+
+Competency requires a more thorough understanding of the material, so that students can correctly execute and interpret a statistical analysis. This requires engaging the topic in a more abstract way, with theoretical details. In my experience, group discussions, hands-on examples in class, and working through open-ended problems start-to-finish are valuable tools to encourage the transition to competency. In computational courses, competent students can write their own code (utilizing documentation) and solve new problems using an established set of tools. Homework problems and open-ended test questions can be used to assess a student's competency and identify any knowledge gaps. 
+
+Fluency requires time and exposure to a wide variety of problems, so that students can apply course material to novel problems independently. Open ended questions, discussions, and projects encourage students to develop an understanding of the material and to think critically about the subject. In programming, fluency is more literal: students must know the language well before they can use it to creatively solve new problems. The ultimate goal is that students can be trusted to use their knowledge in the outside world: they can discuss a problem, apply knowledge appropriately, communicate the logic behind their approach, and interpret and communicate the results correctly. 
+
+Courses and learning environments which are well-designed, engaging, and responsive encourage students to develop a more nuanced understanding of the subject matter, whether the goal is literacy, competency, or fluency. As a student, I have experienced courses which exhibited all of these traits (and those which did not); when teaching, I work to design courses which engage the material on multiple levels, provide frequent, mutual feedback, and illustrate the subject matter with fun, engaging, relevant examples. 
+
+Shortly before I started working at Iowa State, I helped to design and implement a data science training program for current employees who were interested in helping Nebraska Public Power use data more effectively. The program was designed similarly to a flipped classroom, as students were in several different locations on different work schedules, and were participating in the program part-time. We used Coursera courses for the basic curriculum, with one-on-one and group sessions to compensate for gaps in the lectures and to make the material relevant to specific corporate tasks. After some student feedback in the beginning of the course, I added study groups and additional tutoring sessions to ease student frustration while learning R and programming skills. Once students completed the coursework, they applied their knowledge to internal projects, leveraging their new skills in their current positions. Our goal was to create competency, but not necessarily in all areas for all students: for some, the ability to work with data programmatically was enough; for others, modeling and predictive analytics were more useful skills. About 80\% of the students learned how to work with data in R and generate reports using rmarkdown and knitr; about 50\% completed the statistical modeling portions of the curriculum. While I did not expect to have the opportunity to teach when I took a job in industry, the program empowered others to use their data more effectively and has been a success - the second wave of students starts on coursework in January. 
+
+\clearpage
+\section{Diversity and Inclusion}
+
+% Discuss the importance of including ethics in data science courses - algorithms may unintentionally reinforce or perpetuate stereotypical ideas or behavior - policing
+% There has been a slow but growing discussion in the news media about bias in machine learning algorithms\footnote{\url{https://www.newscientist.com/article/2166207-discriminating-algorithms-5-times-ai-showed-prejudice/}, \url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm}}, particularly those used in policing and criminal justice. It is not surprising that humans, with their own unconscious biases, might create algorithms that share those biases, particularly when those algorithms are trained on data assembled from the status quo. In many cases, these algorithms are created in an attempt to remove conscious and unconscious biases from the equation, but they do not achieve that goal in their current state. I begin with this topic because it illustrates how essential an ongoing discussion of diversity is in data science and statistics, as well as in the wider university setting. We have a responsibility to start this conversation in classes, discuss the ethics of applying machine learning to research projects, and become familiar with situations where data science has succeeded and failed at encouraging diversity and reducing bias due to race, gender, disability, and other factors. 
+I see diversity not just as a question of demographics but also of academic background, life experiences, and other factors. In statistics, it is often useful to collaborate with researchers who focus on computing, applied statistics, and theory; having the perspectives of many different areas encourages development of the best solution to a problem. Cross-discipline collaborations can also lead to improved results, as algorithms used in genetics may have applications in the social sciences and vice versa; an environment that facilitates these interactions produces research that is richer than research produced in a siloed environment. 
+ 
+One of my motivations for working with CSAFE was to use statistics to make the world more fair by developing objective methods for matching pattern evidence. Shortly before starting my current job at CSAFE, I read several books describing problems with our justice system, including widely disparate outcomes based on race, gender, and economic status. Addressing the problems with the status quo in forensics will make the legal system fairer for everyone, and will increase the system's efficiency as well. In graphics research, I have examined the effect of different plot features on plot perception, and discovered that certain plot modifications improve everyone's performance, but are particularly useful for those with visual or cognitive impairments. My research has been enriched by neurodiversity as well; I discovered that depth perception plays a key part in a graphical illusion after working alongside two people who lack binocular depth perception. On a more personal level, I work with a wide cross-section of students in research collaborations and when participating in mentoring opportunities. When selecting participants for a mentoring program at a previous job, I put together a pool of 50\% men and 50\% women, which was a feat given that 80\% of the company's employees were men.
+
+When teaching, I include examples that highlight social issues and encourage students to examine complex problems using data. With easily available government data, students can examine social policies like redlining and the effects of those policies over a long period. Examining social issues using relevant data encourages students to approach problems from data rather than by repeating talking points. I also integrate discussions of ethics and multiplicity into statistics education: the lack of women asked to participate in drug trials, the problems with predictive policing algorithms (and underlying data), and statistically targeted advertising on social media all serve as useful discussions of statistical practice, but illustrate the need to consider diversity and inclusiveness as well. 
+
+Service and community engagement provides other ways to ensure diversity. The software development community has definite demographic biases, and online communication can sometimes encourage exclusivity and incivility over inclusion. Adoption of community codes of conduct for software collaborations and conferences have provided written guidelines that help to increase participation, encourage contributions from all demographics, and produce better products. Diversity is more than race and gender: after noticing that `flyover states' were underrepresented at a conference, some coworkers and I decided to host a similar event in April 2019 to provide mentoring and collaboration opportunities to students and researchers in the Midwest. We are working to encourage geographic diversity in the community as well as diversity along other lines; we are currently planning to ensure at least 50\% of the participants in this conference are women and minorities. 
+
+Taking a broad view, I believe discussions are better and collaborative products are more useful when a wide variety of people contribute. On an institutional level, committees which consist of only one group may inadvertently miss important perspectives or produce policies that are impractical for part of the campus community. I cultivate diversity in my research, teaching, and service on and off campus because it makes my work more effective. On a larger scale, we build a more robust and relevant institution with willingness to share our perspectives and by listening to and valuing the perspectives of others. 
+
+\end{document}
