@@ -16,9 +16,9 @@ This site contains links to my CV, projects I find interesting, and slides from 
 </div>
 
 # CV
-[My Current CV](CV/SusanVanderPlas-CV-2018.pdf). As of March 2018, I am working as research faculty at CSAFE, the [Center for Statistics and Applications in Forensic Evidence](https://forensicstats.org) at Iowa State University.
+[My Current CV](CV/SusanVanderplas-CV-2018.pdf). As of March 2018, I am working as research faculty at CSAFE, the [Center for Statistics and Applications in Forensic Evidence](https://forensicstats.org) at Iowa State University.
 
-A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here.
+<!-- A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here. -->
 
 # Papers, Presentations, and Projects
 
