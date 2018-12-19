@@ -95,3 +95,5 @@ miniUI,internet,github,rstudio,Addins
 # RSelenium,internet,github,ropensci,remote control browser
 rmdshower,reproducible,github,mangothecat,RMD presentation format
 tidyverse,munging,github,rstudio,entire tidyverse of packages
+bulletxtrctr,forensics,github,heike,bullet features
+x3ptools,forensics,github,heike,x3p file format in R
