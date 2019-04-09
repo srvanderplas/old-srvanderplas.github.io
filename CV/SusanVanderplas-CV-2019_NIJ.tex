@@ -20,7 +20,7 @@
 \usepackage{color, graphicx}
 \usepackage[unicode]{hyperref}
 \usepackage{xcolor}
-\definecolor{link}{HTML}{3873B3}
+\definecolor{link}{HTML}{295686}
 \hypersetup{colorlinks, breaklinks,
             linkcolor=link,
             urlcolor=link,
@@ -60,16 +60,37 @@
   \setlength\labelkern{-2ex}
   \usepackage[backend = biber,
               style   = nature, 
+              defernumbers,
               sorting = none,
               maxbibnames=99
              ]{biblatex}  
+  \newcounter{bibitemtotal}
+  \newrobustcmd*{\mkbibdesc}[1]{%
+  \number\numexpr\value{bibitemtotal}+1-#1\relax}
+  \DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}
+  \DeclareFieldFormat{labelnumberwidth}{#1}
+
   \newcommand{\printbibnumber}{%\hspace* here has no effect so I removed it
       \llap{\printtext[labelnumberwidth]{%
               \printfield{labelprefix}%
-              \printfield{labelnumber}
+              \printfield{labelnumber}.
               }\kern\labelkern% to reduce space between label and timeline image
             }%
-  }                                  
+  }  
+  \makeatletter
+    \patchcmd{\blx@printbibliography}
+      {\blx@bibliography\blx@tempa}
+      {\setcounter{bibitemtotal}{0}%
+       \setlength{\labelnumberwidth}{0pt}%
+       \begingroup
+       \def\do##1{\stepcounter{bibitemtotal}}%
+       \dolistloop{\blx@tempa}%
+       \endgroup
+       \blx@setlabwidth{\labelnumberwidth}{%
+         \csuse{abx@ffd@*@labelnumberwidth}{\arabic{bibitemtotal}}}%
+       \blx@bibliography\blx@tempa}
+      {}{}
+  \makeatother
 \else
   \usepackage[backend = biber,
               style   = authoryear, 
@@ -98,24 +119,22 @@
 %-------------------------------------------------------------------------------
 
 
-\usepackage{filecontents}
-
-\begin{filecontents}{\jobname.bib}
-@article{machinelearningforensics2019,
-author = {Carriquiry, Alicia and Hofmann, Heike and Tai, Xiao Hui and VanderPlas, Susan},
-AUTHOR+an = {4=highlight},
-title = {Machine learning in forensic applications},
-journal = {Significance},
-volume = {16},
-number = {2},
-pages = {29-35},
-doi = {10.1111/j.1740-9713.2019.01252.x},
-year = {2019},
-keywords = {npr}
-}
+\usepackage{filecontents}\begin{filecontents}{\jobname.bib}
+  @article{machinelearningforensics2019,
+  author = {Carriquiry, Alicia and Hofmann, Heike and Tai, Xiao Hui and VanderPlas, Susan},
+  AUTHOR+an = {4=highlight},
+  title = {Machine learning in forensic applications},
+  journal = {Significance},
+  volume = {16},
+  number = {2},
+  pages = {29-35},
+  url = {https://doi.org/10.1111/j.1740-9713.2019.01252.x},
+  year = {2019},
+  keywords = {npr}
+  }
 @article{framedjcgs,
 	title = {Framed! {Reproducing} and {Revisiting} 150 year old charts},
-	doi = {10.1080/10618600.2018.1562937},
+	url = {https://doi.org/10.1080/10618600.2018.1562937},
 	journal = {Journal of Computational and Graphical Statistics},
 	author = {VanderPlas, Susan and Goluch, Ryan and Hofmann, Heike},
   AUTHOR+an = {1=highlight},
@@ -124,34 +143,31 @@ keywords = {npr}
 	annote = {doi: 10.1080/10618600.2018.1562937},
 	keywords = {pr}
 }
-
 @article{sievert2018extending,
   title={Extending ggplot2 for linked and animated web graphics},
   author={Sievert, Carson and VanderPlas, Susan and Cai, Jun and Ferris, Kevin and Khan, Faizan Uddin Fahad and Hocking, Toby Dylan},
-    AUTHOR+an = {2=highlight},
+  AUTHOR+an = {2=highlight},
   journal={Journal of Computational and Graphical Statistics},
   volume = {0},
-number = {0},
-pages = {1-10},
-year  = {2018},
-publisher = {Taylor & Francis},
-doi = {10.1080/10618600.2018.1513367},
-URL = {https://doi.org/10.1080/10618600.2018.1513367},
-	keywords = {pr}
+  number = {0},
+  pages = {1-10},
+  year  = {2018},
+  publisher = {Taylor & Francis},
+  URL = {https://doi.org/10.1080/10618600.2018.1513367},
+  keywords = {pr}
 }
 @Article{featurehierarchyjcgs,
   Title                    = {{C}lusters Beat {T}rend!? {T}esting Feature Hierarchy in Statistical Graphics},
   Author                   = {Susan Vanderplas and Heike Hofmann},
-    AUTHOR+an = {1=highlight},
+  AUTHOR+an = {1=highlight},
   Journal                  = {Journal of Computational and Graphical Statistics},
   Year                     = {2017},
   Number                   = {2},
   Pages                    = {231-242},
   Volume                   = {26},
   addendum = {Programming and analysis (90\%), writing (50\%)},
-  Doi                      = {10.1080/10618600.2016.1209116},
-  Url                      = { http://dx.doi.org/10.1080/10618600.2016.1209116},
-	keywords = {pr}
+  Url                      = { https://doi.org/10.1080/10618600.2016.1209116},
+  keywords = {pr}
 }
 @Article{rutter2017ggenealogy,
   Title                    = {{ggeanealogy: An R Package for Visualizing Genealogical Data}},
@@ -160,29 +176,31 @@ URL = {https://doi.org/10.1080/10618600.2018.1513367},
   Journal                  = {Journal of Statistical Software},
   Year                     = {2017},
   Url                      = {https://github.com/lrutter/ggenealogyPaper},
-	keywords = {pr}
+  keywords = {pr}
 }
 @article{donohoresponse,
   title={All of This Has Happened Before. {A}ll of This Will Happen Again: {D}ata {S}cience},
   author={Heike Hofmann and Susan Vanderplas},  
   AUTHOR+an = {2=highlight},
   journal={Journal of Computational and Graphical Statistics},
+  url={https://doi.org/10.1080/10618600.2017.1385474},
   volume={26},
   number={4},
   pages={775--778},
   year={2017},
   addendum = {Writing (75\%)},
   publisher={Taylor \& Francis},
-	keywords = {pr}
+  keywords = {pr}
 }
 @Article{visualaptitude,
   Title                    = {Spatial Reasoning and Data Displays},
   Author                   = {Susan Vanderplas and Heike Hofmann},
   AUTHOR+an = {1=highlight},
   Journal                  = {IEEE Transactions on Visualization and Computer Graphics},
+  url = {https://doi.org/10.1109/TVCG.2015.2469125},
   addendum = {Programming and analysis (90\%), writing (75\%)},
   Year                     = {2016},
-	keywords = {pr}
+  keywords = {pr}
 }
 @Article{sineillusionjcgs,
   Title                    = {Signs of the Sine Illusion - why we need to care},
@@ -194,32 +212,46 @@ URL = {https://doi.org/10.1080/10618600.2018.1513367},
   pages = {1170-1190},
   year = {2015},
   addendum = {Programming and analysis (50\%), writing (60\%)},
-  doi = {10.1080/10618600.2014.951547},
-  URL = {http://dx.doi.org/10.1080/10618600.2014.951547},
-	keywords = {pr}
+  URL = {https://doi.org/10.1080/10618600.2014.951547},
+  keywords = {pr}
+}
+@article{budrus2013tennis,
+  title={In tennis, do smashes win matches?},
+  author={Budrus, Sarah and Vanderplas, Susan and Cook, Dianne},
+  AUTHOR+an = {2},
+  journal={Significance},
+  volume={10},
+  number={3},
+  pages={35--38},
+  year={2013},
+  publisher={Wiley Online Library},
+  URL = {https://doi.org/10.1111/j.1740-9713.2013.00665.x},
+  keywords = {npr}
 }
 @Article{towfic2010detection,
   Title                    = {Detection of gene orthology from gene co-expression and protein interaction networks},
   Author                   = {Fadi Towfic and Susan VanderPlas and Casey A Oliver and Oliver Couture and Christopher K Tuggle and M Heather West Greenlee and Vasant Honavar},
-    AUTHOR+an = {2=highlight},
+  AUTHOR+an = {2=highlight},
   Journal                  = {BMC bioinformatics},
   Year                     = {2010},
   Number                   = {Suppl 3},
   Pages                    = {S7},
   Volume                   = {11},
   Publisher                = {BioMed Central Ltd},
-	keywords = {pr}
+  url = {https://doi.org/10.1186%2F1471-2105-11-S3-S7},
+  keywords = {pr}
 }
 @Article{hull2009near,
   Title                    = {Near-infrared spectroscopy and cortical responses to speech production},
   Author                   = {Rachel Hull and Heather Bortfeld and Susan Koons},
   AUTHOR+an = {3=highlight},
   Journal                  = {The open neuroimaging journal},
+  url = {https://doi.org/10.2174%2F1874440000903010026},
   Year                     = {2009},
   Pages                    = {26},
   Volume                   = {3},
   Publisher                = {Bentham Science Publishers},
-	keywords = {pr}
+  keywords = {pr}
 }
 \end{filecontents}
 
@@ -284,33 +316,30 @@ URL = {https://doi.org/10.1080/10618600.2018.1513367},
     \tldatecventryV{%
       \thefield{year} % actual year from bibitem
        }}
-       {%     
-        \setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty      
+       {%
+        \setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty
         \addtolength\hintscolumnwidthV{-\labelnumberwidth}% num - changes timeline image length
         \addtolength\hintscolumnwidthV{\labelkern}% num  - changes timeline image length
         \setlength{\bibhang}{\hintscolumnwidthV} % custom bibhang
         \setlength{\labelsep}{\separatorcolumnwidth} %  horizontal distance between label and entry
-        \setlength{\leftmargin}{\hintscolumnwidth} % sets where the left margin is 
+        \setlength{\leftmargin}{\hintscolumnwidth} % sets where the left margin is
         \addtolength{\leftmargin}{\separatorcolumnwidth} %
-        \setlength{\itemindent}{-\bibhang} % this sets indentation of the second line of the entry. 
+        \setlength{\itemindent}{-\bibhang} % this sets indentation of the second line of the entry.
         % changing it moves also the first line left or right
         \addtolength{\itemindent}{-\separatorcolumnwidth} % to align the second line exactly
         \setlength{\itemsep}{\bibitemsep} % vertical distance between bib items
         \setlength{\parsep}{\bibparsep}}}
   {\endlist}
-  {\item}    
+  {\item}
 
-\AtEveryBibitem{\clearfield{year}} 
-%  reverse numbering of publications
+
+\AtEveryBibitem{\clearfield{year}\clearfield{note}\clearfield{eprint}\clearfield{file}} 
+% reverse numbering of publications
 % Count total number of entries in each refsection
 \AtDataInput{%
-  \csnumgdef{entrycount:\therefsection}{%
-    \csuse{entrycount:\therefsection}+1}}
-% Print the labelnumber as the total number of entries in the
-% current refsection, minus the actual labelnumber, plus one
-\DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}    
-\newrobustcmd*{\mkbibdesc}[1]{%
-  \number\numexpr\csuse{entrycount:\therefsection}+1-#1\relax}   
+  \csnumgdef{entrycount:\strfield{keywords}}{%
+    \csuse{entrycount:\strfield{keywords}}+1}}
+
 %-------------------------------------------------------------------------------
 
 
@@ -427,7 +456,9 @@ URL = {https://doi.org/10.1080/10618600.2018.1513367},
 % \subsection{Publications}
 \cvitem{}{\footnotesize Contribution percentages estimated from git contributions using \texttt{git fame} where possible. Not all projects have github repositories for which this is meaningful.}
 \nocite{*}
-\printbibliography[heading=subbibliography,title={Journal Publications}]
+\printbibliography[keyword=pr,heading=subbibliography,title={Peer-Reviewed Publications},resetnumbers=true]
+\smallskip
+\printbibliography[keyword=npr,heading=subbibliography,title={Other Publications},resetnumbers=true]
 \medskip
 % \bibliographystyle{myplainyr}
 % \bibliography{publications}
@@ -442,7 +473,7 @@ URL = {https://doi.org/10.1080/10618600.2018.1513367},
     \item [Footwear Class Characteristic Recognition using Neural Networks] Use convolutional neural networks to automate identification of class characteristics in images of footwear outsoles. 
     \end{description}
     }
-\clearpage
+% \clearpage
 \subsection{Grants}
 \tldatecventry{2018}{NIJ R\&D in Forensic Science}{Statistical Infrastructure for the Use of Error Rate Studies in the Interpretation of Forensic Evidence}{Collaborator}{Funded for FY 2019, \$197,699 total, \$57,596 ISU sub-award}{}
 \tldatecventry{2018}{NIJ R\&D in Forensic Science}{Passive Acquisition of Footwear Class Characteristics in
@@ -480,7 +511,7 @@ Local Populations}{PI}{Not funded, \$383,104}{}
 
 % \section{Awards and Honors}
 % \tldatecventry{2014}{ASA Section on Statistical Graphics}{Student Paper Award}{}{}{}
-\clearpage
+% \clearpage
 \section{Teaching}
 \tldatecventry{2019}{Stat 585 - Data Technologies for Statistical Analysis}{Iowa State University}{}{}{Frequent guest lecturer, assisted with curriculum development}
 \tlcventry{2017}{2018}{Business Intelligence Embedded Agent Program}{Nebraska Public Power District}{}{}{
@@ -514,7 +545,7 @@ Design and implement a program to mentor employees, providing instruction in dat
 % \clearpage
     
 \section{Mentoring and Advising}
-\tlcventry{2018}{0}{Miranda Tilton}{Statistics}{MS Creative Component}{}{Footwear Class Characteristics and Computer Vision. Expected graduation: Spring 2019}
+\tlcventry{2018}{0}{Miranda Tilton}{Statistics}{Ph.D.}{}{Footwear Class Characteristics and Computer Vision. Completed MS (Spring 2019).}
 \tlcventry{2019}{0}{Jason Seo}{Computer Science and Statistics}{Undergraduate Research}{}{R package for visualization of neural networks using the python library keras-vis.}
 \tlcventry{2019}{0}{Jenny Ha}{Computer Science}{Undergraduate Research}{}{Database design for storing bullet scans and intermediate analysis products.}
 \tlcventry{2018}{0}{Talen Fisher}{Computer Engineering}{Undergraduate Research}{}{Tools for working with x3p files, database design for storing bullet scans and intermediate analysis products.}
