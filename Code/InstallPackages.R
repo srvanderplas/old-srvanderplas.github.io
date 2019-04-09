@@ -6,6 +6,11 @@ pkgs <- read.csv(
   "https://raw.githubusercontent.com/srvanderplas/srvanderplas.github.io/master/Data/Packages.csv",
   stringsAsFactors = F, comment.char = "#")
 
+# Get rid of installr package if on linux
+if (Sys.info()[1] == "Linux") {
+  pkgs <- subset(pkgs, Name != "installr")
+}
+
 # Don't reinstall packages that are already installed
 installed.pkgs <- installed.packages()
 pkgs <- pkgs[!pkgs$Name %in% installed.pkgs,]
@@ -16,7 +21,7 @@ cran <- subset(pkgs, Location == "CRAN")
 
 # Install cran packages (if any are not already installed)
 if (nrow(cran) > 0) {
-  install.packages(cran$Name, Ncpus = 24,
+  install.packages(cran$Name, Ncpus = availableCores(),
                    dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances'))
 }
 
