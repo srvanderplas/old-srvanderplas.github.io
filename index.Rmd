@@ -1,61 +1,11 @@
 ---
-output:
-  knitrBootstrap::bootstrap_document:
-    title: "Susan VanderPlas's Projects"
-    theme: cerulean
-    highlight: sunburst
-    theme.chooser: FALSE
-    highlight.chooser: FALSE
+output: 
+  github_document:
+    includes:
+      in_header: header.html
+date: 2019-04-17
 ---
 
-<div class="jumbotron">
-<h1> Susan VanderPlas </h1>
-<small>
-This site contains links to my CV, projects I find interesting, and slides from some of my presentations. If you want to see my projects in a less finished state, look at my github page: [http://github.com/srvanderplas](http://github.com/srvanderplas)
-</small>
-</div>
+I've migrated this site to [https://srvanderplas.netlify.com/](https://srvanderplas.netlify.com/) so that I can take full advantage of [blogdown](https://github.com/rstudio/blogdown) and it's features. You will be redirected automatically in 5 seconds. 
 
-# CV
-[My Current CV](CV/SusanVanderplas-CV-2019_NIJ.pdf). As of March 2018, I am working as research faculty at CSAFE, the [Center for Statistics and Applications in Forensic Evidence](https://forensicstats.org) at Iowa State University.
-
-<!-- A more streamlined [resume](CV/SusanVanderPlas-ResumeBusiness.pdf) can be found here. -->
-
-# Papers, Presentations, and Projects
-
-* [Visual Inference for Bayesians](https://github.com/heike/bayesian-vinference)
-    * [JSM 2017 Presentation](https://srvanderplas.github.io/Presentations/JSM2017/BayesianLineup.html#/)
-
-* [Clusters Beat Trend!? Testing Feature Hierarchy in Statistical Graphics](https://github.com/srvanderplas/FeatureHierarchy) (Accepted to JCGS in July 2016)
-    * [JSM 2016 Presentation](https://srvanderplas.github.io/Presentations/JSM2016/HierarchyOfVisualFeatures.html#/)
-
-* [Signs of the Sine Illusion - Why We Need to Care](https://raw.githubusercontent.com/heike/sine-illusion/master/Final%20Draft/SineIllusion.pdf) (accepted to JCGS in October 2014)
-
-* The Curse of Three Dimensions: Why Your Brain is Lying to You
-    * [2014 ASA Student Paper Competition](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/GraphicsPaperCompetition/Full%20Paper%20Unblinded.pdf) Version - won the Graphics Section Student Paper Award at JSM 2014. 
-    
-    * [Presentation](https://srvanderplas.github.io/Presentations/JSM2014/WhyYourBrainIsLyingToYou/JSM2014.html) - The presentation (with some additional text) given at JSM 2014
-    
-    * [Expanded Paper](https://raw.githubusercontent.com/srvanderplas/LieFactorSine/master/AcmTransactions/PsychLieFactor.pdf) - This version is expanded and contains an additional case study with corresponding implications. It was submitted to ACM Transactions on Applied Perception in May 2015. 
-
-
-* [Visual Aptitude and Statistical Graphics](https://github.com/srvanderplas/VisualAptitude/Paper/InfoVis2015Revision/TestingVisualAptitude.pdf) - This paper explores the visual reasoning abilities necessary for good performance on statistical lineup tasks. It was submitted to InfoVis 2015 in February 2015, and will be presented at InfoVis 2015 in Chicago, IL. 
-
-* [Animint](https://github.com/tdhock/animint) - My Google Summer of Code project in 2013. I served as a mentor for the project in 2014. 
-    * [Animint Paper](https://github.com/tdhock/animint-paper)
-    * [Presentation](https://srvanderplas.github.io/Presentations/JSM2015/Animint.html)
-    * [Presentation](https://srvanderplas.github.io/Presentations/RUserGroups - Animint/animint.html) at the Great Plains R User group in May 2014.
-    
-
-* Presentation: [User Testing Panel, JSM 2014](https://srvanderplas.github.io/Presentations/UserTestingJSM2014/UserTesting.html) - Slides from a panel on usability testing of statistical graphics.
-
-
-# Personal Projects
-* [Exploring Personal Ads in Online Classifieds](Projects/Classified/Analysis.html) - This analysis is still in progress; I began it to explore text mining and classification algorithms (and chose the topic because of its potential for amusement). 
-
-* [2012 Election Visualization](https://dicook.github.io/election2012/index.html) - I worked with Dianne Cook, Andee Kaplan, and Eric Hare to visualize data from the 2012 presidential election. I focused on analyzing political contributions, campaign spending, and voting technology.
-
-# Other Links
-
-* [Interesting Packages](Rpackages.html) - I use this page to keep track of packages that look useful or interesting. 
-
-* [Dating Profiles](DatingProfiles.html)
+The remaining items in this repository are here to ensure that old links keep working. 
