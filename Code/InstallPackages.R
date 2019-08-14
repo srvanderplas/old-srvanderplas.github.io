@@ -28,28 +28,23 @@ if (nrow(cran) > 0) {
 
 # Install github packages
 library(devtools)
-# library(httr)
-# set_config(config( ssl_verifypeer = 0L))
-# set_config(use_proxy("161.201.0.0", port = 8080))
 
 lapply(sprintf("%s/%s", gh$Author, gh$Name),
        function(.) {
          try(install_github(.,
-                        dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances')))
+                            dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances')))
        })
 
 # Install other packages
 # Requires perl installation
 install.packages("WriteXLS", dependencies = T)
 
-# RSheets packages -- still very much in alpha/beta
-install_github(c("rsheets/linen", "rsheets/rexcel", "rsheets/jailbreakr"))
+install.packages("devtools")
 
 # Install handy RStudio extensions
-install_github(c("daattali/colourpicker",  # Color picker
+devtools::install_github(c("daattali/colourpicker",  # Color picker
                  "MilesMcBain/mufflr",  # Pipe shortcuts
-                 "s-fleck/testthis",  # Testing shortcuts
                  "dokato/todor",  # Package todo management
                  "daattali/addinslist",  # List of add-ins
                  "mdlincoln/docthis"  # Roxygen skeleton for functions
-                ))
+))
