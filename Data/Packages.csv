@@ -72,7 +72,7 @@ shinyBS,internet,github,ebailey78,Bootstrap components for Shiny
 RSelenium,internet,CRAN,,Selenium webdriver
 installr,language,CRAN,,Windows install automation within R
 rvest,internet,github,hadley,Functions for reading HTML
-animint,internet,github,tdhock,Create d3-style ggplot2 graphics
+#animint,internet,github,tdhock,Create d3-style ggplot2 graphics
 Cairo,graphics,CRAN,,Cairo graphics
 cairoDevice,graphics,CRAN,,cairo device driver
 coda,computation,CRAN,,analysis and diagnostics for MCMC
@@ -97,3 +97,6 @@ rmdshower,reproducible,github,mangothecat,RMD presentation format
 tidyverse,munging,github,rstudio,entire tidyverse of packages
 bulletxtrctr,forensics,github,heike,bullet features
 x3ptools,forensics,github,heike,x3p file format in R
+nullabor,graphics,github,hadley,lineups
+vinference,graphics,github,heike,lineups
+
