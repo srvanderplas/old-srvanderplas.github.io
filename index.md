@@ -9,3 +9,4 @@ will be redirected automatically in 5 seconds.
 
 The remaining items in this repository are here to ensure that old links
 keep working.
+<a rel="me" href="https://vis.social/@srvanderplas">Mastodon</a>
